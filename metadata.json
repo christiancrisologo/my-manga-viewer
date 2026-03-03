@@ -1,0 +1,5 @@
+{
+  "name": "MyMangaViewer",
+  "description": "A high-performance mobile-first Manga viewer with ZIP/CBZ support, zoom, rotation, and auto-slideshow capabilities.",
+  "requestFramePermissions": []
+}
