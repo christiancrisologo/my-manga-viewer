@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MangaArchive, MangaPage } from '../types';
 import { saveArchive } from '../services/storage';
 import { useArchives } from '../hooks/useArchives';
 import { useFileDiscovery } from '../hooks/useFileDiscovery';
 import { useWebExtraction } from '../hooks/useWebExtraction';
+import { useUrlImport } from '../hooks/useUrlImport';
 
 // Components
 import { LibraryHeader } from './library/LibraryHeader';
@@ -75,7 +76,18 @@ export default function Library({ onSelectManga }: LibraryProps) {
     );
   }, [archives, searchQuery]);
 
-  // Handlers
+  // URL Param Import
+  useUrlImport({
+    processFiles,
+    onArchiveReady: (name, pages) => {
+      setPendingArchive({ name, pages });
+      setShowCreateModal(true);
+    },
+    onPasswordRequired: (file) => {
+      setPendingArchiveFile(file);
+      setShowPasswordModal(true);
+    }
+  });
   const handleAddOption = (option: string) => {
     if (option === 'local') {
       const input = document.createElement('input');

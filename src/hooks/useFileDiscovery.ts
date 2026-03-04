@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import JSZip from 'jszip';
+import { BlobReader, ZipReader, BlobWriter } from '@zip.js/zip.js';
 import { createExtractorFromData } from 'node-unrar-js';
 import { MangaPage } from '../types';
 
@@ -18,19 +18,34 @@ export function useFileDiscovery() {
                 if (!name) name = file.name.replace(/\.[^/.]+$/, "");
 
                 if (file.name.toLowerCase().endsWith('.zip') || file.name.toLowerCase().endsWith('.cbz') || file.name.toLowerCase().endsWith('.coz')) {
-                    const zip = new JSZip();
-                    const contents = await zip.loadAsync(file);
-                    const imageFiles = Object.keys(contents.files).filter(fileName =>
-                        /\.(jpg|jpeg|png|webp|avif)$/i.test(fileName) && !contents.files[fileName].dir
-                    ).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+                    const reader = new ZipReader(new BlobReader(file), { password });
+                    try {
+                        const entries = await reader.getEntries();
+                        const imageEntries = entries.filter(entry =>
+                            entry.filename && /\.(jpg|jpeg|png|webp|avif)$/i.test(entry.filename) && !entry.directory
+                        ).sort((a, b) => a.filename.localeCompare(b.filename, undefined, { numeric: true, sensitivity: 'base' }));
 
-                    for (const fileName of imageFiles) {
-                        const blob = await contents.files[fileName].async('blob');
-                        pages.push({
-                            id: crypto.randomUUID(),
-                            name: fileName.split('/').pop() || fileName,
-                            data: blob
-                        });
+                        for (const entry of imageEntries) {
+                            // After filtering !entry.directory, entry is effectively a FileEntry
+                            const fileEntry = entry as any;
+                            if (fileEntry.getData) {
+                                const blob = await fileEntry.getData(new BlobWriter());
+                                pages.push({
+                                    id: crypto.randomUUID(),
+                                    name: fileEntry.filename.split('/').pop() || fileEntry.filename,
+                                    data: blob
+                                });
+                            }
+                        }
+                    } catch (err: any) {
+                        console.error('ZIP Error:', err);
+                        // Check for encrypted ZIP error
+                        if (err.message?.includes('encrypted') || err.message?.includes('password') || err.name === 'EncryptedZipError') {
+                            throw new Error('PASSWORD_REQUIRED');
+                        }
+                        throw err;
+                    } finally {
+                        await reader.close();
                     }
                 } else if (file.name.toLowerCase().endsWith('.rar') || file.name.toLowerCase().endsWith('.cbr')) {
                     const buffer = await file.arrayBuffer();
