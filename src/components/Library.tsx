@@ -57,6 +57,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [webExtractHostname, setWebExtractHostname] = useState('');
   const [jsonEditorContent, setJsonEditorContent] = useState('');
   const [editUrlInput, setEditUrlInput] = useState('');
+  const [editJsonContent, setEditJsonContent] = useState('');
+  const [isJsonMode, setIsJsonMode] = useState(false);
 
   const SAMPLE_JSON = JSON.stringify({
     name: "Sample Collection",
@@ -733,11 +735,33 @@ export default function Library({ onSelectManga }: LibraryProps) {
       series: manga.series || '',
       volume: manga.volume || ''
     });
+
+    // Initialize JSON content
+    const jsonContent = {
+      name: manga.name,
+      author: manga.author || '',
+      genre: manga.genre || [],
+      description: manga.description || '',
+      series: manga.series || '',
+      volume: manga.volume || '',
+      pages: manga.pages.map(p => ({
+        id: p.id,
+        name: p.name,
+        url: p.url
+      }))
+    };
+    setEditJsonContent(JSON.stringify(jsonContent, null, 2));
+    setIsJsonMode(false);
     setShowEditModal(true);
   };
 
   const handleSaveEdit = async () => {
     if (!mangaToEdit) return;
+
+    if (isJsonMode) {
+      await handleSaveEditFromJson();
+      return;
+    }
 
     const updatedMetadata = {
       name: editForm.name,
@@ -752,6 +776,72 @@ export default function Library({ onSelectManga }: LibraryProps) {
     await loadArchives();
     setShowEditModal(false);
     setMangaToEdit(null);
+  };
+
+  const handleSaveEditFromJson = async () => {
+    if (!mangaToEdit) return;
+
+    try {
+      const data = JSON.parse(editJsonContent);
+      if (!data.name || !data.pages || !Array.isArray(data.pages)) {
+        throw new Error('Invalid JSON structure. "name" and "pages" array are required.');
+      }
+
+      setIsUploading(true);
+      const updatedPages: MangaPage[] = [];
+      const currentPages = mangaToEdit.pages;
+
+      for (const p of data.pages) {
+        const existingPage = p.id ? currentPages.find(cp => cp.id === p.id) : null;
+
+        if (existingPage) {
+          // Keep existing page (preserving blob)
+          updatedPages.push({
+            ...existingPage,
+            name: p.name || existingPage.name
+          });
+        } else if (p.url) {
+          // Add new page from URL
+          try {
+            const response = await fetch(p.url);
+            if (!response.ok) continue;
+            const blob = await response.blob();
+            if (blob.type.startsWith('image/')) {
+              updatedPages.push({
+                id: crypto.randomUUID(),
+                name: p.name || p.url.split('/').pop() || 'remote_image',
+                data: blob
+              });
+            }
+          } catch (e) {
+            console.error(`Failed to fetch image: ${p.url}`, e);
+          }
+        }
+      }
+
+      if (updatedPages.length === 0) {
+        throw new Error('Catalog must have at least one page.');
+      }
+
+      const updatedMetadata = {
+        name: data.name,
+        author: data.author || '',
+        genre: Array.isArray(data.genre) ? data.genre : (data.genre?.split(',').map((g: string) => g.trim()).filter(Boolean) || []),
+        description: data.description || '',
+        series: data.series || '',
+        volume: data.volume || '',
+        pages: updatedPages
+      };
+
+      await updateArchiveMetadata(mangaToEdit.id, updatedMetadata);
+      await loadArchives();
+      setShowEditModal(false);
+      setMangaToEdit(null);
+    } catch (err: any) {
+      alert(`Error saving JSON: ${err.message}`);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const handleAddImagesToEdit = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1176,136 +1266,49 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       <p className="text-xs text-zinc-500">{mangaToEdit.pages.length} pages in collection</p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
-                    className="p-2 text-zinc-500 hover:text-white transition-colors"
-                  >
-                    <X size={24} />
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <div className="flex bg-zinc-800 p-1 rounded-xl border border-zinc-700">
+                      <button
+                        onClick={() => setIsJsonMode(false)}
+                        className={cn(
+                          "px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all",
+                          !isJsonMode ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                        )}
+                      >
+                        Form
+                      </button>
+                      <button
+                        onClick={() => setIsJsonMode(true)}
+                        className={cn(
+                          "px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all",
+                          isJsonMode ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                        )}
+                      >
+                        JSON
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
+                      className="p-2 text-zinc-500 hover:text-white transition-colors"
+                    >
+                      <X size={24} />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {isJsonMode ? (
                   <div className="space-y-4">
                     <div>
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog Title</label>
-                      <input
-                        type="text"
-                        value={editForm.name}
-                        onChange={e => setEditForm({ ...editForm, name: e.target.value })}
-                        className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Author</label>
-                        <input
-                          type="text"
-                          value={editForm.author}
-                          onChange={e => setEditForm({ ...editForm, author: e.target.value })}
-                          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Genres</label>
-                        <input
-                          type="text"
-                          value={editForm.genre}
-                          onChange={e => setEditForm({ ...editForm, genre: e.target.value })}
-                          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Series</label>
-                      <input
-                        type="text"
-                        value={editForm.series}
-                        onChange={e => setEditForm({ ...editForm, series: e.target.value })}
-                        className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Description</label>
+                      <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog JSON</label>
                       <textarea
-                        rows={3}
-                        value={editForm.description}
-                        onChange={e => setEditForm({ ...editForm, description: e.target.value })}
-                        className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                        rows={15}
+                        value={editJsonContent}
+                        onChange={e => setEditJsonContent(e.target.value)}
+                        placeholder='{ "name": "...", "pages": [...] }'
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl px-4 py-4 text-xs font-mono text-emerald-500 focus:outline-none focus:border-emerald-500/50 transition-colors resize-none scrollbar-thin scrollbar-thumb-zinc-800"
                       />
                     </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Manage Pages</h4>
-                      <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-48 overflow-y-auto p-2 bg-zinc-800/20 rounded-2xl no-scrollbar border border-zinc-800/50">
-                        {mangaToEdit.pages.map((page, idx) => (
-                          <div key={page.id} className="relative aspect-[3/4] bg-zinc-800 rounded-lg overflow-hidden group/page">
-                            <img
-                              src={createUrl(page.data || page.url)}
-                              alt={page.name}
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/page:opacity-100 transition-opacity flex items-center justify-center">
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDeletePageFromEdit(page.id);
-                                }}
-                                className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
-                                title="Delete Page"
-                              >
-                                <X size={14} />
-                              </button>
-                            </div>
-                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-0.5 px-1">
-                              <span className="text-[8px] text-white/70 block text-center truncate">{idx + 1}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Add More Images</h4>
-                      <div className="flex flex-col gap-3">
-                        <label className="flex items-center gap-3 p-3 bg-zinc-800/50 border border-dashed border-zinc-700 rounded-2xl hover:bg-zinc-800 hover:border-emerald-500/50 transition-all cursor-pointer group">
-                          <Upload size={18} className="text-zinc-500 group-hover:text-emerald-500 transition-colors" />
-                          <span className="text-xs font-bold text-zinc-500 group-hover:text-zinc-300 uppercase tracking-wider">Upload from Device</span>
-                          <input
-                            type="file"
-                            multiple
-                            accept=".zip,.cbz,.cbr,.coz,image/*"
-                            className="hidden"
-                            onChange={handleAddImagesToEdit}
-                          />
-                        </label>
-                        <div className="space-y-2">
-                          <div className="relative">
-                            <Link className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
-                            <input
-                              type="text"
-                              placeholder="Paste image URL here..."
-                              value={editUrlInput}
-                              onChange={e => setEditUrlInput(e.target.value)}
-                              className="w-full bg-zinc-800 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
-                            />
-                          </div>
-                          <button
-                            onClick={() => handleAddUrlImagesToEdit()}
-                            disabled={!editUrlInput || isUploading}
-                            className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-emerald-500 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors disabled:opacity-50 border border-emerald-500/20"
-                          >
-                            {isUploading ? 'Adding...' : 'Add from URL'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3 pt-6">
+                    <div className="flex gap-3 pt-2">
                       <button
                         onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
                         className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
@@ -1314,13 +1317,152 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       </button>
                       <button
                         onClick={handleSaveEdit}
+                        disabled={isUploading}
                         className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                       >
-                        Save Changes
+                        {isUploading ? 'Validating...' : 'Validate & Apply'}
                       </button>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog Title</label>
+                        <input
+                          type="text"
+                          value={editForm.name}
+                          onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Author</label>
+                          <input
+                            type="text"
+                            value={editForm.author}
+                            onChange={e => setEditForm({ ...editForm, author: e.target.value })}
+                            className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Genres</label>
+                          <input
+                            type="text"
+                            value={editForm.genre}
+                            onChange={e => setEditForm({ ...editForm, genre: e.target.value })}
+                            className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Series</label>
+                        <input
+                          type="text"
+                          value={editForm.series}
+                          onChange={e => setEditForm({ ...editForm, series: e.target.value })}
+                          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Description</label>
+                        <textarea
+                          rows={3}
+                          value={editForm.description}
+                          onChange={e => setEditForm({ ...editForm, description: e.target.value })}
+                          className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Manage Pages</h4>
+                        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-48 overflow-y-auto p-2 bg-zinc-800/20 rounded-2xl no-scrollbar border border-zinc-800/50">
+                          {mangaToEdit.pages.map((page, idx) => (
+                            <div key={page.id} className="relative aspect-[3/4] bg-zinc-800 rounded-lg overflow-hidden group/page">
+                              <img
+                                src={createUrl(page.data || page.url)}
+                                alt={page.name}
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/page:opacity-100 transition-opacity flex items-center justify-center">
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeletePageFromEdit(page.id);
+                                  }}
+                                  className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
+                                  title="Delete Page"
+                                >
+                                  <X size={14} />
+                                </button>
+                              </div>
+                              <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-0.5 px-1">
+                                <span className="text-[8px] text-white/70 block text-center truncate">{idx + 1}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Add More Images</h4>
+                        <div className="flex flex-col gap-3">
+                          <label className="flex items-center gap-3 p-3 bg-zinc-800/50 border border-dashed border-zinc-700 rounded-2xl hover:bg-zinc-800 hover:border-emerald-500/50 transition-all cursor-pointer group">
+                            <Upload size={18} className="text-zinc-500 group-hover:text-emerald-500 transition-colors" />
+                            <span className="text-xs font-bold text-zinc-500 group-hover:text-zinc-300 uppercase tracking-wider">Upload from Device</span>
+                            <input
+                              type="file"
+                              multiple
+                              accept=".zip,.cbz,.cbr,.coz,image/*"
+                              className="hidden"
+                              onChange={handleAddImagesToEdit}
+                            />
+                          </label>
+                          <div className="space-y-2">
+                            <div className="relative">
+                              <Link className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
+                              <input
+                                type="text"
+                                placeholder="Paste image URL here..."
+                                value={editUrlInput}
+                                onChange={e => setEditUrlInput(e.target.value)}
+                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                              />
+                            </div>
+                            <button
+                              onClick={() => handleAddUrlImagesToEdit()}
+                              disabled={!editUrlInput || isUploading}
+                              className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-emerald-500 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors disabled:opacity-50 border border-emerald-500/20"
+                            >
+                              {isUploading ? 'Adding...' : 'Add from URL'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3 pt-6">
+                        <button
+                          onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
+                          className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={handleSaveEdit}
+                          className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                        >
+                          Save Changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             </motion.div>
           )}
