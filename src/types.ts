@@ -15,6 +15,7 @@ export interface MangaArchive {
   description?: string;
   series?: string;
   volume?: string;
+  size?: number;
 }
 
 export interface ViewerSettings {

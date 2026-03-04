@@ -17,6 +17,7 @@ import { CreateArchiveModal } from './library/modals/CreateArchiveModal';
 import { DeleteConfirmModal } from './library/modals/DeleteConfirmModal';
 import { PasswordModal } from './library/modals/PasswordModal';
 import { WebExtractionModal } from './library/modals/WebExtractionModal';
+import { JsonImportModal } from './library/modals/JsonImportModal';
 
 interface LibraryProps {
   onSelectManga: (manga: MangaArchive) => void;
@@ -42,6 +43,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [showMultiDeleteConfirm, setShowMultiDeleteConfirm] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showWebExtractor, setShowWebExtractor] = useState(false);
+  const [showJsonImport, setShowJsonImport] = useState(false);
 
   // Modal Data
   const [mangaToEdit, setMangaToEdit] = useState<MangaArchive | null>(null);
@@ -54,6 +56,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   // Edit Modal Specific
   const [editUrlInput, setEditUrlInput] = useState('');
   const [editJsonContent, setEditJsonContent] = useState('');
+  const [importJsonContent, setImportJsonContent] = useState('');
   const [isJsonMode, setIsJsonMode] = useState(false);
 
   // Web Extractor Modal Specific
@@ -86,7 +89,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     } else if (option === 'web') {
       setShowWebExtractor(true);
     } else if (option === 'json') {
-      // Logic for sample JSON or new empty archive could go here
+      setShowJsonImport(true);
     }
   };
 
@@ -329,6 +332,37 @@ export default function Library({ onSelectManga }: LibraryProps) {
           });
           await loadArchives();
           setShowWebExtractor(false);
+        }}
+      />
+
+      <JsonImportModal
+        isOpen={showJsonImport}
+        onClose={() => setShowJsonImport(false)}
+        content={importJsonContent}
+        setContent={setImportJsonContent}
+        onImport={async () => {
+          try {
+            const parsed = JSON.parse(importJsonContent);
+            if (!parsed.name || !parsed.pages) throw new Error('Invalid format');
+
+            await saveArchive({
+              id: crypto.randomUUID(),
+              name: parsed.name,
+              author: parsed.author,
+              genre: parsed.genre,
+              description: parsed.description,
+              pages: parsed.pages.map((p: any) => ({
+                ...p,
+                id: p.id || crypto.randomUUID()
+              })),
+              createdAt: Date.now()
+            });
+            await loadArchives();
+            setShowJsonImport(false);
+            setImportJsonContent('');
+          } catch (err) {
+            alert('Invalid JSON format. Please ensure it has "name" and "pages" fields.');
+          }
         }}
       />
 

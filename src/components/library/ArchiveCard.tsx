@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, Image as ImageIcon, CheckCircle2, Circle } from 'lucide-react';
+import { Trash2, Image as ImageIcon, CheckCircle2, Circle, Pencil } from 'lucide-react';
 import { MangaArchive } from '../../types';
 import { cn, formatSize } from '../../lib/utils';
 import { motion } from 'motion/react';
@@ -51,42 +51,50 @@ export function ArchiveCard({
             </div>
 
             {/* Top Actions */}
-            <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-10 opacity-0 group-hover:opacity-100 transition-all transform translate-y-[-10px] group-hover:translate-y-0 duration-300">
+            <div className={cn(
+                "absolute top-4 left-4 right-4 flex justify-between items-start z-10 transition-all transform duration-300",
+                "opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:translate-y-[-10px] md:group-hover:translate-y-0"
+            )}>
                 <div className="flex gap-2">
                     {!isSelectionMode && (
                         <button
                             onClick={(e) => { e.stopPropagation(); onEditIconClick(archive); }}
-                            className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-zinc-300 rounded-xl hover:bg-emerald-500 hover:text-zinc-950 transition-all transform hover:scale-110 shadow-lg"
+                            className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-zinc-300 rounded-xl hover:bg-emerald-500 hover:text-zinc-950 transition-all transform md:hover:scale-110 shadow-lg"
                         >
-                            <Trash2 size={18} />
+                            <Pencil size={18} />
                         </button>
                     )}
                 </div>
                 <button
                     onClick={(e) => { e.stopPropagation(); onDeleteIconClick(archive); }}
-                    className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-all transform hover:scale-110 shadow-lg"
+                    className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-all transform md:hover:scale-110 shadow-lg"
                 >
                     <Trash2 size={18} />
                 </button>
             </div>
 
             {/* Selection Checkmark */}
-            {isSelectionMode && (
-                <div className="absolute top-4 left-4 z-20">
-                    <div className={cn(
-                        "p-2 rounded-full backdrop-blur-md transition-all",
-                        isSelected ? "bg-emerald-500 text-zinc-950 scale-110 shadow-lg" : "bg-black/40 text-white/50 border border-white/10"
-                    )}>
-                        {isSelected ? <CheckCircle2 size={24} /> : <Circle size={24} />}
+            {
+                isSelectionMode && (
+                    <div className="absolute top-4 left-4 z-20">
+                        <div className={cn(
+                            "p-2 rounded-full backdrop-blur-md transition-all",
+                            isSelected ? "bg-emerald-500 text-zinc-950 scale-110 shadow-lg" : "bg-black/40 text-white/50 border border-white/10"
+                        )}>
+                            {isSelected ? <CheckCircle2 size={24} /> : <Circle size={24} />}
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
             {/* Content */}
             <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
                 <div className="">
                     {archive.genre && archive.genre.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                        <div className={cn(
+                            "flex flex-wrap gap-1.5 mb-3 transition-all duration-500",
+                            "opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:translate-y-2 md:group-hover:translate-y-0"
+                        )}>
                             {archive.genre.slice(0, 2).map(g => (
                                 <span key={g} className="px-2 py-0.5 bg-emerald-500/20 backdrop-blur-md text-emerald-400 text-[8px] font-bold uppercase tracking-wider rounded-md border border-emerald-500/20">
                                     {g}
@@ -108,6 +116,6 @@ export function ArchiveCard({
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </motion.div >
     );
 }
