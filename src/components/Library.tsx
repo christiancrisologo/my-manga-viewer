@@ -56,6 +56,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [webExtractTitle, setWebExtractTitle] = useState('');
   const [webExtractHostname, setWebExtractHostname] = useState('');
   const [jsonEditorContent, setJsonEditorContent] = useState('');
+  const [editUrlInput, setEditUrlInput] = useState('');
 
   const SAMPLE_JSON = JSON.stringify({
     name: "Sample Collection",
@@ -175,7 +176,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     const content = await zip.loadAsync(file);
     const pages: { name: string; data: Blob }[] = [];
 
-    const fileEntries = Object.entries(content.files).filter(([name, entry]) => 
+    const fileEntries = Object.entries(content.files).filter(([name, entry]) =>
       !entry.dir && /\.(jpe?g|png|gif|webp|avif)$/i.test(name)
     );
 
@@ -195,7 +196,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     const pages: { name: string; data: Blob }[] = [];
 
     const fileHeaders = Array.from(list.fileHeaders);
-    const fileEntries = fileHeaders.filter(header => 
+    const fileEntries = fileHeaders.filter(header =>
       !header.flags.directory && /\.(jpe?g|png|gif|webp|avif)$/i.test(header.name)
     );
 
@@ -207,7 +208,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     fileEntries.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
 
     const extracted = extractor.extract({ files: fileEntries.map(f => f.name) });
-    
+
     for (const fileData of extracted.files) {
       if (fileData.extraction) {
         const blob = new Blob([fileData.extraction], { type: getMimeType(fileData.fileHeader.name) });
@@ -339,14 +340,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
       const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(webExtractorUrl)}`;
       const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error('Failed to fetch website content');
-      
+
       const data = await response.json();
       const html = data.contents;
-      
+
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const imgElements = Array.from(doc.querySelectorAll('img'));
-      
+
       const baseUrl = new URL(webExtractorUrl);
       let imageUrls = imgElements.map(img => {
         const src = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-original');
@@ -357,21 +358,21 @@ export default function Library({ onSelectManga }: LibraryProps) {
           return null;
         }
       }).filter((url): url is string => url !== null);
-      
+
       if (webExtractorRule) {
         const keywords = webExtractorRule.split(',').map(k => k.trim().toLowerCase()).filter(Boolean);
-        imageUrls = imageUrls.filter(url => 
+        imageUrls = imageUrls.filter(url =>
           keywords.some(k => url.toLowerCase().includes(k))
         );
       }
-      
+
       imageUrls = Array.from(new Set(imageUrls));
-      
+
       if (imageUrls.length === 0) {
         alert('No images found matching your rules.');
         return;
       }
-      
+
       setExtractedImages(imageUrls);
       setSelectedExtractedUrls(new Set(imageUrls)); // Select all by default
       setWebExtractTitle(doc.title || baseUrl.hostname);
@@ -419,7 +420,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     setIsExtracting(true);
     try {
       const urlsToSave = Array.from(selectedExtractedUrls) as string[];
-      
+
       const pages: { name: string; url: string }[] = urlsToSave.map((url, index) => {
         const fileName = url.split('/').pop()?.split('?')[0] || `image-${index}.jpg`;
         return { name: fileName, url: url };
@@ -431,10 +432,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
         genre: 'Web Extract',
         pages: pages
       });
-      
+
       setShowCreateModal(true);
       setShowRemoteConfig(false);
-      
+
       // Reset extractor state
       setWebExtractorUrl('');
       setWebExtractorRule('');
@@ -459,13 +460,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
       const contentType = response.headers.get('content-type');
-      
+
       // Handle Archive (CBZ/ZIP)
       if (contentType?.includes('application/zip') || contentType?.includes('application/x-cbz') || remoteUrl.toLowerCase().endsWith('.cbz') || remoteUrl.toLowerCase().endsWith('.zip')) {
         const blob = await response.blob();
         const file = new File([blob], remoteUrl.split('/').pop() || 'remote_archive.cbz', { type: blob.type });
         const pages = await extractZipPages(file);
-        
+
         if (pages.length > 0) {
           setPendingArchive({
             name: file.name.replace(/\.[^/.]+$/, ""),
@@ -481,7 +482,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
       // Handle JSON (Existing logic)
       const data = await response.json();
-      
+
       if (data.pages && Array.isArray(data.pages)) {
         const pages: MangaPage[] = [];
         for (let i = 0; i < data.pages.length; i++) {
@@ -588,12 +589,12 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const handleMetadataImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     setIsUploading(true);
     try {
       const text = await file.text();
       const config = JSON.parse(text);
-      
+
       if (!config.catalogs || !Array.isArray(config.catalogs)) {
         throw new Error('Invalid config format. Expected { catalogs: [...] }');
       }
@@ -604,8 +605,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
       for (const entry of config.catalogs) {
         // Try to match by archive filename or title
-        const match = currentArchives.find(a => 
-          a.name.toLowerCase() === entry.title?.toLowerCase() || 
+        const match = currentArchives.find(a =>
+          a.name.toLowerCase() === entry.title?.toLowerCase() ||
           a.name.toLowerCase() === entry.archiveFile?.replace(/\.[^/.]+$/, "").toLowerCase()
         );
 
@@ -693,7 +694,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         try {
           const response = await fetch(url);
           if (!response.ok) continue;
-          
+
           const contentType = response.headers.get('content-type');
           const blob = await response.blob();
           const fileName = url.split('/').pop() || 'downloaded_file';
@@ -761,7 +762,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     try {
       const fileList = Array.from(files) as File[];
       const newPages: MangaPage[] = [];
-      
+
       for (const file of fileList) {
         const fileName = file.name.toLowerCase();
         if (fileName.endsWith('.zip') || fileName.endsWith('.cbz') || fileName.endsWith('.coz')) {
@@ -794,11 +795,12 @@ export default function Library({ onSelectManga }: LibraryProps) {
     }
   };
 
-  const handleAddUrlImagesToEdit = async (urlInput: string) => {
-    if (!urlInput || !mangaToEdit) return;
+  const handleAddUrlImagesToEdit = async (urlInput?: string) => {
+    const finalUrlInput = urlInput || editUrlInput;
+    if (!finalUrlInput || !mangaToEdit) return;
     setIsUploading(true);
     try {
-      const urls = urlInput.split(',').map(u => u.trim()).filter(Boolean);
+      const urls = finalUrlInput.split(',').map(u => u.trim()).filter(Boolean);
       const newPages: MangaPage[] = [];
 
       for (const url of urls) {
@@ -823,6 +825,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         await updateArchiveMetadata(mangaToEdit.id, { pages: updatedPages });
         const updatedManga = { ...mangaToEdit, pages: updatedPages };
         setMangaToEdit(updatedManga);
+        setEditUrlInput('');
         await loadArchives();
       }
     } catch (err) {
@@ -830,6 +833,16 @@ export default function Library({ onSelectManga }: LibraryProps) {
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const handleDeletePageFromEdit = async (pageId: string) => {
+    if (!mangaToEdit) return;
+
+    const updatedPages = mangaToEdit.pages.filter(p => p.id !== pageId);
+    await updateArchiveMetadata(mangaToEdit.id, { pages: updatedPages });
+    const updatedManga = { ...mangaToEdit, pages: updatedPages };
+    setMangaToEdit(updatedManga);
+    await loadArchives();
   };
 
   const filteredArchives = archives.filter(archive => {
@@ -853,7 +866,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
             </div>
           </div>
           <div className="flex items-center gap-3 relative">
-            <button 
+            <button
               onClick={() => setShowRemoteConfig(true)}
               className="p-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-full transition-all active:scale-95"
             >
@@ -861,7 +874,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
             </button>
 
             <div className="relative">
-              <button 
+              <button
                 onClick={() => setShowAddMenu(!showAddMenu)}
                 className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 p-3 rounded-full transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
                 title="Add Manga"
@@ -872,11 +885,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
               <AnimatePresence>
                 {showAddMenu && (
                   <>
-                    <div 
-                      className="fixed inset-0 z-20" 
+                    <div
+                      className="fixed inset-0 z-20"
                       onClick={() => setShowAddMenu(false)}
                     />
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.9, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -885,11 +898,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       <label className="flex items-center gap-3 w-full p-3 hover:bg-zinc-800 rounded-xl transition-colors cursor-pointer text-zinc-300 hover:text-white">
                         <Upload size={18} className="text-emerald-500" />
                         <span className="text-sm font-medium">Local Device</span>
-                        <input 
-                          type="file" 
-                          className="hidden" 
-                          multiple 
-                          accept=".zip,.cbz,.cbr,.coz,image/*" 
+                        <input
+                          type="file"
+                          className="hidden"
+                          multiple
+                          accept=".zip,.cbz,.cbr,.coz,image/*"
                           onChange={(e) => {
                             handleFileChange(e);
                             setShowAddMenu(false);
@@ -897,7 +910,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                           disabled={isUploading}
                         />
                       </label>
-                      <button 
+                      <button
                         onClick={() => {
                           setShowUrlImportModal(true);
                           setShowAddMenu(false);
@@ -918,7 +931,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-          <input 
+          <input
             type="text"
             placeholder="Search by title, author, or genre..."
             value={searchQuery}
@@ -931,14 +944,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
       <main className="flex-1 overflow-y-auto p-4 no-scrollbar">
         <AnimatePresence>
           {showMultiDeleteConfirm && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
               onClick={() => setShowMultiDeleteConfirm(false)}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 w-full max-w-sm shadow-2xl"
@@ -953,13 +966,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     Are you sure you want to delete the selected collections? This action cannot be undone.
                   </p>
                   <div className="flex gap-3 w-full">
-                    <button 
+                    <button
                       onClick={() => setShowMultiDeleteConfirm(false)}
                       className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-2xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       onClick={confirmMultiDelete}
                       className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-bold uppercase tracking-widest hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20"
                     >
@@ -975,14 +988,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* Password Modal */}
         <AnimatePresence>
           {showPasswordModal && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-6"
               onClick={() => { setShowPasswordModal(false); setPendingArchiveFile(null); }}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl"
@@ -1001,7 +1014,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 <div className="space-y-4">
                   <div>
                     <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Password</label>
-                    <input 
+                    <input
                       type="password"
                       placeholder="Enter password..."
                       value={archivePassword}
@@ -1013,13 +1026,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   </div>
 
                   <div className="flex gap-3 pt-2">
-                    <button 
+                    <button
                       onClick={() => { setShowPasswordModal(false); setPendingArchiveFile(null); }}
                       className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       onClick={handlePasswordSubmit}
                       disabled={!archivePassword}
                       className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-50"
@@ -1036,14 +1049,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* URL Import Modal */}
         <AnimatePresence>
           {showUrlImportModal && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-6"
               onClick={() => setShowUrlImportModal(false)}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl"
@@ -1062,7 +1075,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 <div className="space-y-4">
                   <div>
                     <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">URL</label>
-                    <input 
+                    <input
                       type="url"
                       placeholder="https://example.com/manga.cbz"
                       value={importUrl}
@@ -1074,13 +1087,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   </div>
 
                   <div className="flex gap-3 pt-2">
-                    <button 
+                    <button
                       onClick={() => setShowUrlImportModal(false)}
                       className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       onClick={handleUrlImport}
                       disabled={!importUrl || isUploading}
                       className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20 disabled:opacity-50"
@@ -1096,14 +1109,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
         <AnimatePresence>
           {mangaToDelete && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
               onClick={() => setMangaToDelete(null)}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 w-full max-w-sm shadow-2xl"
@@ -1118,13 +1131,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     Are you sure you want to delete <span className="text-white font-semibold">"{mangaToDelete.name}"</span>? This action cannot be undone.
                   </p>
                   <div className="flex gap-3 w-full">
-                    <button 
+                    <button
                       onClick={() => setMangaToDelete(null)}
                       className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-2xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       onClick={confirmDelete}
                       className="flex-1 py-4 bg-red-500 text-white rounded-2xl font-bold uppercase tracking-widest hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20"
                     >
@@ -1140,14 +1153,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* Edit Catalog Modal */}
         <AnimatePresence>
           {showEditModal && mangaToEdit && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
               onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar"
@@ -1163,7 +1176,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       <p className="text-xs text-zinc-500">{mangaToEdit.pages.length} pages in collection</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
                     className="p-2 text-zinc-500 hover:text-white transition-colors"
                   >
@@ -1175,18 +1188,18 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   <div className="space-y-4">
                     <div>
                       <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog Title</label>
-                      <input 
+                      <input
                         type="text"
                         value={editForm.name}
                         onChange={e => setEditForm({ ...editForm, name: e.target.value })}
                         className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
                       />
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Author</label>
-                        <input 
+                        <input
                           type="text"
                           value={editForm.author}
                           onChange={e => setEditForm({ ...editForm, author: e.target.value })}
@@ -1195,7 +1208,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       </div>
                       <div>
                         <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Genres</label>
-                        <input 
+                        <input
                           type="text"
                           value={editForm.genre}
                           onChange={e => setEditForm({ ...editForm, genre: e.target.value })}
@@ -1206,7 +1219,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                     <div>
                       <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Series</label>
-                      <input 
+                      <input
                         type="text"
                         value={editForm.series}
                         onChange={e => setEditForm({ ...editForm, series: e.target.value })}
@@ -1216,7 +1229,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                     <div>
                       <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Description</label>
-                      <textarea 
+                      <textarea
                         rows={3}
                         value={editForm.description}
                         onChange={e => setEditForm({ ...editForm, description: e.target.value })}
@@ -1227,40 +1240,79 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                   <div className="space-y-6">
                     <div>
+                      <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Manage Pages</h4>
+                      <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 max-h-48 overflow-y-auto p-2 bg-zinc-800/20 rounded-2xl no-scrollbar border border-zinc-800/50">
+                        {mangaToEdit.pages.map((page, idx) => (
+                          <div key={page.id} className="relative aspect-[3/4] bg-zinc-800 rounded-lg overflow-hidden group/page">
+                            <img
+                              src={createUrl(page.data || page.url)}
+                              alt={page.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/page:opacity-100 transition-opacity flex items-center justify-center">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeletePageFromEdit(page.id);
+                                }}
+                                className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
+                                title="Delete Page"
+                              >
+                                <X size={14} />
+                              </button>
+                            </div>
+                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-0.5 px-1">
+                              <span className="text-[8px] text-white/70 block text-center truncate">{idx + 1}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
                       <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Add More Images</h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        <label className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-800/50 border border-dashed border-zinc-700 rounded-2xl hover:bg-zinc-800 hover:border-emerald-500/50 transition-all cursor-pointer group">
-                          <Upload size={20} className="text-zinc-500 group-hover:text-emerald-500 transition-colors" />
-                          <span className="text-[10px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase tracking-wider">Local Drive</span>
-                          <input 
-                            type="file" 
-                            multiple 
-                            accept=".zip,.cbz,.cbr,.coz,image/*" 
-                            className="hidden" 
+                      <div className="flex flex-col gap-3">
+                        <label className="flex items-center gap-3 p-3 bg-zinc-800/50 border border-dashed border-zinc-700 rounded-2xl hover:bg-zinc-800 hover:border-emerald-500/50 transition-all cursor-pointer group">
+                          <Upload size={18} className="text-zinc-500 group-hover:text-emerald-500 transition-colors" />
+                          <span className="text-xs font-bold text-zinc-500 group-hover:text-zinc-300 uppercase tracking-wider">Upload from Device</span>
+                          <input
+                            type="file"
+                            multiple
+                            accept=".zip,.cbz,.cbr,.coz,image/*"
+                            className="hidden"
                             onChange={handleAddImagesToEdit}
                           />
                         </label>
-                        <button 
-                          onClick={() => {
-                            const url = prompt('Enter image URL(s) separated by comma:');
-                            if (url) handleAddUrlImagesToEdit(url);
-                          }}
-                          className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-800/50 border border-dashed border-zinc-700 rounded-2xl hover:bg-zinc-800 hover:border-emerald-500/50 transition-all group"
-                        >
-                          <Link size={20} className="text-zinc-500 group-hover:text-emerald-500 transition-colors" />
-                          <span className="text-[10px] font-bold text-zinc-500 group-hover:text-zinc-300 uppercase tracking-wider">From URL</span>
-                        </button>
+                        <div className="space-y-2">
+                          <div className="relative">
+                            <Link className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
+                            <input
+                              type="text"
+                              placeholder="Paste image URL here..."
+                              value={editUrlInput}
+                              onChange={e => setEditUrlInput(e.target.value)}
+                              className="w-full bg-zinc-800 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                            />
+                          </div>
+                          <button
+                            onClick={() => handleAddUrlImagesToEdit()}
+                            disabled={!editUrlInput || isUploading}
+                            className="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-emerald-500 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors disabled:opacity-50 border border-emerald-500/20"
+                          >
+                            {isUploading ? 'Adding...' : 'Add from URL'}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
                     <div className="flex gap-3 pt-6">
-                      <button 
+                      <button
                         onClick={() => { setShowEditModal(false); setMangaToEdit(null); }}
                         className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                       >
                         Cancel
                       </button>
-                      <button 
+                      <button
                         onClick={handleSaveEdit}
                         className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                       >
@@ -1277,14 +1329,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* Create Catalog Modal */}
         <AnimatePresence>
           {showCreateModal && pendingArchive && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
               onClick={() => { setShowCreateModal(false); setPendingArchive(null); }}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full max-w-md shadow-2xl"
@@ -1303,7 +1355,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 <div className="space-y-4">
                   <div>
                     <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog Title</label>
-                    <input 
+                    <input
                       type="text"
                       placeholder="Enter title..."
                       value={pendingArchive.name}
@@ -1311,11 +1363,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
                       className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
                     />
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Author</label>
-                      <input 
+                      <input
                         type="text"
                         placeholder="Author name..."
                         value={pendingArchive.author}
@@ -1325,7 +1377,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     </div>
                     <div>
                       <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Genres</label>
-                      <input 
+                      <input
                         type="text"
                         placeholder="Action, Fantasy..."
                         value={pendingArchive.genre}
@@ -1337,13 +1389,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   </div>
 
                   <div className="flex gap-3 pt-4">
-                    <button 
+                    <button
                       onClick={() => { setShowCreateModal(false); setPendingArchive(null); }}
                       className="flex-1 py-4 bg-zinc-800 text-zinc-300 rounded-xl font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       onClick={handleSavePending}
                       className="flex-1 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                     >
@@ -1359,14 +1411,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
         {/* Remote Config Modal */}
         <AnimatePresence>
           {showRemoteConfig && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
               onClick={() => setShowRemoteConfig(false)}
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar"
@@ -1384,7 +1436,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   <section className="bg-zinc-800/30 rounded-2xl p-4 border border-zinc-800/50">
                     <h4 className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-3">Library Management</h4>
                     <div className="flex gap-2">
-                      <button 
+                      <button
                         onClick={handleBackup}
                         className="flex-1 flex items-center justify-center gap-2 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all"
                       >
@@ -1405,7 +1457,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   <div className="space-y-2">
                     {/* Web Image Extractor Accordion */}
                     <div className="border border-zinc-800 rounded-2xl overflow-hidden">
-                      <button 
+                      <button
                         onClick={() => setActiveAccordion(activeAccordion === 'web' ? null : 'web')}
                         className={cn(
                           "w-full flex items-center justify-between p-4 transition-colors",
@@ -1420,10 +1472,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
                         </div>
                         {activeAccordion === 'web' ? <ChevronUp size={16} className="text-zinc-500" /> : <ChevronDown size={16} className="text-zinc-500" />}
                       </button>
-                      
+
                       <AnimatePresence>
                         {activeAccordion === 'web' && (
-                          <motion.div 
+                          <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -1435,7 +1487,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                   <label className="text-[10px] uppercase tracking-widest text-zinc-600 font-bold mb-1.5 block">Website URL</label>
                                   <div className="relative">
                                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={14} />
-                                    <input 
+                                    <input
                                       type="url"
                                       placeholder="https://example.com/gallery"
                                       value={webExtractorUrl}
@@ -1448,7 +1500,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                   <label className="text-[10px] uppercase tracking-widest text-zinc-600 font-bold mb-1.5 block">Filter Rules (Keywords)</label>
                                   <div className="relative">
                                     <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={14} />
-                                    <input 
+                                    <input
                                       type="text"
                                       placeholder="chapter, page, img"
                                       value={webExtractorRule}
@@ -1457,7 +1509,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                     />
                                   </div>
                                 </div>
-                                <button 
+                                <button
                                   onClick={handleWebExtract}
                                   disabled={!webExtractorUrl || isExtracting}
                                   className="w-full py-3 bg-emerald-500 text-zinc-950 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50 shadow-lg shadow-emerald-500/20"
@@ -1472,7 +1524,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                     <h5 className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">
                                       Found {extractedImages.length} Images
                                     </h5>
-                                    <button 
+                                    <button
                                       onClick={() => {
                                         if (selectedExtractedUrls.size === extractedImages.length) {
                                           setSelectedExtractedUrls(new Set());
@@ -1485,10 +1537,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                       {selectedExtractedUrls.size === extractedImages.length ? 'Deselect All' : 'Select All'}
                                     </button>
                                   </div>
-                                  
+
                                   <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 no-scrollbar">
                                     {extractedImages.map((url, idx) => (
-                                      <div 
+                                      <div
                                         key={idx}
                                         onClick={() => {
                                           const next = new Set(selectedExtractedUrls);
@@ -1511,7 +1563,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                     ))}
                                   </div>
 
-                                  <button 
+                                  <button
                                     onClick={handleFinalizeExtraction}
                                     disabled={selectedExtractedUrls.size === 0 || isExtracting}
                                     className="w-full py-3 bg-zinc-100 text-zinc-950 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all disabled:opacity-50"
@@ -1528,7 +1580,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                     {/* JSON Editor Accordion */}
                     <div className="border border-zinc-800 rounded-2xl overflow-hidden">
-                      <button 
+                      <button
                         onClick={() => setActiveAccordion(activeAccordion === 'json' ? null : 'json')}
                         className={cn(
                           "w-full flex items-center justify-between p-4 transition-colors",
@@ -1546,7 +1598,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                       <AnimatePresence>
                         {activeAccordion === 'json' && (
-                          <motion.div 
+                          <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -1556,20 +1608,20 @@ export default function Library({ onSelectManga }: LibraryProps) {
                               <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                   <label className="text-[10px] uppercase tracking-widest text-zinc-600 font-bold block">Source JSON</label>
-                                  <button 
+                                  <button
                                     onClick={() => setJsonEditorContent(SAMPLE_JSON)}
                                     className="text-[10px] text-emerald-500 font-bold uppercase hover:underline"
                                   >
                                     Load Sample
                                   </button>
                                 </div>
-                                <textarea 
+                                <textarea
                                   value={jsonEditorContent}
                                   onChange={e => setJsonEditorContent(e.target.value)}
                                   placeholder={SAMPLE_JSON}
                                   className="w-full h-64 bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500 transition-colors resize-none no-scrollbar"
                                 />
-                                <button 
+                                <button
                                   onClick={handleJsonImport}
                                   className="w-full py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 transition-all active:scale-[0.98]"
                                 >
@@ -1584,7 +1636,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                     {/* Cloud Import Accordion */}
                     <div className="border border-zinc-800 rounded-2xl overflow-hidden">
-                      <button 
+                      <button
                         onClick={() => setActiveAccordion(activeAccordion === 'cloud' ? null : 'cloud')}
                         className={cn(
                           "w-full flex items-center justify-between p-4 transition-colors",
@@ -1602,7 +1654,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
                       <AnimatePresence>
                         {activeAccordion === 'cloud' && (
-                          <motion.div 
+                          <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -1612,7 +1664,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                               <div className="space-y-3">
                                 <div>
                                   <label className="text-[10px] uppercase tracking-widest text-zinc-600 font-bold mb-1.5 block">Source URL (JSON or CBZ)</label>
-                                  <input 
+                                  <input
                                     type="url"
                                     placeholder="https://example.com/manga.cbz"
                                     value={remoteUrl}
@@ -1622,7 +1674,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                 </div>
                                 <div>
                                   <label className="text-[10px] uppercase tracking-widest text-zinc-600 font-bold mb-1.5 block">API Key (Optional)</label>
-                                  <input 
+                                  <input
                                     type="password"
                                     placeholder="Your API Key"
                                     value={apiKey}
@@ -1630,7 +1682,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                                     className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
                                   />
                                 </div>
-                                <button 
+                                <button
                                   onClick={handleRemoteImport}
                                   disabled={!remoteUrl || isUploading}
                                   className="w-full py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98]"
@@ -1669,7 +1721,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {filteredArchives.map((manga) => (
-              <div 
+              <div
                 key={manga.id}
                 onClick={() => handleCardClick(manga)}
                 onMouseDown={() => startLongPress(manga.id)}
@@ -1685,8 +1737,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
               >
                 <div className="aspect-[3/4] bg-zinc-800 relative">
                   {manga.pages[0]?.url ? (
-                    <img 
-                      src={manga.pages[0].url} 
+                    <img
+                      src={manga.pages[0].url}
                       alt={manga.name}
                       className={cn(
                         "w-full h-full object-cover transition-transform duration-500",
@@ -1700,7 +1752,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-                  
+
                   {isSelectionMode ? (
                     <div className="absolute top-2 right-2">
                       {selectedIds.has(manga.id) ? (
@@ -1711,7 +1763,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     </div>
                   ) : (
                     <>
-                      <button 
+                      <button
                         onClick={(e) => handleEditClick(e, manga)}
                         className="absolute top-2 right-10 p-2 bg-black/40 backdrop-blur-md rounded-full text-zinc-400 hover:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Edit Catalog"
@@ -1719,7 +1771,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                         <Pencil size={16} />
                       </button>
 
-                      <button 
+                      <button
                         onClick={(e) => handleDeleteClick(e, manga)}
                         className="absolute top-2 right-2 p-2 bg-black/40 backdrop-blur-md rounded-full text-zinc-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Delete Catalog"
@@ -1727,7 +1779,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                         <Trash2 size={16} />
                       </button>
 
-                      <button 
+                      <button
                         onClick={(e) => handleExportCBZ(e, manga)}
                         className="absolute top-2 left-2 p-2 bg-black/40 backdrop-blur-md rounded-full text-zinc-400 hover:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
@@ -1777,14 +1829,14 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
       <AnimatePresence>
         {isSelectionMode && (
-          <motion.div 
+          <motion.div
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
             className="fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 p-4 z-50 flex items-center justify-between shadow-2xl"
           >
             <div className="flex items-center gap-4">
-              <button 
+              <button
                 onClick={() => {
                   setIsSelectionMode(false);
                   setSelectedIds(new Set());
@@ -1798,13 +1850,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={() => setSelectedIds(new Set(archives.map(a => a.id)))}
                 className="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-zinc-700 transition-colors"
               >
                 Select All
               </button>
-              <button 
+              <button
                 onClick={() => setShowMultiDeleteConfirm(true)}
                 disabled={selectedIds.size === 0}
                 className="px-6 py-3 bg-red-500 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20 disabled:opacity-50"
