@@ -27,8 +27,9 @@ export function useUrlImport({
             const loadFromPublic = async () => {
                 try {
                     // Start by trying .cbz
-                    console.log(`[useUrlImport] Attempting to fetch /${archiveParam}.cbz...`);
-                    let response = await fetch(`/${archiveParam}.cbz`);
+                    const base = import.meta.env.BASE_URL;
+                    console.log(`[useUrlImport] Attempting to fetch ${base}${archiveParam}.cbz...`);
+                    let response = await fetch(`${base}${archiveParam}.cbz`);
                     let fileName = `${archiveParam}.cbz`;
 
                     // If it's 404 OR it returned index.html (SPA fallback), try .zip
@@ -37,7 +38,7 @@ export function useUrlImport({
 
                     if (!response.ok || isHtml) {
                         console.log(`[useUrlImport] .cbz not found or returned HTML (${response.status}, ${contentType}). Trying .zip...`);
-                        response = await fetch(`/${archiveParam}.zip`);
+                        response = await fetch(`${base}${archiveParam}.zip`);
                         fileName = `${archiveParam}.zip`;
                     }
 
