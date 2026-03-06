@@ -7,22 +7,21 @@ export function useArchives() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const loadArchives = async () => {
+    const loadArchives = async (allowDefaultFetch = false) => {
         setIsLoading(true);
         setError(null);
         revokeAllUrls();
         try {
             let data = await getArchives();
 
-            // If empty, try to load primary catalog from public folder
-            if (data.length === 0) {
+            // If empty, try to load primary catalog from public folder ONLY if allowed (typically on mount)
+            if (data.length === 0 && allowDefaultFetch) {
                 try {
                     const base = import.meta.env.BASE_URL;
                     const response = await fetch(`${base}catalogs.json`);
                     if (response.ok) {
                         const primaryCatalogs: MangaArchive[] = await response.json();
                         for (const archive of primaryCatalogs) {
-                            // Ensure valid structure before saving
                             if (archive.name && archive.pages) {
                                 await saveArchive({
                                     ...archive,
@@ -31,7 +30,6 @@ export function useArchives() {
                                 });
                             }
                         }
-                        // Reload data after saving primary catalogs
                         data = await getArchives();
                     }
                 } catch (fetchErr) {
@@ -58,7 +56,7 @@ export function useArchives() {
     };
 
     useEffect(() => {
-        loadArchives();
+        loadArchives(true);
         return () => revokeAllUrls();
     }, []);
 
