@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Plus, Trash2, CheckCircle2, Circle } from 'lucide-react';
+import { Search, Plus, Trash2, CheckCircle2, Circle, Download } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { APP_NAME, AUTHOR_NAME } from '../../constants';
 
@@ -12,6 +12,7 @@ interface LibraryHeaderProps {
     onMultiDelete: () => void;
     onAddClick: () => void;
     showAddMenu: boolean;
+    onExport: () => void;
 }
 
 export function LibraryHeader({
@@ -22,7 +23,8 @@ export function LibraryHeader({
     selectedCount,
     onMultiDelete,
     onAddClick,
-    showAddMenu
+    showAddMenu,
+    onExport
 }: LibraryHeaderProps) {
     return (
         <div className="sticky top-0 z-30 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -73,6 +75,13 @@ export function LibraryHeader({
                         </>
                     ) : (
                         <>
+                            <button
+                                onClick={onExport}
+                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all"
+                                title="Export Library to JSON"
+                            >
+                                <Download size={20} />
+                            </button>
                             <button
                                 onClick={() => setIsSelectionMode(true)}
                                 className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all"
