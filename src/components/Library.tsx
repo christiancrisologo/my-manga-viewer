@@ -355,25 +355,35 @@ export default function Library({ onSelectManga }: LibraryProps) {
         onImport={async () => {
           try {
             const parsed = JSON.parse(importJsonContent);
-            if (!parsed.name || !parsed.pages) throw new Error('Invalid format');
+            const items = Array.isArray(parsed) ? parsed : [parsed];
 
-            await saveArchive({
-              id: crypto.randomUUID(),
-              name: parsed.name,
-              author: parsed.author,
-              genre: parsed.genre,
-              description: parsed.description,
-              pages: parsed.pages.map((p: any) => ({
-                ...p,
-                id: p.id || crypto.randomUUID()
-              })),
-              createdAt: Date.now()
-            });
+            for (const item of items) {
+              if (!item.name || !item.pages) {
+                console.warn('Skipping invalid item:', item);
+                continue;
+              }
+
+              await saveArchive({
+                id: item.id || crypto.randomUUID(),
+                name: item.name,
+                author: item.author,
+                genre: item.genre,
+                description: item.description,
+                series: item.series,
+                volume: item.volume,
+                pages: item.pages.map((p: any) => ({
+                  ...p,
+                  id: p.id || crypto.randomUUID()
+                })),
+                createdAt: item.createdAt || Date.now()
+              });
+            }
+
             await loadArchives();
             setShowJsonImport(false);
             setImportJsonContent('');
           } catch (err) {
-            alert('Invalid JSON format. Please ensure it has "name" and "pages" fields.');
+            alert('Invalid JSON format. Please ensure it follows the catalog structure.');
           }
         }}
       />

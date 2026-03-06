@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MangaArchive } from '../types';
-import { getArchives, deleteArchive, updateArchiveMetadata, createUrl, revokeAllUrls } from '../services/storage';
+import { getArchives, saveArchive, deleteArchive, updateArchiveMetadata, createUrl, revokeAllUrls } from '../services/storage';
 
 export function useArchives() {
     const [archives, setArchives] = useState<MangaArchive[]>([]);
@@ -12,7 +12,33 @@ export function useArchives() {
         setError(null);
         revokeAllUrls();
         try {
-            const data = await getArchives();
+            let data = await getArchives();
+
+            // If empty, try to load primary catalog from public folder
+            if (data.length === 0) {
+                try {
+                    const base = import.meta.env.BASE_URL;
+                    const response = await fetch(`${base}catalogs.json`);
+                    if (response.ok) {
+                        const primaryCatalogs: MangaArchive[] = await response.json();
+                        for (const archive of primaryCatalogs) {
+                            // Ensure valid structure before saving
+                            if (archive.name && archive.pages) {
+                                await saveArchive({
+                                    ...archive,
+                                    id: archive.id || crypto.randomUUID(),
+                                    createdAt: archive.createdAt || Date.now()
+                                });
+                            }
+                        }
+                        // Reload data after saving primary catalogs
+                        data = await getArchives();
+                    }
+                } catch (fetchErr) {
+                    console.warn('No primary catalog found or failed to load:', fetchErr);
+                }
+            }
+
             const archivesWithUrls = data.map(archive => ({
                 ...archive,
                 pages: archive.pages.map((page, i) => {
