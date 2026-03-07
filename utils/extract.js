@@ -1,129 +1,99 @@
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import { URL } from 'url';
+import fs from 'fs';
 
 /**
- * Standalone Utility to extract images from a given URL using Puppeteer.
- * Usage: 
- *   node . <URL> [selector] [--no-headless]
- * 
- * --no-headless: Launches the browser visibly, allowing you to solve 
- *                Cloudflare challenges manually if needed.
+ * Standalone Utility to extract images from given URLs using simple fetch and regex.
+ * Usage:
+ *   node . <URL1> [URL2] [URL3] ... [selector]
  */
 
-puppeteer.use(StealthPlugin());
-
 const args = process.argv.slice(2);
-const url = args.find(a => a.startsWith('http'));
-const isHeadless = !args.includes('--no-headless');
-const customSelector = args.find(a => !a.startsWith('http') && !a.startsWith('--'));
+const urls = args.filter(a => a.startsWith('http'));
+const customSelector = args.find(a => !a.startsWith('http'));
 
-if (!url) {
-    console.error('Error: Please provide a URL.');
-    console.log('Usage: node . <URL> [selector] [--no-headless]');
+if (urls.length === 0) {
+    console.error('Error: Please provide at least one URL.');
+    console.log('Usage: node . <URL1> [URL2] [URL3] ... [selector]');
     process.exit(1);
 }
 
-async function extractImages(targetUrl, selector = 'img', headless = true) {
-    let browser;
-    try {
-        console.log(`Launching ${headless ? 'headless' : 'visible'} browser: ${targetUrl}...`);
+function extractImageUrls(html, targetUrl) {
+    const images = [];
+    const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+    let match;
 
-        browser = await puppeteer.launch({
-            headless: headless ? 'new' : false,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+    while ((match = imgRegex.exec(html)) !== null) {
+        let src = match[1];
+
+        // Also check for data-src, data-lazy-src, etc.
+        const dataSrcMatch = match[0].match(/data-src=["']([^"']+)["']/);
+        const dataLazyMatch = match[0].match(/data-lazy-src=["']([^"']+)["']/);
+        const dataOriginalMatch = match[0].match(/data-original-src=["']([^"']+)["']/);
+        const srcsetMatch = match[0].match(/srcset=["']([^"'\s]+)/);
+
+        if (dataSrcMatch) src = dataSrcMatch[1];
+        else if (dataLazyMatch) src = dataLazyMatch[1];
+        else if (dataOriginalMatch) src = dataOriginalMatch[1];
+        else if (srcsetMatch) src = srcsetMatch[1];
+
+        if (src && !src.startsWith('data:') && !src.includes('favicon')) {
+            try {
+                const absoluteUrl = new URL(src, targetUrl).href;
+                if (!images.includes(absoluteUrl)) {
+                    images.push(absoluteUrl);
+                }
+            } catch (e) {
+                console.error(`Failed to parse URL: ${src}`);
+            }
+        }
+    }
+
+    // Fallback for manga sites - look for specific classes
+    const mangaRegex = /<img[^>]+class="[^"]*(?:wp-manga-chapter-img|page-break|reading-content)[^"]*"[^>]+src=["']([^"']+)["'][^>]*>/gi;
+    while ((match = mangaRegex.exec(html)) !== null) {
+        const src = match[1];
+        if (src) {
+            try {
+                const absoluteUrl = new URL(src, targetUrl).href;
+                if (!images.includes(absoluteUrl)) {
+                    images.push(absoluteUrl);
+                }
+            } catch (e) {
+                // ignore
+            }
+        }
+    }
+
+    return images;
+}
+
+function extractTitle(html, targetUrl) {
+    const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+    return titleMatch ? titleMatch[1].trim() : targetUrl;
+}
+
+async function extractImages(targetUrl, selector = 'img') {
+    try {
+        console.log(`Fetching: ${targetUrl}...`);
+
+        const response = await fetch(targetUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
         });
 
-        const page = await browser.newPage();
-        await page.setViewport({ width: 1280, height: 1200 });
-
-        console.log('Navigating...');
-        if (!headless) {
-            console.log('--- VISIBLE MODE ---');
-            console.log('If you see a "Just a moment" challenge, please solve it in the browser window.');
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
 
-        await page.goto(targetUrl, {
-            waitUntil: 'networkidle2',
-            timeout: 120000
-        });
-
-        // If headless, we might still be stuck on challenge. 
-        // If not headless, the user might be solving it.
-        // We wait for the body to contain something other than "Just a moment"
-        console.log('Waiting for page content to load...');
-        await page.waitForFunction(
-            () => !document.title.includes('Just a moment') && document.body.innerText.length > 100,
-            { timeout: headless ? 30000 : 300000 } // Give user 5 mins in visible mode
-        ).catch(() => {
-            if (headless) console.log('Stuck on Cloudflare challenge. Try running with --no-headless');
-        });
-
-        console.log(`Final Page Title: ${await page.title()}`);
-
-        // Auto-scroll to trigger lazy-loading
-        console.log('Scrolling to trigger lazy-loads...');
-        await page.evaluate(async () => {
-            await new Promise((resolve) => {
-                let totalHeight = 0;
-                let distance = 600;
-                let timer = setInterval(() => {
-                    let scrollHeight = document.body.scrollHeight;
-                    window.scrollBy(0, distance);
-                    totalHeight += distance;
-                    if (totalHeight >= scrollHeight || totalHeight > 50000) {
-                        clearInterval(timer);
-                        resolve();
-                    }
-                }, 100);
-            });
-        });
-
-        await new Promise(resolve => setTimeout(resolve, 3000));
-
-        console.log('Extracting images...');
-        const images = await page.evaluate((sel) => {
-            const results = [];
-            const elements = document.querySelectorAll(sel || 'img');
-
-            elements.forEach(el => {
-                let src = el.src ||
-                    el.getAttribute('data-src') ||
-                    el.getAttribute('data-lazy-src') ||
-                    el.getAttribute('data-original-src') ||
-                    el.getAttribute('srcset')?.split(' ')[0];
-
-                if (src && !src.startsWith('data:') && !src.includes('favicon')) {
-                    results.push(src);
-                }
-            });
-
-            // Fallback for manga sites
-            if (results.length < 5) {
-                const fallbacks = document.querySelectorAll('.wp-manga-chapter-img, .page-break img, .reading-content img');
-                fallbacks.forEach(el => {
-                    const src = el.src || el.getAttribute('data-src') || el.getAttribute('data-lazy-src');
-                    if (src && !results.includes(src)) results.push(src);
-                });
-            }
-
-            return results;
-        }, selector);
-
-        const uniqueImages = Array.from(new Set(images));
-        const absoluteImages = uniqueImages.map(src => {
-            try {
-                return new URL(src, targetUrl).href;
-            } catch (e) {
-                return src;
-            }
-        });
+        const html = await response.text();
+        const title = extractTitle(html, targetUrl);
+        const images = extractImageUrls(html, targetUrl);
 
         // Create Catalog JSON format
         const catalog = {
             id: Math.random().toString(36).substring(7),
-            name: await page.title() || targetUrl,
-            pages: absoluteImages.map((url, i) => ({
+            name: title,
+            pages: images.map((url, i) => ({
                 id: Math.random().toString(36).substring(7),
                 name: `Page ${i + 1}`,
                 url: url
@@ -131,18 +101,38 @@ async function extractImages(targetUrl, selector = 'img', headless = true) {
             createdAt: Date.now()
         };
 
-        console.log('\n--- CATALOG JSON START ---');
+        console.log(`\n--- CATALOG FOR ${targetUrl} ---`);
         console.log(JSON.stringify(catalog, null, 2));
-        console.log('--- CATALOG JSON END ---\n');
 
-        console.log(`Summary: Found ${absoluteImages.length} images.`);
-        await browser.close();
-        return absoluteImages;
+        return catalog;
     } catch (error) {
-        console.error(`\nError: ${error.message}`);
-        if (browser) await browser.close();
-        process.exit(1);
+        console.error(`\nError extracting from ${targetUrl}: ${error.message}`);
+        return null;
     }
 }
 
-extractImages(url, customSelector, isHeadless);
+async function extractMultiple(urls, selector = 'img') {
+    const catalogs = [];
+    for (const url of urls) {
+        console.log(`\nProcessing: ${url}`);
+        const catalog = await extractImages(url, selector);
+        if (catalog) {
+            catalogs.push(catalog);
+        }
+    }
+
+    // Create filename with current date
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD format
+    const filename = `${dateStr}-catalogs.json`;
+
+    // Write to file
+    const jsonContent = JSON.stringify(catalogs, null, 2);
+    fs.writeFileSync(filename, jsonContent);
+
+    console.log(`\n--- CATALOGS SAVED TO FILE: ${filename} ---`);
+    console.log(`Summary: Processed ${urls.length} URLs, extracted ${catalogs.length} catalogs.`);
+    console.log(`File location: ${process.cwd()}/${filename}`);
+}
+
+extractMultiple(urls, customSelector);
