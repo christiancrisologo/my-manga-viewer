@@ -31,6 +31,7 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
     nextPage,
     prevPage,
     goToPage,
+    toggleSlideshow,
     handleInteraction
   } = useViewerControls(pages);
 
@@ -82,8 +83,12 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
   useEffect(() => {
     const handleFullScreenChange = () => setIsFullScreen(!!document.fullscreenElement);
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') nextPage();
-      if (e.key === 'ArrowLeft') prevPage();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextPage();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevPage();
+      if (e.key === ' ') {
+        e.preventDefault();
+        toggleSlideshow();
+      }
       if (e.key === 'Escape') onClose();
       if (e.key === 'f' || e.key === 'F') toggleFullScreen();
     };
@@ -93,7 +98,7 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
       document.removeEventListener('fullscreenchange', handleFullScreenChange);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [nextPage, prevPage, onClose]);
+  }, [nextPage, prevPage, onClose, toggleSlideshow]);
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -127,6 +132,8 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
         onPrevPage={prevPage}
         onNextPage={nextPage}
         onSlideChange={goToPage}
+        onToggleSlideshow={toggleSlideshow}
+        isSlideshowActive={settings.isSlideshowActive}
       />
 
       <PageRenderer

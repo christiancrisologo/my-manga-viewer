@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, LayoutGrid, Maximize, Minimize, RotateCw, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, LayoutGrid, Maximize, Minimize, RotateCw, Settings, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { MangaArchive } from '../../types';
 import { cn } from '../../lib/utils';
 
@@ -19,6 +19,8 @@ interface ViewerControlsProps {
     onPrevPage: () => void;
     onNextPage: () => void;
     onSlideChange: (val: number) => void;
+    onToggleSlideshow: () => void;
+    isSlideshowActive: boolean;
 }
 
 export function ViewerControls({
@@ -35,12 +37,17 @@ export function ViewerControls({
     onOpenSettings,
     onPrevPage,
     onNextPage,
-    onSlideChange
+    onSlideChange,
+    onToggleSlideshow,
+    isSlideshowActive
 }: ViewerControlsProps) {
+    // Hide all UI when in fullscreen AND slideshow is active
+    const shouldHideUI = isFullScreen && isSlideshowActive;
+
     return (
         <>
             <AnimatePresence>
-                {isOpen && (
+                {isOpen && !shouldHideUI && (
                     <motion.div
                         initial={{ y: -100 }}
                         animate={{ y: 0 }}
@@ -62,6 +69,13 @@ export function ViewerControls({
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
+                            <button
+                                onClick={onToggleSlideshow}
+                                className={cn("p-2 rounded-full transition-colors", isSlideshowActive ? "bg-emerald-500 text-zinc-950" : "hover:bg-white/10 text-white")}
+                                title="Toggle Slideshow (Space)"
+                            >
+                                {isSlideshowActive ? <Pause size={20} /> : <Play size={20} />}
+                            </button>
                             <button
                                 onClick={onToggleThumbnails}
                                 className={cn("p-2 rounded-full transition-colors", showThumbnails ? "bg-emerald-500 text-zinc-950" : "hover:bg-white/10 text-white")}
@@ -87,25 +101,29 @@ export function ViewerControls({
                 )}
             </AnimatePresence>
 
-            <div className="absolute inset-y-0 left-1 flex items-center z-30 pointer-events-none">
-                <button
-                    onClick={(e) => { e.stopPropagation(); onPrevPage(); }}
-                    className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white/30 hover:text-white transition-all active:scale-90 pointer-events-auto"
-                >
-                    <ChevronLeft size={24} />
-                </button>
-            </div>
-            <div className="absolute inset-y-0 right-1 flex items-center z-30 pointer-events-none">
-                <button
-                    onClick={(e) => { e.stopPropagation(); onNextPage(); }}
-                    className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white/30 hover:text-white transition-all active:scale-90 pointer-events-auto"
-                >
-                    <ChevronRight size={24} />
-                </button>
-            </div>
+            {!shouldHideUI && (
+                <>
+                    <div className="absolute inset-y-0 left-1 flex items-center z-30 pointer-events-none">
+                        <button
+                            onClick={(e) => { e.stopPropagation(); onPrevPage(); }}
+                            className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white/30 hover:text-white transition-all active:scale-90 pointer-events-auto"
+                        >
+                            <ChevronLeft size={24} />
+                        </button>
+                    </div>
+                    <div className="absolute inset-y-0 right-1 flex items-center z-30 pointer-events-none">
+                        <button
+                            onClick={(e) => { e.stopPropagation(); onNextPage(); }}
+                            className="p-3 bg-white/5 hover:bg-white/10 rounded-full text-white/30 hover:text-white transition-all active:scale-90 pointer-events-auto"
+                        >
+                            <ChevronRight size={24} />
+                        </button>
+                    </div>
+                </>
+            )}
 
             <AnimatePresence>
-                {isOpen && (
+                {isOpen && !shouldHideUI && (
                     <motion.div
                         initial={{ y: 100 }}
                         animate={{ y: 0 }}
