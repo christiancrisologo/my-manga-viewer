@@ -210,6 +210,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const handleWebExtract = async () => {
     const imgs = await extractImagesFromUrl(webUrl, webRule);
     setExtractedImages(imgs);
+    // Auto-select all extracted images
+    setSelectedExtractedUrls(new Set(imgs));
   };
 
   return (
@@ -391,7 +393,12 @@ export default function Library({ onSelectManga }: LibraryProps) {
             createdAt: Date.now()
           });
           await loadArchives();
-          setShowWebExtractor(false);
+          // Reset state so a new catalog can be extracted
+          setWebUrl('');
+          setWebRule('');
+          setExtractedImages([]);
+          setSelectedExtractedUrls(new Set());
+          setWebExtractTitle('');
         }}
       />
 

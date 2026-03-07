@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pencil, X, Link, Upload } from 'lucide-react';
 import { Modal } from '../../shared/Modal';
-import { MangaArchive, MangaPage } from '../../../types';
+import { MangaArchive } from '../../../types';
 import { cn } from '../../../lib/utils';
 import { createUrl } from '../../../services/storage';
 
@@ -44,7 +44,10 @@ export function EditArchiveModal({
         genre: '',
         description: '',
         series: '',
-        volume: ''
+        volume: '',
+        chapter: '',
+        season: '',
+        released: ''
     });
 
     useEffect(() => {
@@ -55,7 +58,10 @@ export function EditArchiveModal({
                 genre: manga.genre?.join(', ') || '',
                 description: manga.description || '',
                 series: manga.series || '',
-                volume: manga.volume || ''
+                volume: manga.volume || '',
+                chapter: manga.chapter || '',
+                season: manga.season || '',
+                released: manga.released || ''
             });
         }
     }, [manga]);
@@ -64,7 +70,7 @@ export function EditArchiveModal({
 
     const handleSave = () => {
         if (isJsonMode) {
-            onSave(null); // Signal to save from JSON
+            onSave(null);
         } else {
             onSave(editForm);
         }
@@ -133,6 +139,7 @@ export function EditArchiveModal({
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Left column — metadata form */}
                     <div className="space-y-4">
                         <div>
                             <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Catalog Title</label>
@@ -175,6 +182,50 @@ export function EditArchiveModal({
                             />
                         </div>
 
+                        <div className="grid grid-cols-3 gap-3">
+                            <div>
+                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Volume</label>
+                                <input
+                                    type="text"
+                                    placeholder="Vol. 1"
+                                    value={editForm.volume}
+                                    onChange={e => setEditForm({ ...editForm, volume: e.target.value })}
+                                    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                />
+                            </div>
+                            <div>
+                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Chapter</label>
+                                <input
+                                    type="text"
+                                    placeholder="Ch. 1"
+                                    value={editForm.chapter}
+                                    onChange={e => setEditForm({ ...editForm, chapter: e.target.value })}
+                                    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                />
+                            </div>
+                            <div>
+                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Season</label>
+                                <input
+                                    type="text"
+                                    placeholder="S1"
+                                    value={editForm.season}
+                                    onChange={e => setEditForm({ ...editForm, season: e.target.value })}
+                                    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Released</label>
+                            <input
+                                type="text"
+                                placeholder="e.g. 2024, Spring 2024"
+                                value={editForm.released}
+                                onChange={e => setEditForm({ ...editForm, released: e.target.value })}
+                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                            />
+                        </div>
+
                         <div>
                             <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Description</label>
                             <textarea
@@ -186,6 +237,7 @@ export function EditArchiveModal({
                         </div>
                     </div>
 
+                    {/* Right column — pages & actions */}
                     <div className="space-y-6">
                         <div>
                             <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Manage Pages</h4>

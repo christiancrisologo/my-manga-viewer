@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wand2, Globe, CheckCircle2, Circle, X } from 'lucide-react';
+import { Wand2, Globe, CheckCircle2, Circle, Loader2 } from 'lucide-react';
 import { Modal } from '../../shared/Modal';
 import { cn } from '../../../lib/utils';
 
@@ -38,6 +38,8 @@ export function WebExtractionModal({
     setExtractTitle,
     onCreateCatalog
 }: WebExtractionModalProps) {
+    const isDone = extractedImages.length > 0 && !isExtracting;
+
     return (
         <Modal
             isOpen={isOpen}
@@ -48,6 +50,7 @@ export function WebExtractionModal({
             maxWidth="max-w-4xl"
         >
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Left: Controls */}
                 <div className="lg:col-span-1 space-y-6">
                     <div className="space-y-4">
                         <div>
@@ -59,7 +62,8 @@ export function WebExtractionModal({
                                     placeholder="https://example-manga.com/chapter-1"
                                     value={url}
                                     onChange={e => setUrl(e.target.value)}
-                                    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                    disabled={isExtracting}
+                                    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 />
                             </div>
                         </div>
@@ -71,19 +75,51 @@ export function WebExtractionModal({
                                 placeholder=".chapter-content img"
                                 value={rule}
                                 onChange={e => setRule(e.target.value)}
-                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                disabled={isExtracting}
+                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             />
                         </div>
 
-
+                        {/* Extraction Button */}
                         <button
                             onClick={onExtract}
-                            disabled={!url || isExtracting}
-                            className="w-full py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50"
+                            disabled={!url || isExtracting || isDone}
+                            className={cn(
+                                "w-full py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition-all shadow-lg flex items-center justify-center gap-2",
+                                isDone
+                                    ? "bg-zinc-700 text-zinc-400 cursor-not-allowed shadow-none"
+                                    : isExtracting
+                                        ? "bg-emerald-500/50 text-zinc-950 cursor-not-allowed"
+                                        : "bg-emerald-500 text-zinc-950 hover:bg-emerald-400 shadow-emerald-500/20"
+                            )}
                         >
-                            {isExtracting ? 'Extracting Images...' : 'Begin Extraction'}
+                            {isExtracting ? (
+                                <>
+                                    <Loader2 size={16} className="animate-spin" />
+                                    <span>Extracting Images...</span>
+                                </>
+                            ) : isDone ? (
+                                <>
+                                    <CheckCircle2 size={16} />
+                                    <span>Extraction Completed</span>
+                                </>
+                            ) : (
+                                'Begin Extraction'
+                            )}
                         </button>
                     </div>
+
+                    {/* Progress bar while extracting */}
+                    {isExtracting && (
+                        <div className="space-y-2">
+                            <div className="h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-emerald-500 rounded-full animate-pulse w-3/4" />
+                            </div>
+                            <p className="text-[10px] text-zinc-500 font-medium tracking-wider text-center uppercase animate-pulse">
+                                Scanning page for images…
+                            </p>
+                        </div>
+                    )}
 
                     <div className="p-4 bg-zinc-800/50 rounded-2xl border border-zinc-700/50">
                         <h4 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -91,11 +127,12 @@ export function WebExtractionModal({
                             Extraction Helper
                         </h4>
                         <p className="text-[10px] text-zinc-500 leading-relaxed font-medium capitalize">
-                            enter the URL of the manga page and an optional CSS selector to target specific images. if left empty, the extractor will attempt to find all relevant images automatically.
+                            Enter the URL of the manga page and an optional CSS selector to target specific images. If left empty, the extractor will attempt to find all relevant images automatically.
                         </p>
                     </div>
                 </div>
 
+                {/* Right: Results */}
                 <div className="lg:col-span-2 flex flex-col min-h-[400px]">
                     <div className="flex items-center justify-between mb-4">
                         <h4 className="text-xs font-bold text-white uppercase tracking-widest">
@@ -104,14 +141,23 @@ export function WebExtractionModal({
                         {extractedImages.length > 0 && (
                             <button
                                 onClick={selectAll}
-                                className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest hover:text-emerald-400"
+                                disabled={isExtracting}
+                                className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest hover:text-emerald-400 disabled:opacity-50"
                             >
                                 Select All
                             </button>
                         )}
                     </div>
 
-                    <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-2xl p-4 overflow-y-auto no-scrollbar max-h-[400px]">
+                    <div className="flex-1 bg-zinc-950/50 border border-zinc-800 rounded-2xl p-4 overflow-y-auto no-scrollbar max-h-[400px] relative">
+                        {/* Overlay while extracting */}
+                        {isExtracting && (
+                            <div className="absolute inset-0 bg-zinc-950/70 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 gap-4">
+                                <Loader2 size={40} className="animate-spin text-emerald-500" />
+                                <p className="text-[10px] uppercase font-bold tracking-widest text-zinc-400 animate-pulse">Fetching images...</p>
+                            </div>
+                        )}
+
                         {extractedImages.length === 0 ? (
                             <div className="h-full flex flex-col items-center justify-center text-zinc-700 gap-4 opacity-50">
                                 <Globe size={48} strokeWidth={1} />
@@ -124,9 +170,10 @@ export function WebExtractionModal({
                                         key={idx}
                                         className={cn(
                                             "relative aspect-[3/4] rounded-lg overflow-hidden cursor-pointer border-2 transition-all",
+                                            isExtracting ? "pointer-events-none opacity-50" : "",
                                             selectedUrls.has(imgUrl) ? "border-emerald-500 scale-95" : "border-transparent opacity-60 hover:opacity-100"
                                         )}
-                                        onClick={() => toggleUrlSelection(imgUrl)}
+                                        onClick={() => !isExtracting && toggleUrlSelection(imgUrl)}
                                     >
                                         <img src={imgUrl} className="w-full h-full object-cover" alt={`Result ${idx}`} />
                                         <div className={cn(
@@ -141,7 +188,8 @@ export function WebExtractionModal({
                         )}
                     </div>
 
-                    {selectedUrls.size > 0 && (
+                    {/* Catalog creation form */}
+                    {selectedUrls.size > 0 && !isExtracting && (
                         <div className="mt-6 p-6 bg-zinc-900 border border-zinc-800 rounded-2xl animate-in slide-in-from-bottom-4">
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <div className="flex-1">
@@ -159,7 +207,7 @@ export function WebExtractionModal({
                                     disabled={!extractTitle}
                                     className="sm:self-end px-8 py-4 bg-emerald-500 text-zinc-950 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50"
                                 >
-                                    Create Collection ({selectedUrls.size})
+                                    Create Catalog ({selectedUrls.size})
                                 </button>
                             </div>
                         </div>

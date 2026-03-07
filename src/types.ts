@@ -15,6 +15,9 @@ export interface MangaArchive {
   description?: string;
   series?: string;
   volume?: string;
+  chapter?: string;
+  season?: string;
+  released?: string;
   size?: number;
 }
 
