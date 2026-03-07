@@ -91,11 +91,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
     const ungrouped: MangaArchive[] = [];
 
     filteredArchives.forEach(archive => {
-      if (archive.catalogGroupId) {
-        if (!groups[archive.catalogGroupId]) {
-          groups[archive.catalogGroupId] = [];
+      if (archive.groupId) {
+        if (!groups[archive.groupId]) {
+          groups[archive.groupId] = [];
         }
-        groups[archive.catalogGroupId].push(archive);
+        groups[archive.groupId].push(archive);
       } else {
         ungrouped.push(archive);
       }
@@ -512,6 +512,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 description: item.description,
                 series: item.series,
                 volume: item.volume,
+                chapter: item.chapter,
+                season: item.season,
+                released: item.released,
+                size: item.size,
+                groupId: item.groupId,
                 pages: item.pages.map((p: any) => ({
                   ...p,
                   id: p.id || crypto.randomUUID()

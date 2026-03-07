@@ -19,7 +19,7 @@ export interface MangaArchive {
   season?: string;
   released?: string;
   size?: number;
-  catalogGroupId?: string;
+  groupId?: string;
 }
 
 export interface ViewerSettings {

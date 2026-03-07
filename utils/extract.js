@@ -1,24 +1,34 @@
-import fs from 'fs';
+import { writeFileSync } from 'fs';
 
 /**
  * Standalone Utility to extract images from given URLs using simple fetch and regex.
  * Usage:
- *   node . <URL1> [URL2] [URL3] ... [selector]
+ *   node . [-g=groupId] [-s=selector] <URL1> [URL2] [URL3] ...
  */
 
 const args = process.argv.slice(2);
-const urls = args.filter(a => a.startsWith('http'));
-const customSelector = args.find(a => !a.startsWith('http'));
+let groupId = 'default-group';
+let selector = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+const urls = [];
+
+for (let i = 0; i < args.length; i++) {
+    if (args[i].startsWith('-g=')) {
+        groupId = args[i].split('=')[1];
+    } else if (args[i].startsWith('-s=')) {
+        selector = new RegExp(args[i].split('=')[1], 'gi');
+    } else {
+        urls.push(args[i]);
+    }
+}
 
 if (urls.length === 0) {
     console.error('Error: Please provide at least one URL.');
-    console.log('Usage: node . <URL1> [URL2] [URL3] ... [selector]');
+    console.log('Usage: node . [-g=groupId] [-s=selector] <URL1> [URL2] [URL3] ...');
     process.exit(1);
 }
 
-function extractImageUrls(html, targetUrl) {
+function extractImageUrls(html, targetUrl, imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi) {
     const images = [];
-    const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
     let match;
 
     while ((match = imgRegex.exec(html)) !== null) {
@@ -71,7 +81,7 @@ function extractTitle(html, targetUrl) {
     return titleMatch ? titleMatch[1].trim() : targetUrl;
 }
 
-async function extractImages(targetUrl, selector = 'img') {
+async function extractImages(targetUrl, imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi) {
     try {
         console.log(`Fetching: ${targetUrl}...`);
 
@@ -87,7 +97,7 @@ async function extractImages(targetUrl, selector = 'img') {
 
         const html = await response.text();
         const title = extractTitle(html, targetUrl);
-        const images = extractImageUrls(html, targetUrl);
+        const images = extractImageUrls(html, targetUrl, imgRegex);
 
         // Create Catalog JSON format
         const catalog = {
@@ -98,6 +108,7 @@ async function extractImages(targetUrl, selector = 'img') {
                 name: `Page ${i + 1}`,
                 url: url
             })),
+            groupId: groupId,
             createdAt: Date.now()
         };
 
@@ -111,11 +122,11 @@ async function extractImages(targetUrl, selector = 'img') {
     }
 }
 
-async function extractMultiple(urls, selector = 'img') {
+async function extractMultiple(urls, imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi) {
     const catalogs = [];
     for (const url of urls) {
         console.log(`\nProcessing: ${url}`);
-        const catalog = await extractImages(url, selector);
+        const catalog = await extractImages(url, imgRegex);
         if (catalog) {
             catalogs.push(catalog);
         }
@@ -128,11 +139,11 @@ async function extractMultiple(urls, selector = 'img') {
 
     // Write to file
     const jsonContent = JSON.stringify(catalogs, null, 2);
-    fs.writeFileSync(filename, jsonContent);
+    writeFileSync(filename, jsonContent);
 
     console.log(`\n--- CATALOGS SAVED TO FILE: ${filename} ---`);
     console.log(`Summary: Processed ${urls.length} URLs, extracted ${catalogs.length} catalogs.`);
     console.log(`File location: ${process.cwd()}/${filename}`);
 }
 
-extractMultiple(urls, customSelector);
+extractMultiple(urls, selector);

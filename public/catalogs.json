@@ -3,7 +3,7 @@
         "id": "15519e1e-572e-4ed7-81ea-184f1020cc03",
         "name": "Boruto Manga Chapter 100 - Because Of Love - Boruto Manga Online",
         "author": "Kishimoto",
-        "catalogGroupId": "boruto",
+        "groupId": "boruto",
         "genre": [
             "Ninja"
         ],
@@ -219,7 +219,7 @@
     {
         "id": "a8d1a13e-a8e4-44e0-a8a5-770d05964f49",
         "name": "Boruto Two Blue Vortex - CH 28",
-        "catalogGroupId": "boruto",
+        "groupId": "boruto",
         "pages": [
             {
                 "id": "d420733f-9810-4159-bbfb-2772639c1528",
@@ -432,7 +432,7 @@
     {
         "id": "26dd630a-b5c5-44ee-93e4-6f814f84f724",
         "name": "Hell paradise",
-        "catalogGroupId": "hell-paradise",
+        "groupId": "hell-paradise",
         "pages": [
             {
                 "id": "4c5e3f07-c826-4772-9c0e-3a5db781c371",

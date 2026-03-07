@@ -48,7 +48,7 @@ export function EditArchiveModal({
         chapter: '',
         season: '',
         released: '',
-        catalogGroupId: ''
+        groupId: ''
     });
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export function EditArchiveModal({
                 chapter: manga.chapter || '',
                 season: manga.season || '',
                 released: manga.released || '',
-                catalogGroupId: manga.catalogGroupId || ''
+                groupId: manga.groupId || ''
             });
         }
     }, [manga]);
@@ -235,8 +235,8 @@ export function EditArchiveModal({
                             <input
                                 type="text"
                                 placeholder="e.g. one-piece, my-hero-academia"
-                                value={editForm.catalogGroupId}
-                                onChange={e => setEditForm({ ...editForm, catalogGroupId: e.target.value })}
+                                value={editForm.groupId}
+                                onChange={e => setEditForm({ ...editForm, groupId: e.target.value })}
                                 className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
                             />
                             <p className="text-[9px] text-zinc-600 mt-1.5 leading-relaxed">Catalogs sharing the same Group ID will be combined into a folder in the library.</p>
