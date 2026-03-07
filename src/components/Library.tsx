@@ -63,7 +63,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
   // Web Extractor Modal Specific
   const [webUrl, setWebUrl] = useState('');
   const [webRule, setWebRule] = useState('');
-  const [webHostname, setWebHostname] = useState('');
   const [extractedImages, setExtractedImages] = useState<string[]>([]);
   const [selectedExtractedUrls, setSelectedExtractedUrls] = useState<Set<string>>(new Set());
   const [webExtractTitle, setWebExtractTitle] = useState('');
@@ -191,7 +190,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   };
 
   const handleWebExtract = async () => {
-    const imgs = await extractImagesFromUrl(webUrl, webRule, webHostname);
+    const imgs = await extractImagesFromUrl(webUrl, webRule);
     setExtractedImages(imgs);
   };
 
@@ -248,9 +247,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
         setJsonContent={setEditJsonContent}
         isJsonMode={isJsonMode}
         setIsJsonMode={setIsJsonMode}
-        onDeletePage={async (pageIndex) => {
+        onDeletePage={async (pageId) => {
           if (!mangaToEdit) return;
-          const nextPages = mangaToEdit.pages.filter((_, i) => i !== pageIndex);
+          const nextPages = mangaToEdit.pages.filter((p) => p.id !== pageId);
           await handleUpdateMetadata(mangaToEdit.id, { pages: nextPages });
           setMangaToEdit({ ...mangaToEdit, pages: nextPages });
         }}
@@ -335,8 +334,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
         setUrl={setWebUrl}
         rule={webRule}
         setRule={setWebRule}
-        hostname={webHostname}
-        setHostname={setWebHostname}
         onExtract={handleWebExtract}
         isExtracting={isExtracting}
         extractedImages={extractedImages}

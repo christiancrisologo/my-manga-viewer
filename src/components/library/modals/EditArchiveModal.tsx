@@ -101,11 +101,8 @@ export function EditArchiveModal({
             description={`${manga.pages.length} pages in collection`}
             icon={<Pencil size={24} />}
             maxWidth="max-w-2xl"
+            headerActions={headerActions}
         >
-            <div className="absolute top-6 right-16">
-                {headerActions}
-            </div>
-
             {isJsonMode ? (
                 <div className="space-y-4">
                     <div>

@@ -10,8 +10,6 @@ interface WebExtractionModalProps {
     setUrl: (val: string) => void;
     rule: string;
     setRule: (val: string) => void;
-    hostname: string;
-    setHostname: (val: string) => void;
     onExtract: () => void;
     isExtracting: boolean;
     extractedImages: string[];
@@ -30,8 +28,6 @@ export function WebExtractionModal({
     setUrl,
     rule,
     setRule,
-    hostname,
-    setHostname,
     onExtract,
     isExtracting,
     extractedImages,
@@ -79,16 +75,6 @@ export function WebExtractionModal({
                             />
                         </div>
 
-                        <div>
-                            <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">Proxy Hostname</label>
-                            <input
-                                type="text"
-                                placeholder="https://proxy.example.com"
-                                value={hostname}
-                                onChange={e => setHostname(e.target.value)}
-                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors font-mono text-xs"
-                            />
-                        </div>
 
                         <button
                             onClick={onExtract}

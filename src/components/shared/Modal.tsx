@@ -12,6 +12,7 @@ interface ModalProps {
     maxWidth?: string;
     icon?: React.ReactNode;
     footer?: React.ReactNode;
+    headerActions?: React.ReactNode;
 }
 
 export function Modal({
@@ -22,7 +23,8 @@ export function Modal({
     children,
     maxWidth = "max-w-md",
     icon,
-    footer
+    footer,
+    headerActions
 }: ModalProps) {
     return (
         <AnimatePresence>
@@ -56,12 +58,15 @@ export function Modal({
                                     {description && <p className="text-xs text-zinc-500">{description}</p>}
                                 </div>
                             </div>
-                            <button
-                                onClick={onClose}
-                                className="p-2 text-zinc-500 hover:text-white transition-colors"
-                            >
-                                <X size={24} />
-                            </button>
+                            <div className="flex items-center gap-4">
+                                {headerActions}
+                                <button
+                                    onClick={onClose}
+                                    className="p-2 text-zinc-500 hover:text-white transition-colors"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
                         </div>
 
                         <div className="overflow-y-auto no-scrollbar flex-1">
