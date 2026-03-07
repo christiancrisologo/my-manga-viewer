@@ -1,0 +1,23 @@
+{
+    "uploadLocalFile": true,
+    "supportedUploadableFiles": [
+        "cbz",
+        "zip",
+        "rar",
+        "cbr",
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+        "avif"
+    ],
+    "importFromUrl": true,
+    "importableFilesFromUrl": [
+        "cbz",
+        "zip"
+    ],
+    "webExtractor": true,
+    "jsonCatalogEditor": true,
+    "imageToSpeech": false
+}

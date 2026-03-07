@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Plus, Trash2, CheckCircle2, Circle, Download } from 'lucide-react';
+import { Search, Plus, Trash2, CheckCircle2, Circle, Download, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { APP_NAME, AUTHOR_NAME } from '../../constants';
 
@@ -10,6 +10,7 @@ interface LibraryHeaderProps {
     setIsSelectionMode: (mode: boolean) => void;
     selectedCount: number;
     onMultiDelete: () => void;
+    onDeselectAll: () => void;
     onAddClick: () => void;
     showAddMenu: boolean;
     onLibraryClick: () => void;
@@ -23,6 +24,7 @@ export function LibraryHeader({
     setIsSelectionMode,
     selectedCount,
     onMultiDelete,
+    onDeselectAll,
     onAddClick,
     showAddMenu,
     onLibraryClick,
@@ -57,9 +59,14 @@ export function LibraryHeader({
                 <div className="flex items-center gap-2">
                     {isSelectionMode ? (
                         <>
-                            <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
-                                <span className="text-xs font-bold text-emerald-500">{selectedCount} Selected</span>
-                            </div>
+                            <button
+                                onClick={onDeselectAll}
+                                className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl hover:bg-red-500/10 hover:border-red-500/20 hover:text-red-400 transition-all group"
+                                title="Click to deselect all"
+                            >
+                                <span className="text-xs font-bold text-emerald-500 group-hover:text-red-400 transition-colors">{selectedCount} Selected</span>
+                                <X size={14} className="text-emerald-500/50 group-hover:text-red-400 transition-colors" />
+                            </button>
                             <button
                                 onClick={onMultiDelete}
                                 disabled={selectedCount === 0}
@@ -78,6 +85,13 @@ export function LibraryHeader({
                     ) : (
                         <>
                             <button
+                                onClick={() => setIsSelectionMode(true)}
+                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all"
+                                title="Bulk Selection"
+                            >
+                                <CheckCircle2 size={20} />
+                            </button>
+                            <button
                                 onClick={onLibraryClick}
                                 className={cn(
                                     "p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all",
@@ -86,13 +100,6 @@ export function LibraryHeader({
                                 title="Library Management"
                             >
                                 <Download size={20} />
-                            </button>
-                            <button
-                                onClick={() => setIsSelectionMode(true)}
-                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all"
-                                title="Bulk Selection"
-                            >
-                                <CheckCircle2 size={20} />
                             </button>
                             <button
                                 onClick={onAddClick}

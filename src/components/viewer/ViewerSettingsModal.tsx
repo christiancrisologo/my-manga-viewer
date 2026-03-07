@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Play, Pause, ZoomIn, ZoomOut, Volume2, VolumeX } from 'lucide-react';
 import { ViewerSettings } from '../../types';
 import { cn } from '../../lib/utils';
+import { useAppConfig } from '../../hooks/useAppConfig';
 
 interface ViewerSettingsModalProps {
     isOpen: boolean;
@@ -17,6 +18,8 @@ export function ViewerSettingsModal({
     settings,
     onSettingsChange
 }: ViewerSettingsModalProps) {
+    const { config } = useAppConfig();
+
     const toggleSetting = (key: keyof ViewerSettings) => {
         onSettingsChange({ ...settings, [key]: !settings[key] });
     };
@@ -91,33 +94,35 @@ export function ViewerSettingsModal({
                                 </div>
                             </div>
 
-                            {/* TTS Toggle */}
-                            <div className="flex items-center justify-between p-4 bg-zinc-800/30 rounded-2xl border border-zinc-800">
-                                <div className="flex items-center gap-3">
-                                    <div className={cn(
-                                        "p-2 rounded-lg",
-                                        settings.enableTTS ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
-                                    )}>
-                                        {settings.enableTTS ? <Volume2 size={18} /> : <VolumeX size={18} />}
+                            {/* TTS Toggle - only shown if enabled in config */}
+                            {config.imageToSpeech && (
+                                <div className="flex items-center justify-between p-4 bg-zinc-800/30 rounded-2xl border border-zinc-800">
+                                    <div className="flex items-center gap-3">
+                                        <div className={cn(
+                                            "p-2 rounded-lg",
+                                            settings.enableTTS ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
+                                        )}>
+                                            {settings.enableTTS ? <Volume2 size={18} /> : <VolumeX size={18} />}
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-bold text-white">Image to Speech</p>
+                                            <p className="text-[10px] text-zinc-500 uppercase font-medium">Experimental OCR</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-sm font-bold text-white">Image to Speech</p>
-                                        <p className="text-[10px] text-zinc-500 uppercase font-medium">Experimental OCR</p>
-                                    </div>
+                                    <button
+                                        onClick={() => toggleSetting('enableTTS')}
+                                        className={cn(
+                                            "w-12 h-6 rounded-full transition-all relative",
+                                            settings.enableTTS ? "bg-emerald-500" : "bg-zinc-700"
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
+                                            settings.enableTTS ? "left-7" : "left-1"
+                                        )} />
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => toggleSetting('enableTTS')}
-                                    className={cn(
-                                        "w-12 h-6 rounded-full transition-all relative",
-                                        settings.enableTTS ? "bg-emerald-500" : "bg-zinc-700"
-                                    )}
-                                >
-                                    <div className={cn(
-                                        "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
-                                        settings.enableTTS ? "left-7" : "left-1"
-                                    )} />
-                                </button>
-                            </div>
+                            )}
 
                             {/* Slideshow Speed */}
                             <div className="space-y-3">
@@ -168,7 +173,8 @@ export function ViewerSettingsModal({
                         </button>
                     </motion.div>
                 </motion.div>
-            )}
-        </AnimatePresence>
+            )
+            }
+        </AnimatePresence >
     );
 }

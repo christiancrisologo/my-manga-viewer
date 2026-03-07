@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, Link, Globe, Wand2, FileCode, Download } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import { Upload, Link, Wand2, FileCode, Download } from 'lucide-react';
+import { useAppConfig } from '../../hooks/useAppConfig';
 
 interface AddArchiveMenuProps {
     isOpen: boolean;
@@ -14,12 +14,16 @@ export function AddArchiveMenu({
     onClose,
     onOptionSelect
 }: AddArchiveMenuProps) {
-    const options = [
-        { id: 'local', icon: <Upload size={20} />, label: 'Upload Local File', desc: 'ZIP, CBZ, CBR, RAR, Images' },
-        { id: 'url', icon: <Link size={20} />, label: 'Import from URL', desc: 'Direct link to archive' },
-        { id: 'web', icon: <Wand2 size={20} />, label: 'Web Extractor', desc: 'Extract images from website' },
-        { id: 'json', icon: <FileCode size={20} />, label: 'JSON Catalog', desc: 'Import single catalog via JSON' },
+    const { config } = useAppConfig();
+
+    const allOptions = [
+        { id: 'local', enabled: config.uploadLocalFile, icon: <Upload size={20} />, label: 'Upload Local File', desc: 'ZIP, CBZ, CBR, RAR, Images' },
+        { id: 'url', enabled: config.importFromUrl, icon: <Link size={20} />, label: 'Import from URL', desc: 'Direct link to archive' },
+        { id: 'web', enabled: config.webExtractor, icon: <Wand2 size={20} />, label: 'Web Extractor', desc: 'Extract images from website' },
+        { id: 'json', enabled: config.jsonCatalogEditor, icon: <FileCode size={20} />, label: 'JSON Catalog', desc: 'Import single catalog via JSON' },
     ];
+
+    const options = allOptions.filter(opt => opt.enabled);
 
     return (
         <AnimatePresence>

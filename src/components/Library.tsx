@@ -5,6 +5,7 @@ import { useArchives } from '../hooks/useArchives';
 import { useFileDiscovery } from '../hooks/useFileDiscovery';
 import { useWebExtraction } from '../hooks/useWebExtraction';
 import { useUrlImport } from '../hooks/useUrlImport';
+import { useAppConfig } from '../hooks/useAppConfig';
 
 // Components
 import { LibraryHeader } from './library/LibraryHeader';
@@ -27,6 +28,7 @@ interface LibraryProps {
 
 export default function Library({ onSelectManga }: LibraryProps) {
   // Hooks
+  const { config } = useAppConfig();
   const { archives, isLoading: isArchivesLoading, loadArchives, handleDeleteArchive, handleUpdateMetadata } = useArchives();
   const { isProcessing: isFilesProcessing, processFiles } = useFileDiscovery();
   const { isExtracting, extractImagesFromUrl } = useWebExtraction();
@@ -95,7 +97,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
       const input = document.createElement('input');
       input.type = 'file';
       input.multiple = true;
-      input.accept = '.zip,.cbz,.cbr,.coz,image/*';
+      const acceptExts = config.supportedUploadableFiles.map(ext =>
+        ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif'].includes(ext) ? `image/${ext}` : `.${ext}`
+      ).join(',');
+      input.accept = acceptExts || '.zip,.cbz,.cbr,.coz,image/*';
       input.onchange = (e) => handleFileInputChange(e as any);
       input.click();
     } else if (option === 'url') {
@@ -216,6 +221,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         setIsSelectionMode={setIsSelectionMode}
         selectedCount={selectedIds.size}
         onMultiDelete={() => setShowMultiDeleteConfirm(true)}
+        onDeselectAll={() => setSelectedIds(new Set())}
         onAddClick={() => {
           setShowAddMenu(!showAddMenu);
           setShowLibraryMenu(false);
