@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MangaArchive, MangaPage } from '../types';
-import { saveArchive } from '../services/storage';
+import { saveArchive, saveArchives } from '../services/storage';
 import { useArchives } from '../hooks/useArchives';
 import { useFileDiscovery } from '../hooks/useFileDiscovery';
 import { useWebExtraction } from '../hooks/useWebExtraction';
@@ -10,6 +10,7 @@ import { useUrlImport } from '../hooks/useUrlImport';
 import { LibraryHeader } from './library/LibraryHeader';
 import { ArchiveGrid } from './library/ArchiveGrid';
 import { AddArchiveMenu } from './library/AddArchiveMenu';
+import { LibraryManagementMenu } from './library/LibraryManagementMenu';
 
 // Modals
 import { EditArchiveModal } from './library/modals/EditArchiveModal';
@@ -44,7 +45,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [showMultiDeleteConfirm, setShowMultiDeleteConfirm] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showWebExtractor, setShowWebExtractor] = useState(false);
+  const [showLibraryMenu, setShowLibraryMenu] = useState(false);
   const [showJsonImport, setShowJsonImport] = useState(false);
+  const [isBulkImport, setIsBulkImport] = useState(false);
 
   // Modal Data
   const [mangaToEdit, setMangaToEdit] = useState<MangaArchive | null>(null);
@@ -100,6 +103,16 @@ export default function Library({ onSelectManga }: LibraryProps) {
     } else if (option === 'web') {
       setShowWebExtractor(true);
     } else if (option === 'json') {
+      setIsBulkImport(false);
+      setShowJsonImport(true);
+    }
+  };
+
+  const handleLibraryOption = (option: string) => {
+    if (option === 'export_library') {
+      handleExportLibrary();
+    } else if (option === 'import_library') {
+      setIsBulkImport(true);
       setShowJsonImport(true);
     }
   };
@@ -203,9 +216,16 @@ export default function Library({ onSelectManga }: LibraryProps) {
         setIsSelectionMode={setIsSelectionMode}
         selectedCount={selectedIds.size}
         onMultiDelete={() => setShowMultiDeleteConfirm(true)}
-        onAddClick={() => setShowAddMenu(!showAddMenu)}
+        onAddClick={() => {
+          setShowAddMenu(!showAddMenu);
+          setShowLibraryMenu(false);
+        }}
         showAddMenu={showAddMenu}
-        onExport={handleExportLibrary}
+        onLibraryClick={() => {
+          setShowLibraryMenu(!showLibraryMenu);
+          setShowAddMenu(false);
+        }}
+        showLibraryMenu={showLibraryMenu}
       />
 
       <div className="relative">
@@ -213,6 +233,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
           isOpen={showAddMenu}
           onClose={() => setShowAddMenu(false)}
           onOptionSelect={handleAddOption}
+        />
+        <LibraryManagementMenu
+          isOpen={showLibraryMenu}
+          onClose={() => setShowLibraryMenu(false)}
+          onOptionSelect={handleLibraryOption}
         />
       </div>
 
@@ -367,6 +392,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
       <JsonImportModal
         isOpen={showJsonImport}
         onClose={() => setShowJsonImport(false)}
+        title={isBulkImport ? "Import Library" : "Import Catalog JSON"}
+        description={isBulkImport ? "Merge a collection of catalogs" : "Import a single catalog entry"}
         content={importJsonContent}
         setContent={setImportJsonContent}
         onImport={async () => {
@@ -374,13 +401,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
             const parsed = JSON.parse(importJsonContent);
             const items = Array.isArray(parsed) ? parsed : [parsed];
 
-            for (const item of items) {
-              if (!item.name || !item.pages) {
-                console.warn('Skipping invalid item:', item);
-                continue;
-              }
-
-              await saveArchive({
+            // Map and validate items
+            const toImport: MangaArchive[] = items
+              .filter(item => item.name && item.pages)
+              .map(item => ({
                 id: item.id || crypto.randomUUID(),
                 name: item.name,
                 author: item.author,
@@ -393,13 +417,19 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   id: p.id || crypto.randomUUID()
                 })),
                 createdAt: item.createdAt || Date.now()
-              });
-            }
+              }));
+
+            const { added, skipped } = await saveArchives(toImport);
 
             await loadArchives();
             setShowJsonImport(false);
             setImportJsonContent('');
+
+            if (added > 0 || skipped > 0) {
+              alert(`Import complete: ${added} added, ${skipped} skipped (already exists).`);
+            }
           } catch (err) {
+            console.error('Import error:', err);
             alert('Invalid JSON format. Please ensure it follows the catalog structure.');
           }
         }}

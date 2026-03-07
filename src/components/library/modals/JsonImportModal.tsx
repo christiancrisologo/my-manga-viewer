@@ -6,6 +6,8 @@ import { SAMPLE_JSON } from '../../../constants';
 interface JsonImportModalProps {
     isOpen: boolean;
     onClose: () => void;
+    title?: string;
+    description?: string;
     content: string;
     setContent: (val: string) => void;
     onImport: () => void;
@@ -14,6 +16,8 @@ interface JsonImportModalProps {
 export function JsonImportModal({
     isOpen,
     onClose,
+    title = "Import from JSON",
+    description = "Paste a JSON catalog structure or upload a file",
     content,
     setContent,
     onImport
@@ -36,8 +40,8 @@ export function JsonImportModal({
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title="Import from JSON"
-            description="Paste a JSON catalog structure or upload a file"
+            title={title}
+            description={description}
             icon={<FileCode size={24} />}
             maxWidth="max-w-2xl"
         >

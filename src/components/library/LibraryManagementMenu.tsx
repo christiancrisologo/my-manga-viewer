@@ -1,24 +1,22 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, Link, Globe, Wand2, FileCode, Download } from 'lucide-react';
+import { Download, FileDown, Layers } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-interface AddArchiveMenuProps {
+interface LibraryManagementMenuProps {
     isOpen: boolean;
     onClose: () => void;
     onOptionSelect: (option: string) => void;
 }
 
-export function AddArchiveMenu({
+export function LibraryManagementMenu({
     isOpen,
     onClose,
     onOptionSelect
-}: AddArchiveMenuProps) {
+}: LibraryManagementMenuProps) {
     const options = [
-        { id: 'local', icon: <Upload size={20} />, label: 'Upload Local File', desc: 'ZIP, CBZ, CBR, RAR, Images' },
-        { id: 'url', icon: <Link size={20} />, label: 'Import from URL', desc: 'Direct link to archive' },
-        { id: 'web', icon: <Wand2 size={20} />, label: 'Web Extractor', desc: 'Extract images from website' },
-        { id: 'json', icon: <FileCode size={20} />, label: 'JSON Catalog', desc: 'Import single catalog via JSON' },
+        { id: 'import_library', icon: <FileDown size={20} />, label: 'Import Collection', desc: 'Merge another JSON library' },
+        { id: 'export_library', icon: <Download size={20} />, label: 'Export Library', desc: 'Backup all catalogs to JSON' },
     ];
 
     return (
@@ -36,8 +34,14 @@ export function AddArchiveMenu({
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="absolute top-full right-0 mt-2 w-72 bg-zinc-900 border border-zinc-800 rounded-3xl p-3 shadow-2xl z-50 overflow-hidden"
+                        className="absolute top-full right-14 mt-2 w-72 bg-zinc-900 border border-zinc-800 rounded-3xl p-3 shadow-2xl z-50 overflow-hidden"
                     >
+                        <div className="p-3 mb-2 border-b border-zinc-800/50">
+                            <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                                <Layers size={12} className="text-emerald-500" />
+                                Library Management
+                            </h4>
+                        </div>
                         <div className="grid gap-1">
                             {options.map((opt) => (
                                 <button

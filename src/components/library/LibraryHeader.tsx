@@ -12,7 +12,8 @@ interface LibraryHeaderProps {
     onMultiDelete: () => void;
     onAddClick: () => void;
     showAddMenu: boolean;
-    onExport: () => void;
+    onLibraryClick: () => void;
+    showLibraryMenu: boolean;
 }
 
 export function LibraryHeader({
@@ -24,7 +25,8 @@ export function LibraryHeader({
     onMultiDelete,
     onAddClick,
     showAddMenu,
-    onExport
+    onLibraryClick,
+    showLibraryMenu
 }: LibraryHeaderProps) {
     return (
         <div className="sticky top-0 z-30 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -76,9 +78,12 @@ export function LibraryHeader({
                     ) : (
                         <>
                             <button
-                                onClick={onExport}
-                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all"
-                                title="Export Library to JSON"
+                                onClick={onLibraryClick}
+                                className={cn(
+                                    "p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all",
+                                    showLibraryMenu && "bg-zinc-800 text-emerald-500 border-emerald-500/20 shadow-lg shadow-emerald-500/5"
+                                )}
+                                title="Library Management"
                             >
                                 <Download size={20} />
                             </button>
@@ -92,12 +97,12 @@ export function LibraryHeader({
                             <button
                                 onClick={onAddClick}
                                 className={cn(
-                                    "flex items-center gap-2 px-5 py-3 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all shadow-lg",
+                                    "p-3 rounded-xl transition-all shadow-lg flex items-center justify-center",
                                     showAddMenu ? "bg-zinc-800 text-zinc-300" : "bg-emerald-500 text-zinc-950 shadow-emerald-500/20 hover:bg-emerald-400 hover:-translate-y-0.5"
                                 )}
+                                title="Add Catalog"
                             >
-                                <Plus size={18} />
-                                <span>Add Archive</span>
+                                <Plus size={24} />
                             </button>
                         </>
                     )}

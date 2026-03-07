@@ -8,7 +8,7 @@ const blobUrls = new Set<string>();
 
 export function createUrl(data: Blob | string | undefined | null): string | undefined {
   if (!data) return undefined;
-  
+
   if (typeof data === 'string') {
     return data;
   }
@@ -17,7 +17,7 @@ export function createUrl(data: Blob | string | undefined | null): string | unde
     console.error('Invalid data provided to createUrl:', data);
     return undefined;
   }
-  
+
   const url = URL.createObjectURL(data);
   blobUrls.add(url);
   return url;
@@ -30,9 +30,35 @@ export function revokeAllUrls() {
 
 export async function saveArchive(archive: MangaArchive): Promise<void> {
   const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
-  // We store the data as Blobs, which IndexedDB handles natively
+  // Merge: If ID exists, update. If not, append.
   const updated = [archive, ...existing.filter(a => a.id !== archive.id)];
   await set(ARCHIVES_KEY, updated);
+}
+
+export async function saveArchives(newArchives: MangaArchive[]): Promise<{ added: number; skipped: number }> {
+  const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
+  const updated = [...existing];
+  let added = 0;
+  let skipped = 0;
+
+  for (const archive of newArchives) {
+    // Check if ID already exists or if Name + PageCount match (common for imports)
+    const exists = updated.some(a =>
+      a.id === archive.id ||
+      (a.name === archive.name && a.pages.length === archive.pages.length)
+    );
+
+    if (exists) {
+      skipped++;
+      continue;
+    }
+
+    updated.unshift(archive);
+    added++;
+  }
+
+  await set(ARCHIVES_KEY, updated);
+  return { added, skipped };
 }
 
 export async function getArchives(): Promise<MangaArchive[]> {
