@@ -10,8 +10,11 @@ import { useAppConfig } from '../hooks/useAppConfig';
 // Components
 import { LibraryHeader } from './library/LibraryHeader';
 import { ArchiveGrid } from './library/ArchiveGrid';
+import { ArchiveCard } from './library/ArchiveCard';
 import { AddArchiveMenu } from './library/AddArchiveMenu';
 import { LibraryManagementMenu } from './library/LibraryManagementMenu';
+import { GroupCard } from './library/GroupCard';
+import { GroupDetailView } from './library/GroupDetailView';
 
 // Modals
 import { EditArchiveModal } from './library/modals/EditArchiveModal';
@@ -37,6 +40,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [viewMode, setViewMode] = useState<'all' | 'groups'>('all');
+  const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
 
   // Modals Visibility
   const [showAddMenu, setShowAddMenu] = useState(false);
@@ -79,6 +84,25 @@ export default function Library({ onSelectManga }: LibraryProps) {
       a.author?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [archives, searchQuery]);
+
+  // Compute Groups
+  const groupedArchives = useMemo(() => {
+    const groups: Record<string, MangaArchive[]> = {};
+    const ungrouped: MangaArchive[] = [];
+
+    filteredArchives.forEach(archive => {
+      if (archive.catalogGroupId) {
+        if (!groups[archive.catalogGroupId]) {
+          groups[archive.catalogGroupId] = [];
+        }
+        groups[archive.catalogGroupId].push(archive);
+      } else {
+        ungrouped.push(archive);
+      }
+    });
+
+    return { groups, ungrouped };
+  }, [filteredArchives]);
 
   // URL Param Import
   useUrlImport({
@@ -234,6 +258,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
           setShowAddMenu(false);
         }}
         showLibraryMenu={showLibraryMenu}
+        viewMode={viewMode}
+        setViewMode={(mode) => {
+          setViewMode(mode);
+          setActiveGroupId(null);
+        }}
       />
 
       <div className="relative">
@@ -249,24 +278,82 @@ export default function Library({ onSelectManga }: LibraryProps) {
         />
       </div>
 
-      <ArchiveGrid
-        archives={filteredArchives}
-        selectedIds={selectedIds}
-        isSelectionMode={isSelectionMode}
-        onSelectManga={onSelectManga}
-        onToggleSelection={(id) => {
-          const next = new Set(selectedIds);
-          if (next.has(id)) next.delete(id);
-          else next.add(id);
-          setSelectedIds(next);
-        }}
-        onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
-        onEditArchive={(manga) => {
-          setMangaToEdit(manga);
-          setEditJsonContent(JSON.stringify(manga, null, 2));
-          setShowEditModal(true);
-        }}
-      />
+      <div className="flex-1 flex flex-col min-h-0">
+        {activeGroupId ? (
+          <GroupDetailView
+            groupId={activeGroupId}
+            archives={groupedArchives.groups[activeGroupId] || []}
+            selectedIds={selectedIds}
+            isSelectionMode={isSelectionMode}
+            onBack={() => setActiveGroupId(null)}
+            onSelectManga={onSelectManga}
+            onToggleSelection={(id) => {
+              const next = new Set(selectedIds);
+              if (next.has(id)) next.delete(id);
+              else next.add(id);
+              setSelectedIds(next);
+            }}
+            onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+            onEditArchive={(manga) => {
+              setMangaToEdit(manga);
+              setEditJsonContent(JSON.stringify(manga, null, 2));
+              setShowEditModal(true);
+            }}
+          />
+        ) : viewMode === 'groups' ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6 p-6">
+            {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => (
+              <GroupCard
+                key={groupId}
+                groupId={groupId}
+                archives={memberArchives}
+                onClick={setActiveGroupId}
+              />
+            ))}
+            {/* Show ungrouped catalogs too */}
+            {groupedArchives.ungrouped.map(archive => (
+              <ArchiveCard
+                key={archive.id}
+                archive={archive}
+                isSelectionMode={isSelectionMode}
+                isSelected={selectedIds.has(archive.id)}
+                onSelect={onSelectManga}
+                onToggleSelection={(id) => {
+                  const next = new Set(selectedIds);
+                  if (next.has(id)) next.delete(id);
+                  else next.add(id);
+                  setSelectedIds(next);
+                }}
+                onDeleteIconClick={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+                onEditIconClick={(manga) => {
+                  setMangaToEdit(manga);
+                  setEditJsonContent(JSON.stringify(manga, null, 2));
+                  setShowEditModal(true);
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <ArchiveGrid
+            archives={filteredArchives}
+            selectedIds={selectedIds}
+            isSelectionMode={isSelectionMode}
+            onSelectManga={onSelectManga}
+            onToggleSelection={(id) => {
+              const next = new Set(selectedIds);
+              if (next.has(id)) next.delete(id);
+              else next.add(id);
+              setSelectedIds(next);
+            }}
+            onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+            onEditArchive={(manga) => {
+              setMangaToEdit(manga);
+              setEditJsonContent(JSON.stringify(manga, null, 2));
+              setShowEditModal(true);
+            }}
+          />
+        )}
+      </div>
 
       <EditArchiveModal
         isOpen={showEditModal}

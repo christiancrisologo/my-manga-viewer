@@ -11,7 +11,7 @@ export interface MangaArchive {
   pages: MangaPage[];
   createdAt: number;
   author?: string;
-  genre?: string[];
+  genre?: string[]
   description?: string;
   series?: string;
   volume?: string;
@@ -19,6 +19,7 @@ export interface MangaArchive {
   season?: string;
   released?: string;
   size?: number;
+  catalogGroupId?: string;
 }
 
 export interface ViewerSettings {

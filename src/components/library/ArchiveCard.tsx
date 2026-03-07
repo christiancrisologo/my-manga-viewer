@@ -12,6 +12,7 @@ interface ArchiveCardProps {
     onToggleSelection: (id: string) => void;
     onDeleteIconClick: (manga: MangaArchive) => void;
     onEditIconClick: (manga: MangaArchive) => void;
+    key?: React.Key;
 }
 
 export function ArchiveCard({

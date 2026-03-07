@@ -47,7 +47,8 @@ export function EditArchiveModal({
         volume: '',
         chapter: '',
         season: '',
-        released: ''
+        released: '',
+        catalogGroupId: ''
     });
 
     useEffect(() => {
@@ -61,7 +62,8 @@ export function EditArchiveModal({
                 volume: manga.volume || '',
                 chapter: manga.chapter || '',
                 season: manga.season || '',
-                released: manga.released || ''
+                released: manga.released || '',
+                catalogGroupId: manga.catalogGroupId || ''
             });
         }
     }, [manga]);
@@ -224,6 +226,20 @@ export function EditArchiveModal({
                                 onChange={e => setEditForm({ ...editForm, released: e.target.value })}
                                 className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
                             />
+                        </div>
+
+                        <div>
+                            <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-1.5 block">
+                                Catalog Group ID
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="e.g. one-piece, my-hero-academia"
+                                value={editForm.catalogGroupId}
+                                onChange={e => setEditForm({ ...editForm, catalogGroupId: e.target.value })}
+                                className="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                            />
+                            <p className="text-[9px] text-zinc-600 mt-1.5 leading-relaxed">Catalogs sharing the same Group ID will be combined into a folder in the library.</p>
                         </div>
 
                         <div>

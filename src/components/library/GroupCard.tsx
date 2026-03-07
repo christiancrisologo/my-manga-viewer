@@ -1,0 +1,82 @@
+import React from 'react';
+import { FolderOpen, Image as ImageIcon } from 'lucide-react';
+import { MangaArchive } from '../../types';
+import { motion } from 'motion/react';
+import { createUrl } from '../../services/storage';
+
+interface GroupCardProps {
+    groupId: string;
+    archives: MangaArchive[];
+    onClick: (groupId: string) => void;
+    key?: React.Key;
+}
+
+export function GroupCard({ groupId, archives, onClick }: GroupCardProps) {
+    const covers = archives.slice(0, 3).map(a => a.pages[0]);
+    // Use the first archive's name or the group ID as the label
+    const label = archives[0]?.series || groupId;
+
+    return (
+        <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="group relative bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden transition-all duration-500 hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/10 cursor-pointer aspect-[3/4.5]"
+            onClick={() => onClick(groupId)}
+        >
+            {/* Stacked cover collage */}
+            <div className="absolute inset-0">
+                {covers.length >= 3 ? (
+                    <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-0.5">
+                        {covers[0] ? (
+                            <div className="col-span-2 row-span-1 overflow-hidden">
+                                <img
+                                    src={createUrl(covers[0].data || covers[0].url)}
+                                    alt=""
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                            </div>
+                        ) : <div className="col-span-2 bg-zinc-800" />}
+                        {covers[1] ? (
+                            <div className="overflow-hidden">
+                                <img src={createUrl(covers[1].data || covers[1].url)} alt="" className="w-full h-full object-cover" />
+                            </div>
+                        ) : <div className="bg-zinc-800" />}
+                        {covers[2] ? (
+                            <div className="overflow-hidden">
+                                <img src={createUrl(covers[2].data || covers[2].url)} alt="" className="w-full h-full object-cover" />
+                            </div>
+                        ) : <div className="bg-zinc-800" />}
+                    </div>
+                ) : covers[0] ? (
+                    <img
+                        src={createUrl(covers[0].data || covers[0].url)}
+                        alt=""
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                ) : (
+                    <div className="w-full h-full bg-zinc-800 flex items-center justify-center text-zinc-700">
+                        <ImageIcon size={48} strokeWidth={1} />
+                    </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent group-hover:via-zinc-950/50 transition-all duration-500" />
+            </div>
+
+            {/* Folder badge */}
+            <div className="absolute top-4 right-4 z-10">
+                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 rounded-xl">
+                    <FolderOpen size={12} className="text-emerald-400" />
+                    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">{archives.length} Catalogs</span>
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                <h4 className="text-sm font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2 leading-tight tracking-tight">
+                    {label}
+                </h4>
+                <span className="text-[10px] text-zinc-400 font-medium uppercase tracking-widest">Collection</span>
+            </div>
+        </motion.div>
+    );
+}
