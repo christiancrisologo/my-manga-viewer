@@ -162,7 +162,7 @@ export function LibraryHeader({
                             </button>
                             {showFavorites && (
                                 <div className="fixed inset-0 z-40" onClick={() => setShowFavorites(false)}>
-                                    <div 
+                                    <div
                                         className="absolute bg-zinc-900 border border-zinc-800 rounded-2xl p-2 min-w-64 shadow-xl z-50 max-h-80 overflow-y-auto"
                                         style={{
                                             top: favoritesRef.current ? favoritesRef.current.getBoundingClientRect().bottom + 8 : 'auto',
@@ -181,9 +181,9 @@ export function LibraryHeader({
                                                             setShowFavorites(false);
                                                         }}
                                                         className="w-full text-left px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-xl transition-colors"
-                                                        title={`Open ${archive.title}`}
+                                                        title={`Open ${archive.name}`}
                                                     >
-                                                        <div className="font-medium truncate">{archive.title}</div>
+                                                        <div className="font-medium truncate">{archive.name}</div>
                                                         {archive.groupId && (
                                                             <div className="text-xs text-zinc-500 truncate">{archive.groupId}</div>
                                                         )}

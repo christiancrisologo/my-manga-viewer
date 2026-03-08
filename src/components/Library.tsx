@@ -247,12 +247,17 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const favoriteArchives = useMemo(() => {
     if (!isConfigLoaded || isArchivesLoading) return [];
     return config.favorites
-      .map(fav => archives.find(archive => archive.id === fav.id || archive.name.toLowerCase().includes(fav.name.toLowerCase())))
+      .map(fav => archives.find(archive => archive.groupId === fav.id || archive.name.toLowerCase().includes(fav.name.toLowerCase())))
       .filter((archive): archive is MangaArchive => archive !== undefined);
   }, [config.favorites, archives, isConfigLoaded, isArchivesLoading]);
 
   const handleFavoriteSelect = (archive: MangaArchive) => {
-    onSelectManga(archive);
+    if (archive.groupId) {
+      setViewMode('groups');
+      setActiveGroupId(archive.groupId);
+    } else {
+      onSelectManga(archive);
+    }
   };
 
   return (
