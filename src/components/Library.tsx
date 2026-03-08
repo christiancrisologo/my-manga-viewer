@@ -298,7 +298,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         />
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0">
+      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto custom-scrollbar">
         {activeGroupId ? (
           <GroupDetailView
             groupId={activeGroupId}

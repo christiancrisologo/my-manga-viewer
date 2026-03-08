@@ -10,7 +10,8 @@ export function useViewerControls(pages: MangaPage[]) {
         rotation: 0,
         zoom: VIEWER_DEFAULTS.ZOOM,
         fitMode: VIEWER_DEFAULTS.FIT_MODE,
-        enableTTS: false
+        enableTTS: false,
+        offset: { x: 0, y: 0 }
     });
     const [showControls, setShowControls] = useState(true);
     const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -18,19 +19,19 @@ export function useViewerControls(pages: MangaPage[]) {
     const nextPage = useCallback(() => {
         if (pages.length === 0) return;
         setCurrentIndex((prev) => (prev + 1) % pages.length);
-        setSettings(s => ({ ...s, zoom: 1 }));
+        setSettings(s => ({ ...s, zoom: 1, offset: { x: 0, y: 0 } }));
     }, [pages.length]);
 
     const prevPage = useCallback(() => {
         if (pages.length === 0) return;
         setCurrentIndex((prev) => (prev - 1 + pages.length) % pages.length);
-        setSettings(s => ({ ...s, zoom: 1 }));
+        setSettings(s => ({ ...s, zoom: 1, offset: { x: 0, y: 0 } }));
     }, [pages.length]);
 
     const goToPage = useCallback((index: number) => {
         if (index >= 0 && index < pages.length) {
             setCurrentIndex(index);
-            setSettings(s => ({ ...s, zoom: 1 }));
+            setSettings(s => ({ ...s, zoom: 1, offset: { x: 0, y: 0 } }));
         }
     }, [pages.length]);
 

@@ -29,4 +29,5 @@ export interface ViewerSettings {
   zoom: number;
   fitMode: 'width' | 'height' | 'contain';
   enableTTS: boolean;
+  offset: { x: number; y: number };
 }

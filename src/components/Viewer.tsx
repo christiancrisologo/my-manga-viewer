@@ -36,13 +36,14 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
   } = useViewerControls(pages);
 
   const {
-    offset,
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd
   } = useTouchGestures({
     zoom: settings.zoom,
-    setZoom: (val) => typeof val === 'function' ? setSettings(s => ({ ...s, zoom: val(s.zoom) })) : setSettings(s => ({ ...s, zoom: val })),
+    setZoom: (val) => setSettings(s => ({ ...s, zoom: typeof val === 'function' ? val(s.zoom) : val })),
+    offset: settings.offset,
+    setOffset: (val) => setSettings(s => ({ ...s, offset: typeof val === 'function' ? val(s.offset) : val })),
     nextPage,
     prevPage,
     toggleControls: () => setShowControls(prev => !prev)
@@ -140,7 +141,7 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
         page={pages[currentIndex]}
         currentIndex={currentIndex}
         settings={settings}
-        offset={offset}
+        offset={settings.offset}
       />
 
       <AnimatePresence>

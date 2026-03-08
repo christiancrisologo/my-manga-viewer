@@ -3,6 +3,8 @@ import React, { useRef, useState } from 'react';
 interface TouchGesturesProps {
     zoom: number;
     setZoom: (val: number | ((prev: number) => number)) => void;
+    offset: { x: number; y: number };
+    setOffset: (val: { x: number; y: number } | ((prev: { x: number; y: number }) => { x: number; y: number })) => void;
     nextPage: () => void;
     prevPage: () => void;
     toggleControls: () => void;
@@ -11,11 +13,12 @@ interface TouchGesturesProps {
 export function useTouchGestures({
     zoom,
     setZoom,
+    offset,
+    setOffset,
     nextPage,
     prevPage,
     toggleControls
 }: TouchGesturesProps) {
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
     const lastTapRef = useRef(0);
 
     const touchState = useRef({
@@ -66,7 +69,7 @@ export function useTouchGestures({
     };
 
     const handleTouchMove = (e: React.TouchEvent) => {
-        if (e.touches.length === 2 && touchState.current.isPinching) {
+        if (e.touches.length === 2) {
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
 
@@ -113,8 +116,6 @@ export function useTouchGestures({
     };
 
     return {
-        offset,
-        setOffset,
         handleTouchStart,
         handleTouchMove,
         handleTouchEnd

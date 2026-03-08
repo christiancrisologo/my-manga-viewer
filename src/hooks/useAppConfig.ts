@@ -35,7 +35,6 @@ export function useAppConfig() {
 
     useEffect(() => {
         if (cachedConfig) return;
-        
         const base = import.meta.env.BASE_URL;
         fetch(`${base}settings.json`)
             .then(res => {

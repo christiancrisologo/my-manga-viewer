@@ -39,7 +39,7 @@ export function PageRenderer({
                             src={page.url}
                             alt={`Page ${currentIndex + 1}`}
                             className={cn(
-                                "max-w-full max-h-full object-contain shadow-2xl transition-transform duration-300",
+                                "max-w-full max-h-full object-contain shadow-2xl",
                                 settings.fitMode === 'width' && "w-full h-auto",
                                 settings.fitMode === 'height' && "h-full w-auto"
                             )}
