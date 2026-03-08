@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 
+export interface FavoriteItem {
+    id: string;
+    name: string;
+}
+
 export interface AppConfig {
     uploadLocalFile: boolean;
     supportedUploadableFiles: string[];
@@ -8,6 +13,7 @@ export interface AppConfig {
     webExtractor: boolean;
     jsonCatalogEditor: boolean;
     imageToSpeech: boolean;
+    favorites: FavoriteItem[];
 }
 
 const DEFAULT_CONFIG: AppConfig = {
@@ -18,6 +24,7 @@ const DEFAULT_CONFIG: AppConfig = {
     webExtractor: true,
     jsonCatalogEditor: true,
     imageToSpeech: false,
+    favorites: [],
 };
 
 let cachedConfig: AppConfig | null = null;
@@ -28,8 +35,9 @@ export function useAppConfig() {
 
     useEffect(() => {
         if (cachedConfig) return;
-
-        fetch('/settings.json')
+        
+        const base = import.meta.env.BASE_URL;
+        fetch(`${base}settings.json`)
             .then(res => {
                 if (!res.ok) throw new Error('Failed to load settings.json');
                 return res.json();

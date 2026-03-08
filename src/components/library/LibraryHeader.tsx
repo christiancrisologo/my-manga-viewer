@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Plus, Trash2, CheckCircle2, X, Download, FolderOpen, LayoutGrid } from 'lucide-react';
+import { Search, Plus, Trash2, CheckCircle2, X, Download, FolderOpen, LayoutGrid, Heart } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { APP_NAME, AUTHOR_NAME } from '../../constants';
 
@@ -11,12 +11,15 @@ interface LibraryHeaderProps {
     selectedCount: number;
     onMultiDelete: () => void;
     onDeselectAll: () => void;
+    onSelectAll: () => void;
     onAddClick: () => void;
     showAddMenu: boolean;
     onLibraryClick: () => void;
     showLibraryMenu: boolean;
     viewMode: 'all' | 'groups';
     setViewMode: (mode: 'all' | 'groups') => void;
+    favoriteArchives: any[];
+    onFavoriteSelect: (archive: any) => void;
 }
 
 export function LibraryHeader({
@@ -27,13 +30,34 @@ export function LibraryHeader({
     selectedCount,
     onMultiDelete,
     onDeselectAll,
+    onSelectAll,
     onAddClick,
     showAddMenu,
     onLibraryClick,
     showLibraryMenu,
     viewMode,
-    setViewMode
+    setViewMode,
+    favoriteArchives,
+    onFavoriteSelect
 }: LibraryHeaderProps) {
+    const [showFavorites, setShowFavorites] = React.useState(false);
+    const favoritesRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (favoritesRef.current && !favoritesRef.current.contains(event.target as Node)) {
+                setShowFavorites(false);
+            }
+        };
+
+        if (showFavorites) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showFavorites]);
     return (
         <div className="sticky top-0 z-30 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900 px-6 py-4 flex flex-col gap-4">
             {/* Top Row: Brand and Main Actions */}
@@ -51,8 +75,15 @@ export function LibraryHeader({
                 </div>
 
                 <div className="flex items-center gap-2">
-                    {isSelectionMode ? (
+                    {isSelectionMode && viewMode !== 'groups' ? (
                         <>
+                            <button
+                                onClick={onSelectAll}
+                                className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl hover:bg-emerald-500/20 transition-all group"
+                                title="Select all visible catalogs"
+                            >
+                                <span className="text-xs font-bold text-emerald-500">Select All</span>
+                            </button>
                             <button
                                 onClick={onDeselectAll}
                                 className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-xl hover:bg-red-500/10 hover:border-red-500/20 hover:text-red-400 transition-all group"
@@ -118,13 +149,66 @@ export function LibraryHeader({
 
                 {!isSelectionMode && (
                     <>
-                        <button
-                            onClick={() => setIsSelectionMode(true)}
-                            className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl hover:text-white hover:border-zinc-700 transition-all"
-                            title="Bulk Selection"
-                        >
-                            <CheckCircle2 size={20} />
-                        </button>
+                        <div className="relative" ref={favoritesRef}>
+                            <button
+                                onClick={() => setShowFavorites(!showFavorites)}
+                                className={cn(
+                                    "p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:text-white hover:border-zinc-700 transition-all",
+                                    favoriteArchives.length > 0 ? "text-red-400" : "text-zinc-400"
+                                )}
+                                title={favoriteArchives.length > 0 ? `${favoriteArchives.length} Favorites` : "No favorites yet"}
+                            >
+                                <Heart size={20} fill={favoriteArchives.length > 0 ? "currentColor" : "none"} />
+                            </button>
+                            {showFavorites && (
+                                <div className="fixed inset-0 z-40" onClick={() => setShowFavorites(false)}>
+                                    <div 
+                                        className="absolute bg-zinc-900 border border-zinc-800 rounded-2xl p-2 min-w-64 shadow-xl z-50 max-h-80 overflow-y-auto"
+                                        style={{
+                                            top: favoritesRef.current ? favoritesRef.current.getBoundingClientRect().bottom + 8 : 'auto',
+                                            right: favoritesRef.current ? window.innerWidth - favoritesRef.current.getBoundingClientRect().right : 'auto'
+                                        }}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        {favoriteArchives.length > 0 ? (
+                                            <>
+                                                <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-2">Quick Launch</div>
+                                                {favoriteArchives.map((archive, index) => (
+                                                    <button
+                                                        key={index}
+                                                        onClick={() => {
+                                                            onFavoriteSelect(archive);
+                                                            setShowFavorites(false);
+                                                        }}
+                                                        className="w-full text-left px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-xl transition-colors"
+                                                        title={`Open ${archive.title}`}
+                                                    >
+                                                        <div className="font-medium truncate">{archive.title}</div>
+                                                        {archive.groupId && (
+                                                            <div className="text-xs text-zinc-500 truncate">{archive.groupId}</div>
+                                                        )}
+                                                    </button>
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <div className="px-3 py-4 text-center">
+                                                <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">No Favorites Yet</div>
+                                                <div className="text-xs text-zinc-600">Mark archives as favorites using the heart icon</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        {viewMode !== 'groups' && (
+                            <button
+                                onClick={() => setIsSelectionMode(true)}
+                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl hover:text-white hover:border-zinc-700 transition-all"
+                                title="Bulk Selection"
+                            >
+                                <CheckCircle2 size={20} />
+                            </button>
+                        )}
                         <div className="flex bg-zinc-900 border border-zinc-800 rounded-2xl p-1 gap-1">
                             <button
                                 onClick={() => setViewMode('all')}

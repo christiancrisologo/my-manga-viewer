@@ -31,7 +31,7 @@ interface LibraryProps {
 
 export default function Library({ onSelectManga }: LibraryProps) {
   // Hooks
-  const { config } = useAppConfig();
+  const { config, isLoaded: isConfigLoaded } = useAppConfig();
   const { archives, isLoading: isArchivesLoading, loadArchives, handleDeleteArchive, handleUpdateMetadata } = useArchives();
   const { isProcessing: isFilesProcessing, processFiles } = useFileDiscovery();
   const { isExtracting, extractImagesFromUrl } = useWebExtraction();
@@ -40,7 +40,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isSelectionMode, setIsSelectionMode] = useState(false);
-  const [viewMode, setViewMode] = useState<'all' | 'groups'>('all');
+  const [viewMode, setViewMode] = useState<'all' | 'groups'>('groups');
   const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
 
   // Modals Visibility
@@ -116,6 +116,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
       setShowPasswordModal(true);
     }
   });
+
+  const handleSelectAll = () => {
+    setSelectedIds(new Set(filteredArchives.map(a => a.id)));
+  };
+
   const handleAddOption = (option: string) => {
     if (option === 'local') {
       const input = document.createElement('input');
@@ -170,7 +175,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
       setShowPasswordModal(false);
       setArchivePassword('');
     } catch (err) {
-      alert('Failed to unlock archive. Please check password.');
+      console.error('Failed to unlock archive. Please check password.');
     }
   };
 
@@ -194,7 +199,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         const parsed = JSON.parse(editJsonContent);
         await handleUpdateMetadata(mangaToEdit.id, parsed);
       } catch (err) {
-        alert('Invalid JSON format');
+        console.error('Invalid JSON format');
         return;
       }
     } else {
@@ -214,7 +219,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
   const handleExportLibrary = () => {
     if (archives.length === 0) {
-      alert('Your library is empty. Nothing to export.');
+      console.error('Your library is empty. Nothing to export.');
       return;
     }
 
@@ -238,6 +243,18 @@ export default function Library({ onSelectManga }: LibraryProps) {
     setSelectedExtractedUrls(new Set(imgs));
   };
 
+  // Favorites logic
+  const favoriteArchives = useMemo(() => {
+    if (!isConfigLoaded || isArchivesLoading) return [];
+    return config.favorites
+      .map(fav => archives.find(archive => archive.id === fav.id || archive.name.toLowerCase().includes(fav.name.toLowerCase())))
+      .filter((archive): archive is MangaArchive => archive !== undefined);
+  }, [config.favorites, archives, isConfigLoaded, isArchivesLoading]);
+
+  const handleFavoriteSelect = (archive: MangaArchive) => {
+    onSelectManga(archive);
+  };
+
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col">
       <LibraryHeader
@@ -248,6 +265,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         selectedCount={selectedIds.size}
         onMultiDelete={() => setShowMultiDeleteConfirm(true)}
         onDeselectAll={() => setSelectedIds(new Set())}
+        onSelectAll={handleSelectAll}
         onAddClick={() => {
           setShowAddMenu(!showAddMenu);
           setShowLibraryMenu(false);
@@ -263,6 +281,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
           setViewMode(mode);
           setActiveGroupId(null);
         }}
+        favoriteArchives={favoriteArchives}
+        onFavoriteSelect={handleFavoriteSelect}
       />
 
       <div className="relative">
@@ -405,7 +425,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
             setShowUrlImportModal(false);
             setShowCreateModal(true);
           } catch (err) {
-            alert('Failed to import from URL');
+            console.error('Failed to import from URL');
           }
         }}
         isUploading={isFilesProcessing}
@@ -531,11 +551,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
             setImportJsonContent('');
 
             if (added > 0 || skipped > 0) {
-              alert(`Import complete: ${added} added, ${skipped} skipped (already exists).`);
+              console.error(`Import complete: ${added} added, ${skipped} skipped (already exists).`);
             }
           } catch (err) {
             console.error('Import error:', err);
-            alert('Invalid JSON format. Please ensure it follows the catalog structure.');
+            console.error('Invalid JSON format. Please ensure it follows the catalog structure.');
           }
         }}
       />
