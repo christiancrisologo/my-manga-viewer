@@ -261,7 +261,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex flex-col">
+    <div className="h-full bg-zinc-950 flex flex-col overflow-hidden">
       <LibraryHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -303,7 +303,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         />
       </div>
 
-      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto custom-scrollbar">
+      <div className="flex-1 flex flex-col min-h-0">
         {activeGroupId ? (
           <GroupDetailView
             groupId={activeGroupId}
@@ -326,57 +326,61 @@ export default function Library({ onSelectManga }: LibraryProps) {
             }}
           />
         ) : viewMode === 'groups' ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6 p-6">
-            {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => (
-              <GroupCard
-                key={groupId}
-                groupId={groupId}
-                archives={memberArchives}
-                onClick={setActiveGroupId}
-              />
-            ))}
-            {/* Show ungrouped catalogs too */}
-            {groupedArchives.ungrouped.map(archive => (
-              <ArchiveCard
-                key={archive.id}
-                archive={archive}
-                isSelectionMode={isSelectionMode}
-                isSelected={selectedIds.has(archive.id)}
-                onSelect={onSelectManga}
-                onToggleSelection={(id) => {
-                  const next = new Set(selectedIds);
-                  if (next.has(id)) next.delete(id);
-                  else next.add(id);
-                  setSelectedIds(next);
-                }}
-                onDeleteIconClick={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
-                onEditIconClick={(manga) => {
-                  setMangaToEdit(manga);
-                  setEditJsonContent(JSON.stringify(manga, null, 2));
-                  setShowEditModal(true);
-                }}
-              />
-            ))}
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
+              {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => (
+                <GroupCard
+                  key={groupId}
+                  groupId={groupId}
+                  archives={memberArchives}
+                  onClick={setActiveGroupId}
+                />
+              ))}
+              {/* Show ungrouped catalogs too */}
+              {groupedArchives.ungrouped.map(archive => (
+                <ArchiveCard
+                  key={archive.id}
+                  archive={archive}
+                  isSelectionMode={isSelectionMode}
+                  isSelected={selectedIds.has(archive.id)}
+                  onSelect={onSelectManga}
+                  onToggleSelection={(id) => {
+                    const next = new Set(selectedIds);
+                    if (next.has(id)) next.delete(id);
+                    else next.add(id);
+                    setSelectedIds(next);
+                  }}
+                  onDeleteIconClick={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+                  onEditIconClick={(manga) => {
+                    setMangaToEdit(manga);
+                    setEditJsonContent(JSON.stringify(manga, null, 2));
+                    setShowEditModal(true);
+                  }}
+                />
+              ))}
+            </div>
           </div>
         ) : (
-          <ArchiveGrid
-            archives={filteredArchives}
-            selectedIds={selectedIds}
-            isSelectionMode={isSelectionMode}
-            onSelectManga={onSelectManga}
-            onToggleSelection={(id) => {
-              const next = new Set(selectedIds);
-              if (next.has(id)) next.delete(id);
-              else next.add(id);
-              setSelectedIds(next);
-            }}
-            onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
-            onEditArchive={(manga) => {
-              setMangaToEdit(manga);
-              setEditJsonContent(JSON.stringify(manga, null, 2));
-              setShowEditModal(true);
-            }}
-          />
+          <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <ArchiveGrid
+              archives={filteredArchives}
+              selectedIds={selectedIds}
+              isSelectionMode={isSelectionMode}
+              onSelectManga={onSelectManga}
+              onToggleSelection={(id) => {
+                const next = new Set(selectedIds);
+                if (next.has(id)) next.delete(id);
+                else next.add(id);
+                setSelectedIds(next);
+              }}
+              onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+              onEditArchive={(manga) => {
+                setMangaToEdit(manga);
+                setEditJsonContent(JSON.stringify(manga, null, 2));
+                setShowEditModal(true);
+              }}
+            />
+          </div>
         )}
       </div>
 

@@ -13,12 +13,28 @@
   }
 }
 
-/* Hide scrollbars but allow scrolling */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+
+/* Custom scrollbar for premium look */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(39, 39, 42, 0.4);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(82, 82, 91, 0.6);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(39, 39, 42, 0.4) transparent;
 }
 

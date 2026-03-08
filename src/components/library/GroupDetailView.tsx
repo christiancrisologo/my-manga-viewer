@@ -62,7 +62,7 @@ export function GroupDetailView({
                 </div>
 
                 {/* Archive grid for this group */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 overflow-y-auto custom-scrollbar">
                     <ArchiveGrid
                         archives={archives}
                         selectedIds={selectedIds}
