@@ -63,7 +63,7 @@ export function ViewerControls({
                             >
                                 <X size={24} />
                             </button>
-                            <div className="overflow-hidden text-white flex-1">
+                            <div className="hidden sm:block overflow-hidden text-white flex-1 min-w-0 max-w-[50%] sm:max-w-none">
                                 <h2 className="text-sm font-bold truncate">{manga.name}</h2>
                                 <p className="text-[10px] text-zinc-400 uppercase tracking-widest">
                                     Page {currentIndex + 1} of {totalPageCount}

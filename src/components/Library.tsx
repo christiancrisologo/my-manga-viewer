@@ -26,7 +26,7 @@ import { WebExtractionModal } from './library/modals/WebExtractionModal';
 import { JsonImportModal } from './library/modals/JsonImportModal';
 
 interface LibraryProps {
-  onSelectManga: (manga: MangaArchive) => void;
+  onSelectManga: (manga: MangaArchive, queue?: MangaArchive[]) => void;
 }
 
 export default function Library({ onSelectManga }: LibraryProps) {
@@ -41,6 +41,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [viewMode, setViewMode] = useState<'all' | 'groups'>('groups');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
 
   // Modals Visibility
@@ -77,13 +78,31 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [selectedExtractedUrls, setSelectedExtractedUrls] = useState<Set<string>>(new Set());
   const [webExtractTitle, setWebExtractTitle] = useState('');
 
-  // Filtering
+  // Filtering and Sorting
   const filteredArchives = useMemo(() => {
-    return archives.filter(a =>
+    const result = archives.filter(a =>
       a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       a.author?.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [archives, searchQuery]);
+    return result.sort((a, b) => {
+      const aChap = a.chapter ? parseFloat(a.chapter) : NaN;
+      const bChap = b.chapter ? parseFloat(b.chapter) : NaN;
+      
+      const aHasChap = !isNaN(aChap);
+      const bHasChap = !isNaN(bChap);
+      
+      let comparison = 0;
+      if (aHasChap && bHasChap) {
+        comparison = aChap - bChap;
+      } else if (!aHasChap && !bHasChap) {
+        comparison = (a.createdAt || 0) - (b.createdAt || 0);
+      } else {
+        comparison = aHasChap ? -1 : 1;
+      }
+      
+      return sortOrder === 'asc' ? comparison : -comparison;
+    });
+  }, [archives, searchQuery, sortOrder]);
 
   // Compute Groups
   const groupedArchives = useMemo(() => {
@@ -256,7 +275,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
       setViewMode('groups');
       setActiveGroupId(archive.groupId);
     } else {
-      onSelectManga(archive);
+      onSelectManga(archive, filteredArchives);
     }
   };
 
@@ -288,6 +307,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
         }}
         favoriteArchives={favoriteArchives}
         onFavoriteSelect={handleFavoriteSelect}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
       />
 
       <div className="relative">
@@ -311,7 +332,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
             selectedIds={selectedIds}
             isSelectionMode={isSelectionMode}
             onBack={() => setActiveGroupId(null)}
-            onSelectManga={onSelectManga}
+            onSelectManga={(m) => onSelectManga(m, groupedArchives.groups[activeGroupId])}
             onToggleSelection={(id) => {
               const next = new Set(selectedIds);
               if (next.has(id)) next.delete(id);
@@ -328,14 +349,34 @@ export default function Library({ onSelectManga }: LibraryProps) {
         ) : viewMode === 'groups' ? (
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
-              {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => (
-                <GroupCard
-                  key={groupId}
-                  groupId={groupId}
-                  archives={memberArchives}
-                  onClick={setActiveGroupId}
-                />
-              ))}
+              {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => {
+                const isGroupSelected = memberArchives.length > 0 && memberArchives.every(a => selectedIds.has(a.id));
+                return (
+                  <GroupCard
+                    key={groupId}
+                    groupId={groupId}
+                    archives={memberArchives}
+                    onClick={setActiveGroupId}
+                    isSelectionMode={isSelectionMode}
+                    isSelected={isGroupSelected}
+                    onToggleSelection={() => {
+                        const next = new Set(selectedIds);
+                        if (isGroupSelected) {
+                            memberArchives.forEach(a => next.delete(a.id));
+                        } else {
+                            memberArchives.forEach(a => next.add(a.id));
+                        }
+                        setSelectedIds(next);
+                    }}
+                    onDeleteIconClick={(grpId) => {
+                        const next = new Set<string>();
+                        memberArchives.forEach(a => next.add(a.id));
+                        setSelectedIds(next);
+                        setShowMultiDeleteConfirm(true);
+                    }}
+                  />
+                );
+              })}
               {/* Show ungrouped catalogs too */}
               {groupedArchives.ungrouped.map(archive => (
                 <ArchiveCard
@@ -343,7 +384,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
                   archive={archive}
                   isSelectionMode={isSelectionMode}
                   isSelected={selectedIds.has(archive.id)}
-                  onSelect={onSelectManga}
+                  onSelect={(m) => onSelectManga(m, groupedArchives.ungrouped)}
                   onToggleSelection={(id) => {
                     const next = new Set(selectedIds);
                     if (next.has(id)) next.delete(id);
@@ -366,7 +407,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
               archives={filteredArchives}
               selectedIds={selectedIds}
               isSelectionMode={isSelectionMode}
-              onSelectManga={onSelectManga}
+              onSelectManga={(m) => onSelectManga(m, filteredArchives)}
               onToggleSelection={(id) => {
                 const next = new Set(selectedIds);
                 if (next.has(id)) next.delete(id);

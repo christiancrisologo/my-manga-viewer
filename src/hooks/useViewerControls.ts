@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { MangaPage, ViewerSettings } from '../types';
 import { VIEWER_DEFAULTS } from '../constants';
 
-export function useViewerControls(pages: MangaPage[]) {
+export function useViewerControls(pages: MangaPage[], onEndReached?: () => void) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [settings, setSettings] = useState<ViewerSettings>({
         slideshowSpeed: VIEWER_DEFAULTS.SLIDESHOW_SPEED,
@@ -11,16 +11,26 @@ export function useViewerControls(pages: MangaPage[]) {
         zoom: VIEWER_DEFAULTS.ZOOM,
         fitMode: VIEWER_DEFAULTS.FIT_MODE,
         enableTTS: false,
-        offset: { x: 0, y: 0 }
+        offset: { x: 0, y: 0 },
+        autoNextCatalog: false
     });
     const [showControls, setShowControls] = useState(true);
     const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const nextPage = useCallback(() => {
         if (pages.length === 0) return;
-        setCurrentIndex((prev) => (prev + 1) % pages.length);
+        setCurrentIndex((prev) => {
+            if (prev === pages.length - 1) {
+                if (settings.autoNextCatalog && onEndReached) {
+                    onEndReached();
+                    return prev;
+                }
+                return 0; // loop
+            }
+            return prev + 1;
+        });
         setSettings(s => ({ ...s, zoom: 1, offset: { x: 0, y: 0 } }));
-    }, [pages.length]);
+    }, [pages.length, settings.autoNextCatalog, onEndReached]);
 
     const prevPage = useCallback(() => {
         if (pages.length === 0) return;

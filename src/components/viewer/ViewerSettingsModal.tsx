@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Play, Pause, ZoomIn, ZoomOut, Volume2, VolumeX } from 'lucide-react';
+import { X, Play, Pause, ZoomIn, ZoomOut, Volume2, VolumeX, FastForward } from 'lucide-react';
 import { ViewerSettings } from '../../types';
 import { cn } from '../../lib/utils';
 import { useAppConfig } from '../../hooks/useAppConfig';
@@ -76,6 +76,34 @@ export function ViewerSettingsModal({
                                     <div className={cn(
                                         "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
                                         settings.isSlideshowActive ? "left-7" : "left-1"
+                                    )} />
+                                </button>
+                            </div>
+
+                            {/* Auto Next Catalog */}
+                            <div className="flex items-center justify-between p-4 bg-zinc-800/30 rounded-2xl border border-zinc-800">
+                                <div className="flex items-center gap-3">
+                                    <div className={cn(
+                                        "p-2 rounded-lg",
+                                        settings.autoNextCatalog ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
+                                    )}>
+                                        <FastForward size={18} />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold text-white">Auto Next Catalog</p>
+                                        <p className="text-[10px] text-zinc-500 uppercase font-medium">Jump to next on end</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => toggleSetting('autoNextCatalog')}
+                                    className={cn(
+                                        "w-12 h-6 rounded-full transition-all relative",
+                                        settings.autoNextCatalog ? "bg-emerald-500" : "bg-zinc-700"
+                                    )}
+                                >
+                                    <div className={cn(
+                                        "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
+                                        settings.autoNextCatalog ? "left-7" : "left-1"
                                     )} />
                                 </button>
                             </div>

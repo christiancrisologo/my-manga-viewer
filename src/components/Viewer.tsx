@@ -12,9 +12,10 @@ import { motion, AnimatePresence } from 'motion/react';
 interface ViewerProps {
   manga: MangaArchive;
   onClose: () => void;
+  onEndReached?: () => void;
 }
 
-export default function Viewer({ manga, onClose }: ViewerProps) {
+export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
   const [pages, setPages] = useState<MangaPage[]>([]);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -33,7 +34,7 @@ export default function Viewer({ manga, onClose }: ViewerProps) {
     goToPage,
     toggleSlideshow,
     handleInteraction
-  } = useViewerControls(pages);
+  } = useViewerControls(pages, onEndReached);
 
   const {
     handleTouchStart,
