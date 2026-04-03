@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { MangaArchive, ViewerSettings, MangaPage } from '../types';
 import { createUrl, revokeAllUrls } from '../services/storage';
 import { useViewerControls } from '../hooks/useViewerControls';
+import { useAppConfig } from '../hooks/useAppConfig';
 import { useTouchGestures } from '../hooks/useTouchGestures';
 import { ViewerControls } from './viewer/ViewerControls';
 import { PageRenderer } from './viewer/PageRenderer';
 import { ThumbnailStrip } from './viewer/ThumbnailStrip';
 import { ViewerSettingsModal } from './viewer/ViewerSettingsModal';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useInView } from 'motion/react';
+import { ImageIcon } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 interface ViewerProps {
   manga: MangaArchive;
@@ -16,6 +19,7 @@ interface ViewerProps {
 }
 
 export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
+  const { config } = useAppConfig();
   const [pages, setPages] = useState<MangaPage[]>([]);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -34,7 +38,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
     goToPage,
     toggleSlideshow,
     handleInteraction
-  } = useViewerControls(pages, onEndReached);
+  } = useViewerControls(pages, onEndReached, config.autoNextChapter, config.slideShowDelay, config.viewMode);
 
   const {
     handleTouchStart,
@@ -57,6 +61,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
     })).filter(p => !!p.url);
 
     setPages(pagesWithUrls);
+    setCurrentIndex(0);
 
     return () => {
       revokeAllUrls();
@@ -138,12 +143,41 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
         isSlideshowActive={settings.isSlideshowActive}
       />
 
-      <PageRenderer
-        page={pages[currentIndex]}
-        currentIndex={currentIndex}
-        settings={settings}
-        offset={settings.offset}
-      />
+      {settings.viewMode === 'scroll' ? (
+        <div 
+          className="flex-1 overflow-y-auto custom-scrollbar scroll-smooth"
+          onScroll={(e) => {
+            // Update currentIndex based on scroll position if needed
+            // But useInView on individual pages is more accurate
+          }}
+        >
+          <div className="flex flex-col items-center gap-4 py-8">
+            {pages.map((page, idx) => (
+              <ScrollPage 
+                key={page.id} 
+                page={page} 
+                index={idx} 
+                isActive={currentIndex === idx}
+                onVisible={() => setCurrentIndex(idx)}
+                isLast={idx === pages.length - 1}
+                onLastInView={() => {
+                  if (settings.autoNextChapter && onEndReached) {
+                    onEndReached();
+                  }
+                }}
+                settings={settings}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <PageRenderer
+          page={pages[currentIndex]}
+          currentIndex={currentIndex}
+          settings={settings}
+          offset={settings.offset}
+        />
+      )}
 
       <AnimatePresence>
         {showPageNumber && (
@@ -171,6 +205,59 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
         settings={settings}
         onSettingsChange={setSettings}
       />
+    </div>
+  );
+}
+
+interface ScrollPageProps {
+  page: MangaPage;
+  index: number;
+  isActive: boolean;
+  onVisible: () => void;
+  isLast: boolean;
+  onLastInView: () => void;
+  settings: ViewerSettings;
+  key?: string | number;
+}
+
+function ScrollPage({ page, onVisible, isLast, onLastInView, settings }: ScrollPageProps) {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { amount: 0.3 }); // triggered when 30% in view
+
+  useEffect(() => {
+    if (isInView) {
+      onVisible();
+      if (isLast) {
+        onLastInView();
+      }
+    }
+  }, [isInView, isLast, onVisible, onLastInView]);
+
+  return (
+    <div 
+      ref={ref} 
+      className="w-full max-w-4xl px-2 flex flex-col items-center"
+      style={{ minHeight: '50vh' }}
+    >
+      {page.url ? (
+        <img
+          src={page.url}
+          alt={`Page ${page.name}`}
+          className={cn(
+            "w-full h-auto object-contain shadow-2xl",
+            settings.fitMode === 'width' && "w-full",
+            settings.fitMode === 'height' && "max-h-screen w-auto"
+          )}
+          draggable={false}
+          referrerPolicy="no-referrer"
+          loading="lazy"
+        />
+      ) : (
+        <div className="flex flex-col items-center gap-4 text-zinc-500 py-32 bg-zinc-900/50 rounded-2xl w-full">
+          <ImageIcon size={48} strokeWidth={1} />
+          <p className="text-xs uppercase tracking-widest font-bold">Loading...</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -20,28 +20,32 @@
     "webExtractor": true,
     "jsonCatalogEditor": true,
     "imageToSpeech": false,
-    "favorites": [{
-        "id": "hell-paradise",
-        "name": "Hell's Paradise"
-    },
-    {
-        "id": "demon-slayer",
-        "name": "Demon Slayer"
-    },
-    {
-        "id": "boruto",
-        "name": "Boruto"
-    },
-    {
-        "id": "naruto",
-        "name": "Naruto"
-    },
-    {
-        "id": "jujutsu-kaisen",
-        "name": "Jujutsu Kaisen"
-    },
-    {
-        "id": "my-hero-academia",
-        "name": "My Hero Academia"
-    }]
+    "slideShowDelay": 7000,
+    "autoNextChapter": true,
+    "favorites": [
+        {
+            "id": "hell-paradise",
+            "name": "Hell's Paradise"
+        },
+        {
+            "id": "demon-slayer",
+            "name": "Demon Slayer"
+        },
+        {
+            "id": "boruto",
+            "name": "Boruto"
+        },
+        {
+            "id": "naruto",
+            "name": "Naruto"
+        },
+        {
+            "id": "jujutsu-kaisen",
+            "name": "Jujutsu Kaisen"
+        },
+        {
+            "id": "my-hero-academia",
+            "name": "My Hero Academia"
+        }
+    ]
 }

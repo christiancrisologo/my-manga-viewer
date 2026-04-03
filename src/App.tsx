@@ -11,9 +11,24 @@ export default function App() {
 
   const handleNextCatalog = () => {
     if (!selectedManga || currentQueue.length === 0) return;
-    const currentIndex = currentQueue.findIndex(m => m.id === selectedManga.id);
-    if (currentIndex >= 0 && currentIndex < currentQueue.length - 1) {
-      setSelectedManga(currentQueue[currentIndex + 1]);
+    
+    // Sort queue by chapter number (numeric) or createdAt for logical navigation
+    const sortedQueue = [...currentQueue].sort((a, b) => {
+      const aChap = a.chapter ? parseFloat(a.chapter) : NaN;
+      const bChap = b.chapter ? parseFloat(b.chapter) : NaN;
+      
+      const aHasChap = !isNaN(aChap);
+      const bHasChap = !isNaN(bChap);
+      
+      if (aHasChap && bHasChap) return aChap - bChap;
+      if (!aHasChap && !bHasChap) return (a.createdAt || 0) - (b.createdAt || 0);
+      return aHasChap ? -1 : 1;
+    });
+
+    const currentIndex = sortedQueue.findIndex(m => m.id === selectedManga.id);
+
+    if (currentIndex >= 0 && currentIndex < sortedQueue.length - 1) {
+      setSelectedManga(sortedQueue[currentIndex + 1]);
     } else {
       setSelectedManga(null);
     }
@@ -21,14 +36,14 @@ export default function App() {
 
   return (
     <div className="h-screen w-screen bg-zinc-950 overflow-hidden flex flex-col relative">
-      <div 
+      <div
         className={cn("absolute inset-0 transition-opacity duration-300", selectedManga ? "opacity-0 pointer-events-none" : "opacity-100 z-10")}
       >
-        <Library 
+        <Library
           onSelectManga={(manga, queue) => {
             setSelectedManga(manga);
             if (queue) setCurrentQueue(queue);
-          }} 
+          }}
         />
       </div>
 
@@ -42,9 +57,9 @@ export default function App() {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="absolute inset-0 z-20"
           >
-            <Viewer 
-              manga={selectedManga} 
-              onClose={() => setSelectedManga(null)} 
+            <Viewer
+              manga={selectedManga}
+              onClose={() => setSelectedManga(null)}
               onEndReached={handleNextCatalog}
             />
           </motion.div>

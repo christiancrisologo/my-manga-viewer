@@ -31,4 +31,5 @@ export interface ViewerSettings {
   enableTTS: boolean;
   offset: { x: number; y: number };
   autoNextChapter: boolean;
+  viewMode: 'single' | 'scroll';
 }

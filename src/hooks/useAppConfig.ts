@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export interface FavoriteItem {
     id: string;
@@ -14,8 +14,12 @@ export interface AppConfig {
     jsonCatalogEditor: boolean;
     imageToSpeech: boolean;
     autoNextChapter: boolean;
+    slideShowDelay: number;
+    viewMode: 'single' | 'scroll';
     favorites: FavoriteItem[];
 }
+
+const LOCAL_STORAGE_KEY = 'manga_viewer_config_overrides';
 
 const DEFAULT_CONFIG: AppConfig = {
     uploadLocalFile: true,
@@ -26,14 +30,45 @@ const DEFAULT_CONFIG: AppConfig = {
     jsonCatalogEditor: true,
     imageToSpeech: false,
     autoNextChapter: false,
+    slideShowDelay: 3000,
+    viewMode: 'single',
     favorites: [],
 };
 
+function loadLocalOverrides(): Partial<AppConfig> {
+    try {
+        const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch {
+        return {};
+    }
+}
+
+function saveLocalOverrides(overrides: Partial<AppConfig>) {
+    try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(overrides));
+    } catch {
+        // ignore
+    }
+}
+
+// Module-level listeners so all hook instances stay in sync
+const listeners = new Set<(config: AppConfig) => void>();
 let cachedConfig: AppConfig | null = null;
+
+function broadcastConfig(config: AppConfig) {
+    cachedConfig = config;
+    listeners.forEach(fn => fn(config));
+}
 
 export function useAppConfig() {
     const [config, setConfig] = useState<AppConfig>(cachedConfig ?? DEFAULT_CONFIG);
     const [isLoaded, setIsLoaded] = useState(!!cachedConfig);
+
+    useEffect(() => {
+        listeners.add(setConfig);
+        return () => { listeners.delete(setConfig); };
+    }, []);
 
     useEffect(() => {
         if (cachedConfig) return;
@@ -44,17 +79,27 @@ export function useAppConfig() {
                 return res.json();
             })
             .then((data: Partial<AppConfig>) => {
-                const merged: AppConfig = { ...DEFAULT_CONFIG, ...data };
-                cachedConfig = merged;
-                setConfig(merged);
+                const localOverrides = loadLocalOverrides();
+                const merged: AppConfig = { ...DEFAULT_CONFIG, ...data, ...localOverrides };
+                broadcastConfig(merged);
                 setIsLoaded(true);
             })
             .catch(() => {
-                // Fall back to defaults gracefully
-                cachedConfig = DEFAULT_CONFIG;
+                const localOverrides = loadLocalOverrides();
+                const merged: AppConfig = { ...DEFAULT_CONFIG, ...localOverrides };
+                broadcastConfig(merged);
                 setIsLoaded(true);
             });
     }, []);
 
-    return { config, isLoaded };
+    const updateConfig = useCallback((updates: Partial<AppConfig>) => {
+        const current = cachedConfig ?? DEFAULT_CONFIG;
+        const next: AppConfig = { ...current, ...updates };
+        // Persist user-controlled overrides to localStorage
+        const existing = loadLocalOverrides();
+        saveLocalOverrides({ ...existing, ...updates });
+        broadcastConfig(next);
+    }, []);
+
+    return { config, isLoaded, updateConfig };
 }
