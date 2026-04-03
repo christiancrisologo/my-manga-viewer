@@ -85,25 +85,25 @@ export function ViewerSettingsModal({
                                 <div className="flex items-center gap-3">
                                     <div className={cn(
                                         "p-2 rounded-lg",
-                                        settings.autoNextCatalog ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
+                                        settings.autoNextChapter ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
                                     )}>
                                         <FastForward size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-sm font-bold text-white">Auto Next Catalog</p>
-                                        <p className="text-[10px] text-zinc-500 uppercase font-medium">Jump to next on end</p>
+                                        <p className="text-sm font-bold text-white">Auto Next Chapter</p>
+                                        <p className="text-[10px] text-zinc-500 uppercase font-medium">Jump to next chapter on end</p>
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => toggleSetting('autoNextCatalog')}
+                                    onClick={() => toggleSetting('autoNextChapter')}
                                     className={cn(
                                         "w-12 h-6 rounded-full transition-all relative",
-                                        settings.autoNextCatalog ? "bg-emerald-500" : "bg-zinc-700"
+                                        settings.autoNextChapter ? "bg-emerald-500" : "bg-zinc-700"
                                     )}
                                 >
                                     <div className={cn(
                                         "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
-                                        settings.autoNextCatalog ? "left-7" : "left-1"
+                                        settings.autoNextChapter ? "left-7" : "left-1"
                                     )} />
                                 </button>
                             </div>

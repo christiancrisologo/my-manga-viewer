@@ -13,6 +13,7 @@ export interface AppConfig {
     webExtractor: boolean;
     jsonCatalogEditor: boolean;
     imageToSpeech: boolean;
+    autoNextChapter: boolean;
     favorites: FavoriteItem[];
 }
 
@@ -24,6 +25,7 @@ const DEFAULT_CONFIG: AppConfig = {
     webExtractor: true,
     jsonCatalogEditor: true,
     imageToSpeech: false,
+    autoNextChapter: false,
     favorites: [],
 };
 
