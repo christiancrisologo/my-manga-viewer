@@ -83,14 +83,6 @@ export function GroupCard({ groupId, archives, onClick, isSelectionMode, isSelec
                 )}
             </div>
 
-            {/* Folder badge */}
-            <div className="absolute top-4 right-4 z-10">
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 rounded-xl">
-                    <FolderOpen size={12} className="text-emerald-400" />
-                    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">{archives.length} Catalogs</span>
-                </div>
-            </div>
-
             {/* Selection Checkmark */}
             {
                 isSelectionMode && (
@@ -110,7 +102,10 @@ export function GroupCard({ groupId, archives, onClick, isSelectionMode, isSelec
                 <h4 className="text-sm font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2 leading-tight tracking-tight">
                     {label}
                 </h4>
-                <span className="text-[10px] text-zinc-400 font-medium uppercase tracking-widest">Collection</span>
+                <div className="flex items-center gap-1.5">
+                    <FolderOpen size={10} className="text-emerald-400" />
+                    <span className="text-[10px] text-zinc-400 font-medium uppercase tracking-widest">{archives.length} Catalogs</span>
+                </div>
             </div>
         </motion.div>
     );
