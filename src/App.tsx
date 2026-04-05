@@ -11,15 +11,15 @@ export default function App() {
 
   const handleNextCatalog = () => {
     if (!selectedManga || currentQueue.length === 0) return;
-    
+
     // Sort queue by chapter number (numeric) or createdAt for logical navigation
     const sortedQueue = [...currentQueue].sort((a, b) => {
       const aChap = a.chapter ? parseFloat(a.chapter) : NaN;
       const bChap = b.chapter ? parseFloat(b.chapter) : NaN;
-      
+
       const aHasChap = !isNaN(aChap);
       const bHasChap = !isNaN(bChap);
-      
+
       if (aHasChap && bHasChap) return aChap - bChap;
       if (!aHasChap && !bHasChap) return (a.createdAt || 0) - (b.createdAt || 0);
       return aHasChap ? -1 : 1;

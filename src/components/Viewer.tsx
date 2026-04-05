@@ -65,7 +65,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
 
     return () => {
       revokeAllUrls();
-      if (document.fullscreenElement) {
+      if (document.fullscreenElement && isFullScreen && !settings.isSlideshowActive) {
         document.exitFullscreen().catch(() => { });
       }
     };
@@ -144,7 +144,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
       />
 
       {settings.viewMode === 'scroll' ? (
-        <div 
+        <div
           className="flex-1 overflow-y-auto custom-scrollbar scroll-smooth"
           onScroll={(e) => {
             // Update currentIndex based on scroll position if needed
@@ -153,10 +153,10 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
         >
           <div className="flex flex-col items-center gap-4 py-8">
             {pages.map((page, idx) => (
-              <ScrollPage 
-                key={page.id} 
-                page={page} 
-                index={idx} 
+              <ScrollPage
+                key={page.id}
+                page={page}
+                index={idx}
                 isActive={currentIndex === idx}
                 onVisible={() => setCurrentIndex(idx)}
                 isLast={idx === pages.length - 1}
@@ -234,8 +234,8 @@ function ScrollPage({ page, onVisible, isLast, onLastInView, settings }: ScrollP
   }, [isInView, isLast, onVisible, onLastInView]);
 
   return (
-    <div 
-      ref={ref} 
+    <div
+      ref={ref}
       className="w-full max-w-4xl px-2 flex flex-col items-center"
       style={{ minHeight: '50vh' }}
     >
