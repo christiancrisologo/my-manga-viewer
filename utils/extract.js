@@ -9,6 +9,9 @@ import { writeFileSync } from 'fs';
 const args = process.argv.slice(2);
 let groupId = 'default-group';
 let selector = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+let prefix = '';
+let minChapter = 0;
+let maxChapter = 0;
 const urls = [];
 
 for (let i = 0; i < args.length; i++) {
@@ -16,12 +19,19 @@ for (let i = 0; i < args.length; i++) {
         groupId = args[i].split('=')[1];
     } else if (args[i].startsWith('-s=')) {
         selector = new RegExp(args[i].split('=')[1], 'gi');
+    } else if (args[i].startsWith('-x1=')) {
+        console.log(`Using prefix: ${args[i].split('=')[1]}`);
+        prefix = args[i].split('=')[1];
+    } else if (args[i].startsWith('-x2=')) {
+        minChapter = Number(args[i].split('=')[1]) || 1;
+    } else if (args[i].startsWith('-x3=')) {
+        maxChapter = Number(args[i].split('=')[1]) || 10;
     } else {
         urls.push(args[i]);
     }
 }
 
-if (urls.length === 0) {
+if (urls.length === 0 && prefix === '') {
     console.error('Error: Please provide at least one URL.');
     console.log('Usage: node . [-g=groupId] [-s=selector] <URL1> [URL2] [URL3] ...');
     process.exit(1);
@@ -124,8 +134,12 @@ async function extractImages(targetUrl, imgRegex = /<img[^>]+src=["']([^"']+)["'
 
 async function extractMultiple(urls, imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi) {
     const catalogs = [];
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+    const randomDelay = (to) => 1000 + Math.random() * to; // 1-3 seconds
+
     for (const url of urls) {
         console.log(`\nProcessing: ${url}`);
+        await delay(randomDelay(5000)); // Add delay between requests to be polite
         const catalog = await extractImages(url, imgRegex);
         if (catalog) {
             catalogs.push(catalog);
@@ -134,8 +148,9 @@ async function extractMultiple(urls, imgRegex = /<img[^>]+src=["']([^"']+)["'][^
 
     // Create filename with current date
     const now = new Date();
-    const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD format
-    const filename = `${dateStr}-catalogs.json`;
+    const dateStr = now.toISOString().split('T')[0];
+    const uiid = Math.random().toString(36).substring(7); // Random ID
+    const filename = `${dateStr}-catalogs-${groupId}-${uiid}.json`;
 
     // Write to file
     const jsonContent = JSON.stringify(catalogs, null, 2);
@@ -146,4 +161,13 @@ async function extractMultiple(urls, imgRegex = /<img[^>]+src=["']([^"']+)["'][^
     console.log(`File location: ${process.cwd()}/${filename}`);
 }
 
-extractMultiple(urls, selector);
+if (prefix) {
+    const generatedUrls = [];
+    for (let i = minChapter; i <= maxChapter; i++) {
+        generatedUrls.push(`${prefix}${i}`);
+    }
+    console.log(`Generated URLs from prefix: ${generatedUrls.length} URLs`);
+    extractMultiple(generatedUrls, selector);
+} else {
+    extractMultiple(urls, selector);
+}
