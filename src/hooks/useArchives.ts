@@ -12,9 +12,49 @@ export function useArchives() {
         setError(null);
         revokeAllUrls();
         try {
+            // 1. Initial Load from Local DB
             let data = await getArchives();
+            const existingIds = new Set(data.map(a => a.id));
 
-            // If empty, try to load primary catalog from public folder ONLY if allowed (typically on mount)
+            // 2. Discovery Phase: Fetch manifest of public catalogs
+            if (allowDefaultFetch) {
+                try {
+                    const base = import.meta.env.BASE_URL;
+                    const manifestResponse = await fetch(`${base}catalogs-manifest.json`);
+                    if (manifestResponse.ok) {
+                        const manifest: string[] = await manifestResponse.json();
+                        
+                        // For each file in manifest, check if it contains missing archives
+                        for (const path of manifest) {
+                            try {
+                                const catalogResponse = await fetch(`${base}${path}`);
+                                if (catalogResponse.ok) {
+                                    const archivesInFile: MangaArchive[] = await catalogResponse.json();
+                                    for (const archive of archivesInFile) {
+                                        if (archive.id && !existingIds.has(archive.id)) {
+                                            console.log(`Discovering new archive: ${archive.name} (ID: ${archive.id})`);
+                                            await saveArchive({
+                                                ...archive,
+                                                createdAt: archive.createdAt || Date.now()
+                                            });
+                                            existingIds.add(archive.id); // Prevent re-adding within this loop
+                                        }
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn(`Failed to process catalog at ${path}:`, e);
+                            }
+                        }
+                        
+                        // Refresh data after potentially saving new ones
+                        data = await getArchives();
+                    }
+                } catch (discoveryErr) {
+                    console.warn('Catalog discovery failed or skipped:', discoveryErr);
+                }
+            }
+
+            // Fallback for legacy catalogs.json if still present and discovered data is still empty
             if (data.length === 0 && allowDefaultFetch) {
                 try {
                     const base = import.meta.env.BASE_URL;
@@ -33,7 +73,7 @@ export function useArchives() {
                         data = await getArchives();
                     }
                 } catch (fetchErr) {
-                    console.warn('No primary catalog found or failed to load:', fetchErr);
+                    // skip
                 }
             }
 

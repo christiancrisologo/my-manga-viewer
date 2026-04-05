@@ -30,4 +30,6 @@ export interface ViewerSettings {
   fitMode: 'width' | 'height' | 'contain';
   enableTTS: boolean;
   offset: { x: number; y: number };
+  autoNextChapter: boolean;
+  viewMode: 'single' | 'scroll';
 }

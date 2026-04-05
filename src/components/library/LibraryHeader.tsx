@@ -1,5 +1,6 @@
 import React from 'react';
-import { Search, Plus, Trash2, CheckCircle2, X, Download, FolderOpen, LayoutGrid, Heart } from 'lucide-react';
+import { Search, Plus, Trash2, CheckCircle2, X, Download, FolderOpen, LayoutGrid, Heart, ArrowDownAZ, ArrowUpZA } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
 import { APP_NAME, AUTHOR_NAME } from '../../constants';
 
@@ -20,6 +21,8 @@ interface LibraryHeaderProps {
     setViewMode: (mode: 'all' | 'groups') => void;
     favoriteArchives: any[];
     onFavoriteSelect: (archive: any) => void;
+    sortOrder: 'asc' | 'desc';
+    setSortOrder: (order: 'asc' | 'desc') => void;
 }
 
 export function LibraryHeader({
@@ -38,10 +41,14 @@ export function LibraryHeader({
     viewMode,
     setViewMode,
     favoriteArchives,
-    onFavoriteSelect
+    onFavoriteSelect,
+    sortOrder,
+    setSortOrder
 }: LibraryHeaderProps) {
     const [showFavorites, setShowFavorites] = React.useState(false);
     const favoritesRef = React.useRef<HTMLDivElement>(null);
+    const [isSearchFocused, setIsSearchFocused] = React.useState(false);
+    const isSearchExpanded = isSearchFocused || searchQuery.length > 0;
 
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -75,7 +82,7 @@ export function LibraryHeader({
                 </div>
 
                 <div className="flex items-center gap-2">
-                    {isSelectionMode && viewMode !== 'groups' ? (
+                    {isSelectionMode ? (
                         <>
                             <button
                                 onClick={onSelectAll}
@@ -143,98 +150,113 @@ export function LibraryHeader({
                         placeholder="Search your collection..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={() => setIsSearchFocused(true)}
+                        onBlur={() => setIsSearchFocused(false)}
                         className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none"
                     />
                 </div>
 
-                {!isSelectionMode && (
-                    <>
-                        <div className="relative" ref={favoritesRef}>
-                            <button
-                                onClick={() => setShowFavorites(!showFavorites)}
-                                className={cn(
-                                    "p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:text-white hover:border-zinc-700 transition-all",
-                                    favoriteArchives.length > 0 ? "text-red-400" : "text-zinc-400"
-                                )}
-                                title={favoriteArchives.length > 0 ? `${favoriteArchives.length} Favorites` : "No favorites yet"}
-                            >
-                                <Heart size={20} fill={favoriteArchives.length > 0 ? "currentColor" : "none"} />
-                            </button>
-                            {showFavorites && (
-                                <div className="fixed inset-0 z-40" onClick={() => setShowFavorites(false)}>
-                                    <div
-                                        className="absolute bg-zinc-900 border border-zinc-800 rounded-2xl p-2 min-w-64 shadow-xl z-50 max-h-80 overflow-y-auto"
-                                        style={{
-                                            top: favoritesRef.current ? favoritesRef.current.getBoundingClientRect().bottom + 8 : 'auto',
-                                            right: favoritesRef.current ? window.innerWidth - favoritesRef.current.getBoundingClientRect().right : 'auto'
-                                        }}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        {favoriteArchives.length > 0 ? (
-                                            <>
-                                                <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-2">Quick Launch</div>
-                                                {favoriteArchives.map((archive, index) => (
-                                                    <button
-                                                        key={index}
-                                                        onClick={() => {
-                                                            onFavoriteSelect(archive);
-                                                            setShowFavorites(false);
-                                                        }}
-                                                        className="w-full text-left px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-xl transition-colors"
-                                                        title={`Open ${archive.name}`}
-                                                    >
-                                                        <div className="font-medium truncate">{archive.name}</div>
-                                                        {archive.groupId && (
-                                                            <div className="text-xs text-zinc-500 truncate">{archive.groupId}</div>
-                                                        )}
-                                                    </button>
-                                                ))}
-                                            </>
-                                        ) : (
-                                            <div className="px-3 py-4 text-center">
-                                                <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">No Favorites Yet</div>
-                                                <div className="text-xs text-zinc-600">Mark archives as favorites using the heart icon</div>
-                                            </div>
-                                        )}
+                <AnimatePresence>
+                    {!isSelectionMode && !isSearchExpanded && (
+                        <motion.div
+                            initial={{ width: 0, opacity: 0 }}
+                            animate={{ width: 'auto', opacity: 1 }}
+                            exit={{ width: 0, opacity: 0 }}
+                            style={{ overflow: 'hidden' }}
+                            className="flex items-center gap-3 shrink-0"
+                        >
+                            <div className="relative" ref={favoritesRef}>
+                                <button
+                                    onClick={() => setShowFavorites(!showFavorites)}
+                                    className={cn(
+                                        "p-3 bg-zinc-900 border border-zinc-800 rounded-2xl hover:text-white hover:border-zinc-700 transition-all",
+                                        favoriteArchives.length > 0 ? "text-red-400" : "text-zinc-400"
+                                    )}
+                                    title={favoriteArchives.length > 0 ? `${favoriteArchives.length} Favorites` : "No favorites yet"}
+                                >
+                                    <Heart size={20} fill={favoriteArchives.length > 0 ? "currentColor" : "none"} />
+                                </button>
+                                {showFavorites && (
+                                    <div className="fixed inset-0 z-40" onClick={() => setShowFavorites(false)}>
+                                        <div
+                                            className="absolute bg-zinc-900 border border-zinc-800 rounded-2xl p-2 min-w-64 shadow-xl z-50 max-h-80 overflow-y-auto"
+                                            style={{
+                                                top: favoritesRef.current ? favoritesRef.current.getBoundingClientRect().bottom + 8 : 'auto',
+                                                right: favoritesRef.current ? window.innerWidth - favoritesRef.current.getBoundingClientRect().right : 'auto'
+                                            }}
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {favoriteArchives.length > 0 ? (
+                                                <>
+                                                    <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 px-2">Quick Launch</div>
+                                                    {favoriteArchives.map((archive, index) => (
+                                                        <button
+                                                            key={index}
+                                                            onClick={() => {
+                                                                onFavoriteSelect(archive);
+                                                                setShowFavorites(false);
+                                                            }}
+                                                            className="w-full text-left px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-xl transition-colors"
+                                                            title={`Open ${archive.name}`}
+                                                        >
+                                                            <div className="font-medium truncate">{archive.name}</div>
+                                                            {archive.groupId && (
+                                                                <div className="text-xs text-zinc-500 truncate">{archive.groupId}</div>
+                                                            )}
+                                                        </button>
+                                                    ))}
+                                                </>
+                                            ) : (
+                                                <div className="px-3 py-4 text-center">
+                                                    <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">No Favorites Yet</div>
+                                                    <div className="text-xs text-zinc-600">Mark archives as favorites using the heart icon</div>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                        {viewMode !== 'groups' && (
+                                )}
+                            </div>
+                            <button
+                                onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl hover:text-white hover:border-zinc-700 transition-all shrink-0"
+                                title={`Sort ${sortOrder === 'asc' ? 'Descending' : 'Ascending'}`}
+                            >
+                                {sortOrder === 'asc' ? <ArrowDownAZ size={20} /> : <ArrowUpZA size={20} />}
+                            </button>
                             <button
                                 onClick={() => setIsSelectionMode(true)}
-                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl hover:text-white hover:border-zinc-700 transition-all"
+                                className="p-3 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-2xl hover:text-white hover:border-zinc-700 transition-all shrink-0"
                                 title="Bulk Selection"
                             >
                                 <CheckCircle2 size={20} />
                             </button>
-                        )}
-                        <div className="flex bg-zinc-900 border border-zinc-800 rounded-2xl p-1 gap-1">
-                            <button
-                                onClick={() => setViewMode('all')}
-                                className={cn(
-                                    "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
-                                    viewMode === 'all' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
-                                )}
-                                title="Show all catalogs"
-                            >
-                                <LayoutGrid size={14} />
-                                All
-                            </button>
-                            <button
-                                onClick={() => setViewMode('groups')}
-                                className={cn(
-                                    "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
-                                    viewMode === 'groups' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
-                                )}
-                                title="Show by group"
-                            >
-                                <FolderOpen size={14} />
-                                Groups
-                            </button>
-                        </div>
-                    </>
-                )}
+                            <div className="flex bg-zinc-900 border border-zinc-800 rounded-2xl p-1 gap-1">
+                                <button
+                                    onClick={() => setViewMode('all')}
+                                    className={cn(
+                                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
+                                        viewMode === 'all' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                                    )}
+                                    title="Show all catalogs"
+                                >
+                                    <LayoutGrid size={14} />
+                                    All
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('groups')}
+                                    className={cn(
+                                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
+                                        viewMode === 'groups' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                                    )}
+                                    title="Show by group"
+                                >
+                                    <FolderOpen size={14} />
+                                    Groups
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

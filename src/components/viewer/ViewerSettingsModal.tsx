@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Play, Pause, ZoomIn, ZoomOut, Volume2, VolumeX } from 'lucide-react';
+import { X, Play, Pause, ZoomIn, ZoomOut, Volume2, VolumeX, FastForward, Maximize2, Layout } from 'lucide-react';
 import { ViewerSettings } from '../../types';
 import { cn } from '../../lib/utils';
 import { useAppConfig } from '../../hooks/useAppConfig';
@@ -18,10 +18,33 @@ export function ViewerSettingsModal({
     settings,
     onSettingsChange
 }: ViewerSettingsModalProps) {
-    const { config } = useAppConfig();
+    const { config, updateConfig } = useAppConfig();
 
     const toggleSetting = (key: keyof ViewerSettings) => {
-        onSettingsChange({ ...settings, [key]: !settings[key] });
+        if (typeof settings[key] !== 'boolean') return;
+        
+        const newValue = !settings[key];
+        let next = { ...settings, [key]: newValue };
+
+        // Sync Logic: If Auto Next Chapter is enabled, force Scroll Mode
+        if (key === 'autoNextChapter' && newValue === true) {
+            next.viewMode = 'scroll';
+        }
+
+        onSettingsChange(next);
+        
+        // Persist to global config
+        if (key === 'autoNextChapter') {
+            updateConfig({ 
+                autoNextChapter: newValue as boolean,
+                ...(newValue === true ? { viewMode: 'scroll' } : {})
+            });
+        }
+    };
+
+    const setViewMode = (mode: 'single' | 'scroll') => {
+        onSettingsChange({ ...settings, viewMode: mode });
+        updateConfig({ viewMode: mode });
     };
 
     const updateZoom = (delta: number) => {
@@ -78,6 +101,65 @@ export function ViewerSettingsModal({
                                         settings.isSlideshowActive ? "left-7" : "left-1"
                                     )} />
                                 </button>
+                            </div>
+
+                            {/* Auto Next Chapter */}
+                            <div className="flex items-center justify-between p-4 bg-zinc-800/30 rounded-2xl border border-zinc-800">
+                                <div className="flex items-center gap-3">
+                                    <div className={cn(
+                                        "p-2 rounded-lg",
+                                        settings.autoNextChapter ? "bg-emerald-500/10 text-emerald-500" : "bg-zinc-700 text-zinc-400"
+                                    )}>
+                                        <FastForward size={18} />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold text-white">Auto Next Chapter</p>
+                                        <p className="text-[10px] text-zinc-500 uppercase font-medium">Jump to next chapter on end</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => toggleSetting('autoNextChapter')}
+                                    className={cn(
+                                        "w-12 h-6 rounded-full transition-all relative",
+                                        settings.autoNextChapter ? "bg-emerald-500" : "bg-zinc-700"
+                                    )}
+                                >
+                                    <div className={cn(
+                                        "absolute top-1 w-4 h-4 bg-white rounded-full transition-all",
+                                        settings.autoNextChapter ? "left-7" : "left-1"
+                                    )} />
+                                </button>
+                            </div>
+
+                            {/* View Mode */}
+                            <div className="space-y-3">
+                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">View Mode</label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <button
+                                        onClick={() => setViewMode('single')}
+                                        className={cn(
+                                            "flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border",
+                                            settings.viewMode === 'single'
+                                                ? "bg-emerald-500 border-emerald-500 text-zinc-950"
+                                                : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:border-zinc-600"
+                                        )}
+                                    >
+                                        <Maximize2 size={14} />
+                                        Single
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('scroll')}
+                                        className={cn(
+                                            "flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border",
+                                            settings.viewMode === 'scroll'
+                                                ? "bg-emerald-500 border-emerald-500 text-zinc-950"
+                                                : "bg-zinc-800 border-zinc-700 text-zinc-400 hover:border-zinc-600"
+                                        )}
+                                    >
+                                        <Layout size={14} />
+                                        Scroll
+                                    </button>
+                                </div>
                             </div>
 
                             {/* Zoom Controls */}
