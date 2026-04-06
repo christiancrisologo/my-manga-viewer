@@ -13,11 +13,10 @@ export function useArchives() {
         revokeAllUrls();
         try {
             // 1. Initial Load from Local DB
-            const params = new URLSearchParams(window.location.search);
-            const canLoadDefaultCatalogs = params.get('b');
-
             let data = await getArchives();
             const existingIds = new Set(data.map(a => a.id));
+            const params = new URLSearchParams(window.location.search);
+            const canLoadDefaultCatalogs = !!params.get('b');
 
             // 2. Discovery Phase: Fetch manifest of public catalogs
             if (allowDefaultFetch && canLoadDefaultCatalogs) {
@@ -80,22 +79,16 @@ export function useArchives() {
                 }
             }
 
-            // Clear archives before progressive loading
-            setArchives([]);
-
-            // Progressive loading: process and add each archive to state one by one
-            for (const archive of data) {
-                const processedArchive = {
-                    ...archive,
-                    pages: archive.pages.map((page, i) => {
-                        if (i === 0) {
-                            return { ...page, url: createUrl(page.data || page.url) };
-                        }
-                        return page;
-                    })
-                };
-                setArchives(prev => [...prev, processedArchive]);
-            }
+            const archivesWithUrls = data.map(archive => ({
+                ...archive,
+                pages: archive.pages.map((page, i) => {
+                    if (i === 0) {
+                        return { ...page, url: createUrl(page.data || page.url) };
+                    }
+                    return page;
+                })
+            }));
+            setArchives(archivesWithUrls);
         } catch (err) {
             console.error('Failed to load archives:', err);
             setError('Failed to load archives');
