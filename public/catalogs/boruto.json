@@ -1,432 +1,2761 @@
 [
-    {
-        "id": "15519e1e-572e-4ed7-81ea-184f1020cc03",
-        "name": "Boruto Manga Chapter 100 - Because Of Love - Boruto Manga Online",
-        "author": "Kishimoto",
-        "groupId": "boruto",
-        "genre": [
-            "Ninja"
-        ],
-        "pages": [
-            {
-                "id": "0",
-                "name": "1.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/1.jpg"
-            },
-            {
-                "id": "1",
-                "name": "2.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/2.jpg"
-            },
-            {
-                "id": "2",
-                "name": "3.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/3.jpg"
-            },
-            {
-                "id": "3",
-                "name": "4.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/4.jpg"
-            },
-            {
-                "id": "4",
-                "name": "5.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/5.jpg"
-            },
-            {
-                "id": "5",
-                "name": "6.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/6.jpg"
-            },
-            {
-                "id": "6",
-                "name": "7.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/7.jpg"
-            },
-            {
-                "id": "7",
-                "name": "8.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/8.jpg"
-            },
-            {
-                "id": "8",
-                "name": "9.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/9.jpg"
-            },
-            {
-                "id": "9",
-                "name": "10.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/10.jpg"
-            },
-            {
-                "id": "10",
-                "name": "11.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/11.jpg"
-            },
-            {
-                "id": "11",
-                "name": "12.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/12.jpg"
-            },
-            {
-                "id": "12",
-                "name": "13.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/13.jpg"
-            },
-            {
-                "id": "13",
-                "name": "14.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/14.jpg"
-            },
-            {
-                "id": "14",
-                "name": "15.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/15.jpg"
-            },
-            {
-                "id": "15",
-                "name": "16.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/16.jpg"
-            },
-            {
-                "id": "16",
-                "name": "17.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/17.jpg"
-            },
-            {
-                "id": "17",
-                "name": "18.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/18.jpg"
-            },
-            {
-                "id": "18",
-                "name": "19.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/19.jpg"
-            },
-            {
-                "id": "19",
-                "name": "20.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/20.jpg"
-            },
-            {
-                "id": "20",
-                "name": "21.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/21.jpg"
-            },
-            {
-                "id": "21",
-                "name": "22.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/22.jpg"
-            },
-            {
-                "id": "22",
-                "name": "23.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/23.jpg"
-            },
-            {
-                "id": "23",
-                "name": "24.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/24.jpg"
-            },
-            {
-                "id": "24",
-                "name": "25.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/25.jpg"
-            },
-            {
-                "id": "25",
-                "name": "26.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/26.jpg"
-            },
-            {
-                "id": "26",
-                "name": "27.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/27.jpg"
-            },
-            {
-                "id": "27",
-                "name": "28.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/28.jpg"
-            },
-            {
-                "id": "28",
-                "name": "29.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/29.jpg"
-            },
-            {
-                "id": "29",
-                "name": "30.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/30.jpg"
-            },
-            {
-                "id": "30",
-                "name": "31.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/31.jpg"
-            },
-            {
-                "id": "31",
-                "name": "32.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/32.jpg"
-            },
-            {
-                "id": "32",
-                "name": "33.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/33.jpg"
-            },
-            {
-                "id": "33",
-                "name": "34.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/34.jpg"
-            },
-            {
-                "id": "34",
-                "name": "35.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/35.jpg"
-            },
-            {
-                "id": "35",
-                "name": "36.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/36.jpg"
-            },
-            {
-                "id": "36",
-                "name": "37.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/37.jpg"
-            },
-            {
-                "id": "37",
-                "name": "38.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/38.jpg"
-            },
-            {
-                "id": "38",
-                "name": "39.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/39.jpg"
-            },
-            {
-                "id": "39",
-                "name": "40.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/40.jpg"
-            },
-            {
-                "id": "40",
-                "name": "41.jpg",
-                "url": "https://cdn4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-20/41.jpg"
-            }
-        ],
-        "createdAt": 1772624143224
-    },
-    {
-        "id": "a8d1a13e-a8e4-44e0-a8a5-770d05964f49",
-        "name": "Boruto Two Blue Vortex - CH 28",
-        "groupId": "boruto",
-        "pages": [
-            {
-                "id": "d420733f-9810-4159-bbfb-2772639c1528",
-                "name": "Page 1",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/1.jpg"
-            },
-            {
-                "id": "1afe12ec-d07a-47ab-bb53-026a46a8601d",
-                "name": "Page 2",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/2.jpg"
-            },
-            {
-                "id": "c3c6b62c-a01f-4e1c-bbbd-a1ef97111488",
-                "name": "Page 3",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/3.jpg"
-            },
-            {
-                "id": "4b36be06-d7d1-40de-ae10-25711988a2b3",
-                "name": "Page 4",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/4.jpg"
-            },
-            {
-                "id": "541cbdb6-c46b-470c-becd-a71164d4ea35",
-                "name": "Page 5",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/5.jpg"
-            },
-            {
-                "id": "3831e60d-eba6-493c-8311-a2970fdb8e1d",
-                "name": "Page 6",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/6.jpg"
-            },
-            {
-                "id": "2a082801-fb78-4e26-8cf5-4f74f5e9c39e",
-                "name": "Page 7",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/7.jpg"
-            },
-            {
-                "id": "18f82f46-dbf7-4f95-97a3-9a8e857afbbc",
-                "name": "Page 8",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/8.jpg"
-            },
-            {
-                "id": "f98ea583-bc0e-4b7f-ab83-67c42712c436",
-                "name": "Page 9",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/9.jpg"
-            },
-            {
-                "id": "37d7c888-efc6-4802-99b1-d76f4f738c4f",
-                "name": "Page 10",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/10.jpg"
-            },
-            {
-                "id": "94e9e488-abf5-4a30-bd4a-b694b6b57b46",
-                "name": "Page 11",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/11.jpg"
-            },
-            {
-                "id": "55a3a8d4-13ef-4b87-a3f8-40b923c5d85e",
-                "name": "Page 12",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/12.jpg"
-            },
-            {
-                "id": "6ec88e15-e710-45e2-90e2-434982c4d98e",
-                "name": "Page 13",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/13.jpg"
-            },
-            {
-                "id": "7dd52252-74ee-46d1-8161-dbda26cd3918",
-                "name": "Page 14",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/14.jpg"
-            },
-            {
-                "id": "b884f951-f245-413b-9f9b-21e2c8eaa6a5",
-                "name": "Page 15",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/15.jpg"
-            },
-            {
-                "id": "bd8d8fcc-af61-4379-8f56-b1fd6cdaaed6",
-                "name": "Page 16",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/16.jpg"
-            },
-            {
-                "id": "dc9b83ff-cd1e-4e7a-9ff7-70b47f73ef3d",
-                "name": "Page 17",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/17.jpg"
-            },
-            {
-                "id": "9c78131e-2380-4748-8f44-919b89f37823",
-                "name": "Page 18",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/18.jpg"
-            },
-            {
-                "id": "86e79f25-1624-4e78-a879-9fce5f22ed13",
-                "name": "Page 19",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/19.jpg"
-            },
-            {
-                "id": "811579f9-66db-4143-9587-322a28e99d1a",
-                "name": "Page 20",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/20.jpg"
-            },
-            {
-                "id": "8627ce3f-9552-46fa-8f0b-8c61c74bfc16",
-                "name": "Page 21",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/21.jpg"
-            },
-            {
-                "id": "a9c7cea3-ad12-4e7c-9134-5d06a573717d",
-                "name": "Page 22",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/22.jpg"
-            },
-            {
-                "id": "70266b57-c887-4a4c-80ed-abf96dcbbde7",
-                "name": "Page 23",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/23.jpg"
-            },
-            {
-                "id": "f1681882-503b-4959-a116-ca2c580440d1",
-                "name": "Page 24",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/24.jpg"
-            },
-            {
-                "id": "650a5bb3-312b-42c3-86e1-2dd11215cc1c",
-                "name": "Page 25",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/25.jpg"
-            },
-            {
-                "id": "720bf9e7-132e-42ca-a5cc-8006db8649ed",
-                "name": "Page 26",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/26.jpg"
-            },
-            {
-                "id": "41443166-e803-4af9-a92b-1e55e83fe461",
-                "name": "Page 27",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/27.jpg"
-            },
-            {
-                "id": "6154cb9c-4a01-4807-b71e-b4791f27c88b",
-                "name": "Page 28",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/28.jpg"
-            },
-            {
-                "id": "7d043651-8d43-4eb0-ae7c-516a3f5fabc1",
-                "name": "Page 29",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/29.jpg"
-            },
-            {
-                "id": "10add653-509c-4012-a62b-e4a4df083c36",
-                "name": "Page 30",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/30.jpg"
-            },
-            {
-                "id": "e12096df-a8e3-4e94-93f8-1ebd3c7c3a6b",
-                "name": "Page 31",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/31.jpg"
-            },
-            {
-                "id": "db5b3406-7fa2-41c2-970d-35e1a827fb1a",
-                "name": "Page 32",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/32.jpg"
-            },
-            {
-                "id": "1afa2b24-e948-4ad7-8e50-c7a1095ad040",
-                "name": "Page 33",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/33.jpg"
-            },
-            {
-                "id": "3d04e10f-bee4-4dd5-bf3d-c51677f3110b",
-                "name": "Page 34",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/34.jpg"
-            },
-            {
-                "id": "990ec587-a60f-4ab9-a046-bc6de0fb39d8",
-                "name": "Page 35",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/35.jpg"
-            },
-            {
-                "id": "32037abd-fce1-4ef2-ae15-00fa5715ab72",
-                "name": "Page 36",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/36.jpg"
-            },
-            {
-                "id": "9d724357-97bb-4b19-b461-e13f33173c11",
-                "name": "Page 37",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/37.jpg"
-            },
-            {
-                "id": "34a53061-274d-412f-9904-53ab33eea1c8",
-                "name": "Page 38",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/38.jpg"
-            },
-            {
-                "id": "4a85004e-c6f9-49f5-bf0d-891d1a8d7f17",
-                "name": "Page 39",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/39.jpg"
-            },
-            {
-                "id": "f8abd2ab-590d-4580-b62e-203281f83b0b",
-                "name": "Page 40",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/40.jpg"
-            },
-            {
-                "id": "5cd74b76-4da4-41f7-81b1-4e7027768622",
-                "name": "Page 41",
-                "url": "https://img4.mangaclash.com/boruto-two-blue-vortex-40747/chapter-28/41.jpg"
-            }
-        ],
-        "createdAt": 1772885702143
-    }
+  {
+    "id": "19joe2",
+    "name": "Chapter 20",
+    "pages": [
+      {
+        "id": "iaxavs",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/2.jpeg"
+      },
+      {
+        "id": "xz8mmi",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/3.jpeg"
+      },
+      {
+        "id": "0sco1f",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/4.jpeg"
+      },
+      {
+        "id": "ljz32k",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/5.jpeg"
+      },
+      {
+        "id": "k7ooci",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/6.jpeg"
+      },
+      {
+        "id": "6uzi8",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/7.jpeg"
+      },
+      {
+        "id": "4rgcnx",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/8.jpeg"
+      },
+      {
+        "id": "t0rsxg",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/9.jpeg"
+      },
+      {
+        "id": "v93xao",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/10.jpeg"
+      },
+      {
+        "id": "kp8y0q",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/11.jpeg"
+      },
+      {
+        "id": "f32ga3",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/12.jpeg"
+      },
+      {
+        "id": "3b4zf",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/13.jpeg"
+      },
+      {
+        "id": "44zpg6",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/14.jpeg"
+      },
+      {
+        "id": "3k3qt",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/15.jpeg"
+      },
+      {
+        "id": "joh1z",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/16.jpeg"
+      },
+      {
+        "id": "wzeg0p",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/17.jpeg"
+      },
+      {
+        "id": "nyhduh",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/18.jpeg"
+      },
+      {
+        "id": "czly1",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/19.jpeg"
+      },
+      {
+        "id": "rp0f1mb",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/20.jpeg"
+      },
+      {
+        "id": "1xacl",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/21.jpeg"
+      },
+      {
+        "id": "j0s2qp",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/22.jpeg"
+      },
+      {
+        "id": "zj43xp",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/23.jpeg"
+      },
+      {
+        "id": "us2rug",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/24.jpeg"
+      },
+      {
+        "id": "5qx66k",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/25.jpeg"
+      },
+      {
+        "id": "x72qen",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/26.jpeg"
+      },
+      {
+        "id": "ysxh1b",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/27.jpeg"
+      },
+      {
+        "id": "puen4t",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/28.jpeg"
+      },
+      {
+        "id": "c10g9",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/29.jpeg"
+      },
+      {
+        "id": "nlmqwn",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/30.jpeg"
+      },
+      {
+        "id": "hi7lnl",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/31.jpeg"
+      },
+      {
+        "id": "ul18m",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/32.jpeg"
+      },
+      {
+        "id": "7wn2wl",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/33.jpeg"
+      },
+      {
+        "id": "ty1f7h",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/34.jpeg"
+      },
+      {
+        "id": "ln5ctr",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/35.jpeg"
+      },
+      {
+        "id": "8xg47",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/36.jpeg"
+      },
+      {
+        "id": "f5wxbc",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/37.jpeg"
+      },
+      {
+        "id": "myv29",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/38.jpeg"
+      },
+      {
+        "id": "zyqiwn",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/39.jpeg"
+      },
+      {
+        "id": "79e6h7",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/40.jpeg"
+      },
+      {
+        "id": "jxvgz8",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/41.jpeg"
+      },
+      {
+        "id": "wb930u",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/fb6bc1bb9bcaec0027b8cf6d3c05f79f/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476234168
+  },
+  {
+    "id": "11ihh9",
+    "name": "Chapter 21",
+    "pages": [
+      {
+        "id": "puisi",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/2.jpeg"
+      },
+      {
+        "id": "h8kd4",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/3.jpeg"
+      },
+      {
+        "id": "hj01e",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/4.jpeg"
+      },
+      {
+        "id": "tt4kmo",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/5.jpeg"
+      },
+      {
+        "id": "h8hr0k",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/6.jpeg"
+      },
+      {
+        "id": "993xz6i",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/7.jpeg"
+      },
+      {
+        "id": "n9gsa",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/8.jpeg"
+      },
+      {
+        "id": "mgl9rf",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/9.jpeg"
+      },
+      {
+        "id": "p26z8r",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/10.jpeg"
+      },
+      {
+        "id": "d3aqi5",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/11.jpeg"
+      },
+      {
+        "id": "tn70hc",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/12.jpeg"
+      },
+      {
+        "id": "yo9g7i",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/13.jpeg"
+      },
+      {
+        "id": "kma5v8",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/14.jpeg"
+      },
+      {
+        "id": "i7kmfp",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/15.jpeg"
+      },
+      {
+        "id": "tckm9m",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/16.jpeg"
+      },
+      {
+        "id": "p4blb",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/17.jpeg"
+      },
+      {
+        "id": "z9gze",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/18.jpeg"
+      },
+      {
+        "id": "9g1wzh",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/19.jpeg"
+      },
+      {
+        "id": "o2n12a",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/20.jpeg"
+      },
+      {
+        "id": "vpz7sg",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/21.jpeg"
+      },
+      {
+        "id": "0yxx8u",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/22.jpeg"
+      },
+      {
+        "id": "ncoaef",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/23.jpeg"
+      },
+      {
+        "id": "8h8p6a",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/24.jpeg"
+      },
+      {
+        "id": "eouw5nh",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/25.jpeg"
+      },
+      {
+        "id": "43ixy4",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/26.jpeg"
+      },
+      {
+        "id": "8iooop",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/27.jpeg"
+      },
+      {
+        "id": "9gzfvo",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/28.jpeg"
+      },
+      {
+        "id": "z3jqr",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/29.jpeg"
+      },
+      {
+        "id": "tstudo",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/30.jpeg"
+      },
+      {
+        "id": "fclvm",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/31.jpeg"
+      },
+      {
+        "id": "pj1zl",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/32.jpeg"
+      },
+      {
+        "id": "9ocww",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/33.jpeg"
+      },
+      {
+        "id": "m3nbsm",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/34.jpeg"
+      },
+      {
+        "id": "x1gch",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/35.jpeg"
+      },
+      {
+        "id": "p737e",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/36.jpeg"
+      },
+      {
+        "id": "oafwzc",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/37.jpeg"
+      },
+      {
+        "id": "yhd4k9",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/38.jpeg"
+      },
+      {
+        "id": "xvjprs",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/39.jpeg"
+      },
+      {
+        "id": "ml2m8k",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/40.jpeg"
+      },
+      {
+        "id": "gkswcc",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/41.jpeg"
+      },
+      {
+        "id": "ms6faq",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e5307c3b0f760a0febdbfb223c347c38/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476238053
+  },
+  {
+    "id": "7dzbs4",
+    "name": "Chapter 22",
+    "pages": [
+      {
+        "id": "ust06",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/2.jpeg"
+      },
+      {
+        "id": "3mt518",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/3.jpeg"
+      },
+      {
+        "id": "w9avgr",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/4.jpeg"
+      },
+      {
+        "id": "rhjfuc",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/5.jpeg"
+      },
+      {
+        "id": "sw392",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/6.jpeg"
+      },
+      {
+        "id": "8xad3",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/7.jpeg"
+      },
+      {
+        "id": "q17ey4",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/8.jpeg"
+      },
+      {
+        "id": "gmbzcn",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/9.jpeg"
+      },
+      {
+        "id": "h52aeb",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/10.jpeg"
+      },
+      {
+        "id": "sxgg9h",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/11.jpeg"
+      },
+      {
+        "id": "d5z1rh",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/12.jpeg"
+      },
+      {
+        "id": "j5a4h",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/13.jpeg"
+      },
+      {
+        "id": "mf183",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/14.jpeg"
+      },
+      {
+        "id": "pq0syh",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/15.jpeg"
+      },
+      {
+        "id": "htr8g",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/16.jpeg"
+      },
+      {
+        "id": "exisgt",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/17.jpeg"
+      },
+      {
+        "id": "t1prww",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/18.jpeg"
+      },
+      {
+        "id": "y8ec4s",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/19.jpeg"
+      },
+      {
+        "id": "giz19b",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/20.jpeg"
+      },
+      {
+        "id": "i2k0qb",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/21.jpeg"
+      },
+      {
+        "id": "7pln8p",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/22.jpeg"
+      },
+      {
+        "id": "xev50o",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/23.jpeg"
+      },
+      {
+        "id": "9xxz69",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/24.jpeg"
+      },
+      {
+        "id": "oiijjp",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/25.jpeg"
+      },
+      {
+        "id": "qxa6h",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/26.jpeg"
+      },
+      {
+        "id": "r5c3he",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/27.jpeg"
+      },
+      {
+        "id": "gslcz",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/28.jpeg"
+      },
+      {
+        "id": "ubrunf",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/29.jpeg"
+      },
+      {
+        "id": "uhuedp",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/30.jpeg"
+      },
+      {
+        "id": "3mpjmc",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/31.jpeg"
+      },
+      {
+        "id": "09esv",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/32.jpeg"
+      },
+      {
+        "id": "878d3",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/33.jpeg"
+      },
+      {
+        "id": "o3adsl",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/34.jpeg"
+      },
+      {
+        "id": "cft9t",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/35.jpeg"
+      },
+      {
+        "id": "2ruc8a",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/36.jpeg"
+      },
+      {
+        "id": "e77f9",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/37.jpeg"
+      },
+      {
+        "id": "jsx4q9",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/38.jpeg"
+      },
+      {
+        "id": "p8a9rv7",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/39.jpeg"
+      },
+      {
+        "id": "jxu7w6",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/40.jpeg"
+      },
+      {
+        "id": "2jagvo",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/41.jpeg"
+      },
+      {
+        "id": "qvqv0d",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/e798ad0c6e923dfde8547986735f7924/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476246548
+  },
+  {
+    "id": "8zjpz8",
+    "name": "Chapter 23",
+    "pages": [
+      {
+        "id": "ulbafm",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/2.jpeg"
+      },
+      {
+        "id": "eg30a",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/3.jpeg"
+      },
+      {
+        "id": "7wzij",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/4.jpeg"
+      },
+      {
+        "id": "xd95a",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/5.jpeg"
+      },
+      {
+        "id": "umayf9",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/6.jpeg"
+      },
+      {
+        "id": "q2ffr",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/7.jpeg"
+      },
+      {
+        "id": "w63wcr",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/8.jpeg"
+      },
+      {
+        "id": "nh6hqq",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/9.jpeg"
+      },
+      {
+        "id": "bn4bws",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/10.jpeg"
+      },
+      {
+        "id": "9pkil",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/11.jpeg"
+      },
+      {
+        "id": "g3rg4c",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/12.jpeg"
+      },
+      {
+        "id": "8uchhm",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/13.jpeg"
+      },
+      {
+        "id": "9lexyg",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/14.jpeg"
+      },
+      {
+        "id": "tuk27df",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/15.jpeg"
+      },
+      {
+        "id": "9jbtci",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/16.jpeg"
+      },
+      {
+        "id": "y13fr7",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/17.jpeg"
+      },
+      {
+        "id": "64fzf",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/18.jpeg"
+      },
+      {
+        "id": "8lty4l",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/19.jpeg"
+      },
+      {
+        "id": "62temh",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/20.jpeg"
+      },
+      {
+        "id": "nt7bah",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/21.jpeg"
+      },
+      {
+        "id": "bxc5n",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/22.jpeg"
+      },
+      {
+        "id": "tritj7",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/23.jpeg"
+      },
+      {
+        "id": "5ijptw",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/24.jpeg"
+      },
+      {
+        "id": "c8ti2q",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/25.jpeg"
+      },
+      {
+        "id": "4l0hi4",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/26.jpeg"
+      },
+      {
+        "id": "wbw27l",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/27.jpeg"
+      },
+      {
+        "id": "5gzt9n",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/28.jpeg"
+      },
+      {
+        "id": "sqwsac",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/29.jpeg"
+      },
+      {
+        "id": "z0r0h",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/30.jpeg"
+      },
+      {
+        "id": "tv35a2",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/31.jpeg"
+      },
+      {
+        "id": "m41bo",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/32.jpeg"
+      },
+      {
+        "id": "8sbxzu",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/33.jpeg"
+      },
+      {
+        "id": "v43d9",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/34.jpeg"
+      },
+      {
+        "id": "ma9agv",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/35.jpeg"
+      },
+      {
+        "id": "4ic7pq",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/36.jpeg"
+      },
+      {
+        "id": "ve0w2l",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/37.jpeg"
+      },
+      {
+        "id": "3nzo1o",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/38.jpeg"
+      },
+      {
+        "id": "k4in48",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/39.jpeg"
+      },
+      {
+        "id": "tfxo",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/40.jpeg"
+      },
+      {
+        "id": "17nl5",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/41.jpeg"
+      },
+      {
+        "id": "v3c665",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/dd162d341a067090b20f970aba624c84/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476249924
+  },
+  {
+    "id": "zejrq",
+    "name": "Chapter 24",
+    "pages": [
+      {
+        "id": "r2g78",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/2.jpeg"
+      },
+      {
+        "id": "gler1p",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/3.jpeg"
+      },
+      {
+        "id": "jllkjg",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/4.jpeg"
+      },
+      {
+        "id": "a2sow",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/5.jpeg"
+      },
+      {
+        "id": "dhn1wa",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/6.jpeg"
+      },
+      {
+        "id": "ey10gc",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/7.jpeg"
+      },
+      {
+        "id": "fpj5fl",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/8.jpeg"
+      },
+      {
+        "id": "lga24f",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/9.jpeg"
+      },
+      {
+        "id": "vlnhb",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/10.jpeg"
+      },
+      {
+        "id": "3undgo",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/11.jpeg"
+      },
+      {
+        "id": "ml6au",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/12.jpeg"
+      },
+      {
+        "id": "ch5wjl",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/13.jpeg"
+      },
+      {
+        "id": "f6is97",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/14.jpeg"
+      },
+      {
+        "id": "rhvrmh",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/15.jpeg"
+      },
+      {
+        "id": "cpk8b",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/16.jpeg"
+      },
+      {
+        "id": "uglyw",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/17.jpeg"
+      },
+      {
+        "id": "evztlf",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/18.jpeg"
+      },
+      {
+        "id": "vzq95",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/19.jpeg"
+      },
+      {
+        "id": "dd3htb",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/20.jpeg"
+      },
+      {
+        "id": "ey3t0v",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/21.jpeg"
+      },
+      {
+        "id": "6ou65s",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/22.jpeg"
+      },
+      {
+        "id": "o0d9rg",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/23.jpeg"
+      },
+      {
+        "id": "ovsslo",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/24.jpeg"
+      },
+      {
+        "id": "qmvje",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/25.jpeg"
+      },
+      {
+        "id": "2z87etc",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/26.jpeg"
+      },
+      {
+        "id": "13yio",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/27.jpeg"
+      },
+      {
+        "id": "oh675p",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/28.jpeg"
+      },
+      {
+        "id": "iqydgj",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/29.jpeg"
+      },
+      {
+        "id": "gb7hka",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/30.jpeg"
+      },
+      {
+        "id": "serm8o",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/31.jpeg"
+      },
+      {
+        "id": "1x6sj",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/32.jpeg"
+      },
+      {
+        "id": "e4qwyq",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/33.jpeg"
+      },
+      {
+        "id": "dranaj",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/34.jpeg"
+      },
+      {
+        "id": "378tmk",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/35.jpeg"
+      },
+      {
+        "id": "vjkau9",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/36.jpeg"
+      },
+      {
+        "id": "6bmrh",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/37.jpeg"
+      },
+      {
+        "id": "ojpeql",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/38.jpeg"
+      },
+      {
+        "id": "36np7c",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/39.jpeg"
+      },
+      {
+        "id": "att6kq",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/40.jpeg"
+      },
+      {
+        "id": "u991t",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/41.jpeg"
+      },
+      {
+        "id": "f2kqtd",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/0902d490b278b75c3d262f863a995d11/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476258223
+  },
+  {
+    "id": "9gqaw",
+    "name": "Chapter 25",
+    "pages": [
+      {
+        "id": "hmqqps",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/2.jpeg"
+      },
+      {
+        "id": "sooaeq",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/3.jpeg"
+      },
+      {
+        "id": "3iu2bn",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/4.jpeg"
+      },
+      {
+        "id": "rvhlpj",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/5.jpeg"
+      },
+      {
+        "id": "bpi26lr",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/6.jpeg"
+      },
+      {
+        "id": "34nt2q",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/7.jpeg"
+      },
+      {
+        "id": "8scq9i",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/8.jpeg"
+      },
+      {
+        "id": "sx7ej",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/9.jpeg"
+      },
+      {
+        "id": "vjx47t",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/10.jpeg"
+      },
+      {
+        "id": "y7rgd",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/11.jpeg"
+      },
+      {
+        "id": "mpm1o4",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/12.jpeg"
+      },
+      {
+        "id": "m67iiq",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/13.jpeg"
+      },
+      {
+        "id": "fnb2g",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/14.jpeg"
+      },
+      {
+        "id": "jqfrrv",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/15.jpeg"
+      },
+      {
+        "id": "0d58cw",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/16.jpeg"
+      },
+      {
+        "id": "si77a",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/17.jpeg"
+      },
+      {
+        "id": "40si6l",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/18.jpeg"
+      },
+      {
+        "id": "jbregn",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/19.jpeg"
+      },
+      {
+        "id": "a8xzka",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/20.jpeg"
+      },
+      {
+        "id": "m2a3xr",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/21.jpeg"
+      },
+      {
+        "id": "et8c1b",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/22.jpeg"
+      },
+      {
+        "id": "ns3mrh",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/23.jpeg"
+      },
+      {
+        "id": "tj359",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/24.jpeg"
+      },
+      {
+        "id": "u5uu5x",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/25.jpeg"
+      },
+      {
+        "id": "27mdnw",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/26.jpeg"
+      },
+      {
+        "id": "qad83",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/27.jpeg"
+      },
+      {
+        "id": "wn5ji",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/28.jpeg"
+      },
+      {
+        "id": "pnl2pe",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/29.jpeg"
+      },
+      {
+        "id": "vbbq2f",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/30.jpeg"
+      },
+      {
+        "id": "9m1aco",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/31.jpeg"
+      },
+      {
+        "id": "qjc3l9",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/32.jpeg"
+      },
+      {
+        "id": "hiue3",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/33.jpeg"
+      },
+      {
+        "id": "76sl1",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/34.jpeg"
+      },
+      {
+        "id": "su97q",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/35.jpeg"
+      },
+      {
+        "id": "yn58zi",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/36.jpeg"
+      },
+      {
+        "id": "pxfr04",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/37.jpeg"
+      },
+      {
+        "id": "2gs8oq",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/38.jpeg"
+      },
+      {
+        "id": "sbu86r",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/39.jpeg"
+      },
+      {
+        "id": "0qv0be",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/40.jpeg"
+      },
+      {
+        "id": "d2wuh",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/664744f7b4b298555a5c3b4e6cc6a7c9/41.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476265380
+  },
+  {
+    "id": "73wcal",
+    "name": "Chapter 26",
+    "pages": [
+      {
+        "id": "u15tdi",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/2.jpeg"
+      },
+      {
+        "id": "q4uiy66",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/3.jpeg"
+      },
+      {
+        "id": "gzhaa",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/4.jpeg"
+      },
+      {
+        "id": "bklh6b",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/5.jpeg"
+      },
+      {
+        "id": "i7c27m",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/6.jpeg"
+      },
+      {
+        "id": "x7ggqk",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/7.jpeg"
+      },
+      {
+        "id": "fucfve",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/8.jpeg"
+      },
+      {
+        "id": "osm4pc",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/9.jpeg"
+      },
+      {
+        "id": "2lbl9",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/10.jpeg"
+      },
+      {
+        "id": "3s9q4c",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/11.jpeg"
+      },
+      {
+        "id": "7kxtz",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/12.jpeg"
+      },
+      {
+        "id": "upr3v",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/13.jpeg"
+      },
+      {
+        "id": "9j7beb",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/14.jpeg"
+      },
+      {
+        "id": "udjup",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/15.jpeg"
+      },
+      {
+        "id": "b9sxnx",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/16.jpeg"
+      },
+      {
+        "id": "fhmimh",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/17.jpeg"
+      },
+      {
+        "id": "pof45b",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/18.jpeg"
+      },
+      {
+        "id": "8bw75",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/19.jpeg"
+      },
+      {
+        "id": "eetjc",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/20.jpeg"
+      },
+      {
+        "id": "8aynti",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/21.jpeg"
+      },
+      {
+        "id": "j1xix",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/22.jpeg"
+      },
+      {
+        "id": "2ut4wf",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/23.jpeg"
+      },
+      {
+        "id": "bbujpa",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/24.jpeg"
+      },
+      {
+        "id": "f3juu",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/25.jpeg"
+      },
+      {
+        "id": "zxlwm",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/26.jpeg"
+      },
+      {
+        "id": "t7nu9",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/27.jpeg"
+      },
+      {
+        "id": "698bdx",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/28.jpeg"
+      },
+      {
+        "id": "evsc9n",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/29.jpeg"
+      },
+      {
+        "id": "dinhjb",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/30.jpeg"
+      },
+      {
+        "id": "eq2zy",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/31.jpeg"
+      },
+      {
+        "id": "jak24",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/32.jpeg"
+      },
+      {
+        "id": "wip2j6",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/33.jpeg"
+      },
+      {
+        "id": "bgnul9",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/34.jpeg"
+      },
+      {
+        "id": "lro6l",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/35.jpeg"
+      },
+      {
+        "id": "7c96f9",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/36.jpeg"
+      },
+      {
+        "id": "wruqbd",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/37.jpeg"
+      },
+      {
+        "id": "ciu4ar",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/38.jpeg"
+      },
+      {
+        "id": "2po09",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/39.jpeg"
+      },
+      {
+        "id": "3t0k9o",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/40.jpeg"
+      },
+      {
+        "id": "1sztnd",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/41.jpeg"
+      },
+      {
+        "id": "u4y71k",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/614f56a19b83343e7cdb2b6ac533df08/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476270915
+  },
+  {
+    "id": "js0tqt",
+    "name": "Chapter 19",
+    "pages": [
+      {
+        "id": "wuqul",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/2.jpeg"
+      },
+      {
+        "id": "gna0d9",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/3.jpeg"
+      },
+      {
+        "id": "rhegq53",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/4.jpeg"
+      },
+      {
+        "id": "k8g47",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/5.jpeg"
+      },
+      {
+        "id": "fggku",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/6.jpeg"
+      },
+      {
+        "id": "o22frl",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/7.jpeg"
+      },
+      {
+        "id": "arjmy",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/8.jpeg"
+      },
+      {
+        "id": "17pivv",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/9.jpeg"
+      },
+      {
+        "id": "6m15n",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/10.jpeg"
+      },
+      {
+        "id": "lrh3d2",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/11.jpeg"
+      },
+      {
+        "id": "rzgjl",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/12.jpeg"
+      },
+      {
+        "id": "zh1ou",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/13.jpeg"
+      },
+      {
+        "id": "44pbvg",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/14.jpeg"
+      },
+      {
+        "id": "ace0do",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/15.jpeg"
+      },
+      {
+        "id": "i4zgui",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/16.jpeg"
+      },
+      {
+        "id": "vlundr",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/17.jpeg"
+      },
+      {
+        "id": "2vrmxg",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/18.jpeg"
+      },
+      {
+        "id": "f5c9br",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/19.jpeg"
+      },
+      {
+        "id": "tnyz1",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/20.jpeg"
+      },
+      {
+        "id": "4s82mv",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/21.jpeg"
+      },
+      {
+        "id": "d926ir",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/22.jpeg"
+      },
+      {
+        "id": "akg70u",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/23.jpeg"
+      },
+      {
+        "id": "25tc9i",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/24.jpeg"
+      },
+      {
+        "id": "ovwz2",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/25.jpeg"
+      },
+      {
+        "id": "rj4sxr",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/26.jpeg"
+      },
+      {
+        "id": "j2gaye",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/27.jpeg"
+      },
+      {
+        "id": "xiiymh",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/28.jpeg"
+      },
+      {
+        "id": "2soblr",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/29.jpeg"
+      },
+      {
+        "id": "owgflo",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/30.jpeg"
+      },
+      {
+        "id": "797t5o",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/31.jpeg"
+      },
+      {
+        "id": "cpbqtq",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/32.jpeg"
+      },
+      {
+        "id": "gsy8jk",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/33.jpeg"
+      },
+      {
+        "id": "nbbuyh",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/34.jpeg"
+      },
+      {
+        "id": "jbk1d",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/35.jpeg"
+      },
+      {
+        "id": "j6mg9k",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/36.jpeg"
+      },
+      {
+        "id": "xao1v6",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/37.jpeg"
+      },
+      {
+        "id": "xzp0cl",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/38.jpeg"
+      },
+      {
+        "id": "kqs0ci",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/39.jpeg"
+      },
+      {
+        "id": "s86cf",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/40.jpeg"
+      },
+      {
+        "id": "7y8r6r",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/f07fc0a3cd0cc1ddb0c861e8a2f5f47d/41.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476278692
+  },
+  {
+    "id": "csqagd",
+    "name": "Chapter 28",
+    "pages": [
+      {
+        "id": "z7wan9",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/0.jpg"
+      },
+      {
+        "id": "u1q99s",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/2.jpeg"
+      },
+      {
+        "id": "k5bey3",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/3.jpeg"
+      },
+      {
+        "id": "jyk8z",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/4.jpeg"
+      },
+      {
+        "id": "ezwexd",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/5.jpeg"
+      },
+      {
+        "id": "th357j",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/6.jpeg"
+      },
+      {
+        "id": "6s3xd7",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/7.jpeg"
+      },
+      {
+        "id": "c965p8",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/8.jpeg"
+      },
+      {
+        "id": "jq8s6i",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/9.jpeg"
+      },
+      {
+        "id": "7azdzn",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/10.jpeg"
+      },
+      {
+        "id": "7l545c",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/11.jpeg"
+      },
+      {
+        "id": "nx311c",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/12.jpeg"
+      },
+      {
+        "id": "avuugb",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/13.jpeg"
+      },
+      {
+        "id": "48tnva",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/14.jpeg"
+      },
+      {
+        "id": "l5zkl",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/15.jpeg"
+      },
+      {
+        "id": "36uaq",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/16.jpeg"
+      },
+      {
+        "id": "ld3sef",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/17.jpeg"
+      },
+      {
+        "id": "o3pa4",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/18.jpeg"
+      },
+      {
+        "id": "999tx4",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/19.jpeg"
+      },
+      {
+        "id": "p2m1sh",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/20.jpeg"
+      },
+      {
+        "id": "9hslkp",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/21.jpeg"
+      },
+      {
+        "id": "tag9jq",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/22.jpeg"
+      },
+      {
+        "id": "lo99d8",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/23.jpeg"
+      },
+      {
+        "id": "3587yl",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/24.jpeg"
+      },
+      {
+        "id": "h393cq",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/25.jpeg"
+      },
+      {
+        "id": "mne3l",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/26.jpeg"
+      },
+      {
+        "id": "p60y5p",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/28.jpeg"
+      },
+      {
+        "id": "973cg4",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/29.jpeg"
+      },
+      {
+        "id": "obl0vf",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/30.jpeg"
+      },
+      {
+        "id": "os93sf",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/31.jpeg"
+      },
+      {
+        "id": "rgvasr",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/32.jpeg"
+      },
+      {
+        "id": "438jus",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/32.jpg"
+      },
+      {
+        "id": "vzjueg",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/33.jpeg"
+      },
+      {
+        "id": "oywe",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/35.jpeg"
+      },
+      {
+        "id": "e9nrw",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/36.jpeg"
+      },
+      {
+        "id": "c86r4",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/37.jpeg"
+      },
+      {
+        "id": "0435zm",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/38.jpeg"
+      },
+      {
+        "id": "hkjvqi",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/39.jpeg"
+      },
+      {
+        "id": "pdcsnt",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/40.jpeg"
+      },
+      {
+        "id": "7r96tc",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/41.jpeg"
+      },
+      {
+        "id": "ydmk6",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/149026c31d7e207ee895c6e66a85bc5c/42.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476283204
+  },
+  {
+    "id": "jr0dgv",
+    "name": "Chapter 29",
+    "pages": [
+      {
+        "id": "9uek8",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/1.jpeg"
+      },
+      {
+        "id": "9fwm6c",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/2.jpeg"
+      },
+      {
+        "id": "32jl09",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/3.jpeg"
+      },
+      {
+        "id": "i9tmaa",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/4.jpeg"
+      },
+      {
+        "id": "zy1byo",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/5.jpeg"
+      },
+      {
+        "id": "leja59k",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/6.jpeg"
+      },
+      {
+        "id": "jnpy3e",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/7.jpeg"
+      },
+      {
+        "id": "kbe4t7",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/8.jpeg"
+      },
+      {
+        "id": "hguwp9",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/9.jpeg"
+      },
+      {
+        "id": "xhfiv6",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/10.jpeg"
+      },
+      {
+        "id": "9glsb7",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/11.jpeg"
+      },
+      {
+        "id": "grqb",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/12.jpeg"
+      },
+      {
+        "id": "9yuxe",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/13.jpeg"
+      },
+      {
+        "id": "e0hmwn",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/14.jpeg"
+      },
+      {
+        "id": "q0athm",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/15.jpeg"
+      },
+      {
+        "id": "5p68rm",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/16.jpeg"
+      },
+      {
+        "id": "ye8fnb",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/17.jpeg"
+      },
+      {
+        "id": "hcsxst",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/18.jpeg"
+      },
+      {
+        "id": "9c01hv",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/19.jpeg"
+      },
+      {
+        "id": "dv25dj",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/20.jpeg"
+      },
+      {
+        "id": "49bn3s",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/21.jpeg"
+      },
+      {
+        "id": "4uqtv",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/22.jpeg"
+      },
+      {
+        "id": "4alqh",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/23.jpeg"
+      },
+      {
+        "id": "u3ahc4",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/24.jpeg"
+      },
+      {
+        "id": "7nsuqv",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/25.jpeg"
+      },
+      {
+        "id": "817eey",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/26.jpeg"
+      },
+      {
+        "id": "g1136",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/27.jpeg"
+      },
+      {
+        "id": "xa3hg2",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/28.jpeg"
+      },
+      {
+        "id": "h4cip",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/29.jpeg"
+      },
+      {
+        "id": "lwdow9",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/30.jpeg"
+      },
+      {
+        "id": "f8hy1d",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/31.jpeg"
+      },
+      {
+        "id": "2cdyeq",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/32.jpeg"
+      },
+      {
+        "id": "mvuto",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/33.jpeg"
+      },
+      {
+        "id": "k465hh",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/34.jpeg"
+      },
+      {
+        "id": "18yhia",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/35.jpeg"
+      },
+      {
+        "id": "3app9",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/36.jpeg"
+      },
+      {
+        "id": "080a37",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/37.jpeg"
+      },
+      {
+        "id": "ns4fjk",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/38.jpeg"
+      },
+      {
+        "id": "roitn",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/39.jpeg"
+      },
+      {
+        "id": "0micp",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/40.jpeg"
+      },
+      {
+        "id": "xqy9r",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/67c15b1bca80baaeb82baaa0b30bde86/41.jpeg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476291298
+  },
+  {
+    "id": "7okx5s",
+    "name": "Chapter 30",
+    "pages": [
+      {
+        "id": "02dbla",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/1.png"
+      },
+      {
+        "id": "xfkdpi",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/2.png"
+      },
+      {
+        "id": "dd5c9",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/3.png"
+      },
+      {
+        "id": "0dsnjl",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/4.png"
+      },
+      {
+        "id": "kc9p6",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/5.png"
+      },
+      {
+        "id": "dm1qlg",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/6.png"
+      },
+      {
+        "id": "rovd6q",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/7.png"
+      },
+      {
+        "id": "jvtwbu",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/8.png"
+      },
+      {
+        "id": "748w6jv",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/9.png"
+      },
+      {
+        "id": "terzo",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/10.png"
+      },
+      {
+        "id": "lldtrj",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/11.png"
+      },
+      {
+        "id": "6x4v9",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/12.png"
+      },
+      {
+        "id": "kjde02i",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/13.png"
+      },
+      {
+        "id": "fdw04e",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/14.png"
+      },
+      {
+        "id": "oww5oi",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/15.png"
+      },
+      {
+        "id": "gwxnb1",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/16.png"
+      },
+      {
+        "id": "hndvja",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/17.png"
+      },
+      {
+        "id": "4yjgup",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/18.png"
+      },
+      {
+        "id": "3dhzri",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/19.png"
+      },
+      {
+        "id": "34pfxp",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/20.png"
+      },
+      {
+        "id": "wkyvhn",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/21.png"
+      },
+      {
+        "id": "55i4x",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/22.png"
+      },
+      {
+        "id": "p2yx38",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/23.png"
+      },
+      {
+        "id": "1hdaek",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/24.png"
+      },
+      {
+        "id": "2hnxk",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/25.png"
+      },
+      {
+        "id": "loyd26",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/26.png"
+      },
+      {
+        "id": "t543pq",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/27.png"
+      },
+      {
+        "id": "jmbdcl",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/28.png"
+      },
+      {
+        "id": "4bfmfl",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/29.png"
+      },
+      {
+        "id": "w159y",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/30.png"
+      },
+      {
+        "id": "yagyuq",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/31.png"
+      },
+      {
+        "id": "iim0r",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/32.png"
+      },
+      {
+        "id": "2kze2s",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/33.png"
+      },
+      {
+        "id": "8uvqo7",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/34.png"
+      },
+      {
+        "id": "yz2za",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/35.png"
+      },
+      {
+        "id": "5a4qpw",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/36.png"
+      },
+      {
+        "id": "qgi0ju",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/37.png"
+      },
+      {
+        "id": "dl2d6c",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/38.png"
+      },
+      {
+        "id": "0gupi",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/39.png"
+      },
+      {
+        "id": "429w76",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/40.png"
+      },
+      {
+        "id": "pkz6f",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/b21486d27621297477cd5265f93e1193/41.png"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476298445
+  },
+  {
+    "id": "2v3scu",
+    "name": "Chapter 31",
+    "pages": [
+      {
+        "id": "h0dpkf",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_1.jpg"
+      },
+      {
+        "id": "lr1pph",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_2.jpg"
+      },
+      {
+        "id": "uw12y",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_3.jpg"
+      },
+      {
+        "id": "5obyjp",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_4.jpg"
+      },
+      {
+        "id": "ebfbtq",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_5.jpg"
+      },
+      {
+        "id": "bwod7s",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_6.jpg"
+      },
+      {
+        "id": "fejef",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_7.jpg"
+      },
+      {
+        "id": "2en031",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_8.jpg"
+      },
+      {
+        "id": "xoxln",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_9.jpg"
+      },
+      {
+        "id": "0dtfvm",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_10.jpg"
+      },
+      {
+        "id": "hlesuu",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_11.jpg"
+      },
+      {
+        "id": "tfurnl",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_12.jpg"
+      },
+      {
+        "id": "lv0ovb",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_13.jpg"
+      },
+      {
+        "id": "lk0ei",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_14.jpg"
+      },
+      {
+        "id": "0qymtn4",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_15.jpg"
+      },
+      {
+        "id": "ptd7fr",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_16.jpg"
+      },
+      {
+        "id": "1uc5pd",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_17.jpg"
+      },
+      {
+        "id": "0cb8z4",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_18.jpg"
+      },
+      {
+        "id": "p5uk38",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_19.jpg"
+      },
+      {
+        "id": "7q4ujn",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_20.jpg"
+      },
+      {
+        "id": "l0d1sm",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_21.jpg"
+      },
+      {
+        "id": "ue5tq4",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_22.jpg"
+      },
+      {
+        "id": "x0ba9q",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_23.jpg"
+      },
+      {
+        "id": "man4fq",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_24.jpg"
+      },
+      {
+        "id": "o0qn7h",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_25.jpg"
+      },
+      {
+        "id": "92gra5",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_26.jpg"
+      },
+      {
+        "id": "9jo8wf",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_27.jpg"
+      },
+      {
+        "id": "5hs80y",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_28.jpg"
+      },
+      {
+        "id": "5mg62s",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_29.jpg"
+      },
+      {
+        "id": "r3c37o",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_30.jpg"
+      },
+      {
+        "id": "qklp7",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_31.jpg"
+      },
+      {
+        "id": "joprvi",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_32.jpg"
+      },
+      {
+        "id": "ve6loq",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_33.jpg"
+      },
+      {
+        "id": "g59r3",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_34.jpg"
+      },
+      {
+        "id": "eiijgi",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_35.jpg"
+      },
+      {
+        "id": "eew3q8",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_36.jpg"
+      },
+      {
+        "id": "m29cf",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_37.jpg"
+      },
+      {
+        "id": "odegie",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_38.jpg"
+      },
+      {
+        "id": "2jvlhw",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_39.jpg"
+      },
+      {
+        "id": "p4ispk",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_40.jpg"
+      },
+      {
+        "id": "cm6cus",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/6f3badbe206df01a8aa1bbb24061097d/boruto_two_blue_vortex_31_41.jpg"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476305225
+  },
+  {
+    "id": "optohf",
+    "name": "Chapter 32",
+    "pages": [
+      {
+        "id": "bsnlia",
+        "name": "Page 1",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/1.png"
+      },
+      {
+        "id": "3ycqps",
+        "name": "Page 2",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/2.png"
+      },
+      {
+        "id": "xn1kqr",
+        "name": "Page 3",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/3.png"
+      },
+      {
+        "id": "zzkdri",
+        "name": "Page 4",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/4.png"
+      },
+      {
+        "id": "s6caje",
+        "name": "Page 5",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/5.png"
+      },
+      {
+        "id": "ntccum",
+        "name": "Page 6",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/6.png"
+      },
+      {
+        "id": "7z97ft",
+        "name": "Page 7",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/7.png"
+      },
+      {
+        "id": "19pelq",
+        "name": "Page 8",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/8.png"
+      },
+      {
+        "id": "mycfuc",
+        "name": "Page 9",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/9.png"
+      },
+      {
+        "id": "cjfkbk",
+        "name": "Page 10",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/10.png"
+      },
+      {
+        "id": "qw7eod",
+        "name": "Page 11",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/11.png"
+      },
+      {
+        "id": "e7r3yr",
+        "name": "Page 12",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/12.png"
+      },
+      {
+        "id": "qhm7yl",
+        "name": "Page 13",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/13.png"
+      },
+      {
+        "id": "4ofd6h",
+        "name": "Page 14",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/14.png"
+      },
+      {
+        "id": "rezla",
+        "name": "Page 15",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/15.png"
+      },
+      {
+        "id": "bwnhtr",
+        "name": "Page 16",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/16.png"
+      },
+      {
+        "id": "vitox7",
+        "name": "Page 17",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/17.png"
+      },
+      {
+        "id": "g59ekk",
+        "name": "Page 18",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/18.png"
+      },
+      {
+        "id": "giez2e",
+        "name": "Page 19",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/19.png"
+      },
+      {
+        "id": "07cd7",
+        "name": "Page 20",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/20.png"
+      },
+      {
+        "id": "exzkl",
+        "name": "Page 21",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/21.png"
+      },
+      {
+        "id": "ecfybg",
+        "name": "Page 22",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/22.png"
+      },
+      {
+        "id": "oihhi",
+        "name": "Page 23",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/23.png"
+      },
+      {
+        "id": "977vza",
+        "name": "Page 24",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/24.png"
+      },
+      {
+        "id": "dlzioe",
+        "name": "Page 25",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/25.png"
+      },
+      {
+        "id": "t5f669",
+        "name": "Page 26",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/26.png"
+      },
+      {
+        "id": "o79ttl",
+        "name": "Page 27",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/27.png"
+      },
+      {
+        "id": "idvk6",
+        "name": "Page 28",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/28.png"
+      },
+      {
+        "id": "14vch",
+        "name": "Page 29",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/29.png"
+      },
+      {
+        "id": "3ak8pe",
+        "name": "Page 30",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/30.png"
+      },
+      {
+        "id": "kukezr",
+        "name": "Page 31",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/31.png"
+      },
+      {
+        "id": "2xti24",
+        "name": "Page 32",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/32.png"
+      },
+      {
+        "id": "65qklq",
+        "name": "Page 33",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/33.png"
+      },
+      {
+        "id": "snr84t",
+        "name": "Page 34",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/34.png"
+      },
+      {
+        "id": "5c9ncs",
+        "name": "Page 35",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/35.png"
+      },
+      {
+        "id": "raq20e4",
+        "name": "Page 36",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/36.png"
+      },
+      {
+        "id": "r6z36l",
+        "name": "Page 37",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/37.png"
+      },
+      {
+        "id": "g8qzq",
+        "name": "Page 38",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/38.png"
+      },
+      {
+        "id": "suioc7y",
+        "name": "Page 39",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/39.png"
+      },
+      {
+        "id": "12h6j",
+        "name": "Page 40",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/40.png"
+      },
+      {
+        "id": "v3eefn",
+        "name": "Page 41",
+        "url": "https://www.mangaread.org/wp-content/uploads/WP-manga/data/manga_650b1727ef90f/572e191f2bfc0563278c83aaac89f150/41.png"
+      }
+    ],
+    "groupId": "boruto",
+    "createdAt": 1775476312488
+  }
 ]
