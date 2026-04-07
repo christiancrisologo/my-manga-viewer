@@ -41,7 +41,7 @@ export function GroupDetailView({
                 className="flex flex-col flex-1 min-h-0"
             >
                 {/* Breadcrumb header */}
-                <div className="flex items-center gap-4 px-6 py-4 border-b border-zinc-900">
+                <div className="flex items-center gap-4 px-4 py-2 border-b border-zinc-900">
                     <button
                         onClick={onBack}
                         className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-xl hover:text-white hover:border-zinc-700 transition-all group"

@@ -1,5 +1,5 @@
-export const APP_NAME = "My Manga Viewer";
-export const AUTHOR_NAME = "Christian Crisologo";
+export const APP_NAME = "Manga Viewer";
+export const AUTHOR_NAME = "C.Crisologo";
 
 export const FILE_EXTENSIONS = {
     ARCHIVE: [".zip", ".cbz", ".cbr", ".coz"],

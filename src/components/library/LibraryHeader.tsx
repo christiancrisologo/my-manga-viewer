@@ -66,7 +66,7 @@ export function LibraryHeader({
         };
     }, [showFavorites]);
     return (
-        <div className="sticky top-0 z-30 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900 px-6 py-4 flex flex-col gap-4">
+        <div className="sticky top-0 z-30 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-900 px-4 py-2 flex flex-col gap-4">
             {/* Top Row: Brand and Main Actions */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -147,12 +147,12 @@ export function LibraryHeader({
                     <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-500 transition-colors" />
                     <input
                         type="text"
-                        placeholder="Search your collection..."
+                        placeholder=" Search your collection..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onFocus={() => setIsSearchFocused(true)}
                         onBlur={() => setIsSearchFocused(false)}
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none"
+                        className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl pl-12 pr-0 py-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-emerald-500/50 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none"
                     />
                 </div>
 
@@ -234,24 +234,24 @@ export function LibraryHeader({
                                 <button
                                     onClick={() => setViewMode('all')}
                                     className={cn(
-                                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
+                                        "flex items-center gap-0 sm:gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
                                         viewMode === 'all' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
                                     )}
                                     title="Show all catalogs"
                                 >
                                     <LayoutGrid size={14} />
-                                    All
+                                    <span className="hidden sm:inline">All</span>
                                 </button>
                                 <button
                                     onClick={() => setViewMode('groups')}
                                     className={cn(
-                                        "flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
+                                        "flex items-center gap-0 sm:gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all",
                                         viewMode === 'groups' ? "bg-emerald-500 text-zinc-950 shadow-lg" : "text-zinc-500 hover:text-zinc-300"
                                     )}
                                     title="Show by group"
                                 >
                                     <FolderOpen size={14} />
-                                    Groups
+                                    <span className="hidden sm:inline">Groups</span>
                                 </button>
                             </div>
                         </motion.div>
