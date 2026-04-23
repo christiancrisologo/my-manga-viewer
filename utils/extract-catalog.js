@@ -72,6 +72,101 @@ async function writeBuffer(buffer, outputPath) {
   await fs.promises.writeFile(outputPath, buffer);
 }
 
+async function readJsonFile(filePath) {
+  const content = await fs.promises.readFile(filePath, 'utf8');
+  return JSON.parse(content);
+}
+
+function createCatalogEntry(originalCatalog, pages) {
+  return {
+    id: originalCatalog.id || crypto.randomUUID(),
+    name: originalCatalog.name || `Chapter ${originalCatalog.chapter || 1}`,
+    pages,
+    createdAt: originalCatalog.createdAt || Date.now(),
+    author: originalCatalog.author,
+    genre: originalCatalog.genre,
+    description: originalCatalog.description,
+    series: originalCatalog.series,
+    volume: originalCatalog.volume,
+    chapter: originalCatalog.chapter,
+    season: originalCatalog.season,
+    released: originalCatalog.released,
+    size: originalCatalog.size,
+    groupId: originalCatalog.groupId
+  };
+}
+
+function mergeArchives(existingArchives, newArchives) {
+  const updated = [...existingArchives];
+  const indexById = new Map();
+  const indexByChapter = new Map();
+  const indexByName = new Map();
+
+  existingArchives.forEach((archive, index) => {
+    if (archive.id) indexById.set(archive.id, index);
+    if (archive.chapter !== undefined && archive.chapter !== null) {
+      indexByChapter.set(String(archive.chapter).toLowerCase(), index);
+    }
+    if (archive.name) {
+      indexByName.set(archive.name.trim().toLowerCase(), index);
+    }
+  });
+
+  for (const archive of newArchives) {
+    let existingIndex;
+
+    if (archive.id && indexById.has(archive.id)) {
+      existingIndex = indexById.get(archive.id);
+    } else if (archive.chapter !== undefined && archive.chapter !== null && indexByChapter.has(String(archive.chapter).toLowerCase())) {
+      existingIndex = indexByChapter.get(String(archive.chapter).toLowerCase());
+    } else if (archive.name && indexByName.has(archive.name.trim().toLowerCase())) {
+      existingIndex = indexByName.get(archive.name.trim().toLowerCase());
+    }
+
+    if (existingIndex !== undefined) {
+      const existing = updated[existingIndex];
+      updated[existingIndex] = {
+        ...existing,
+        ...archive,
+        pages: archive.pages
+      };
+    } else {
+      updated.push(archive);
+    }
+  }
+
+  return updated;
+}
+
+async function writeCatalogFile(folder, catalogs) {
+  const outputPath = path.join(folder, 'catalog.json');
+  await fs.promises.writeFile(outputPath, JSON.stringify(catalogs, null, 2), 'utf8');
+  return outputPath;
+}
+
+async function updateExistingCatalogIndex(folder, newCatalogs) {
+  const existingFiles = ['catalogs.json', 'catalog.json'];
+
+  for (const filename of existingFiles) {
+    const filePath = path.join(folder, filename);
+    try {
+      const existingData = await readJsonFile(filePath);
+      const existingArchives = Array.isArray(existingData)
+        ? existingData
+        : existingData && existingData.pages ? [existingData]
+        : [];
+
+      const merged = mergeArchives(existingArchives, newCatalogs);
+      await fs.promises.writeFile(filePath, JSON.stringify(merged, null, 2), 'utf8');
+      console.log(`Updated existing catalog index: ${filename}`);
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        console.warn(`Could not update existing catalog file ${filename}: ${error.message}`);
+      }
+    }
+  }
+}
+
 async function extractCatalog(catalogFile, targetFolder) {
   const data = await readCatalog(catalogFile);
   const baseName = normalizeCatalogBase(catalogFile);
@@ -85,6 +180,8 @@ async function extractCatalog(catalogFile, targetFolder) {
   console.log(`Output folder: ${targetFolder}`);
   console.log(`Found ${catalogs.length} catalog(s).`);
 
+  const extractedCatalogs = [];
+
   for (const catalog of catalogs) {
     if (!catalog.pages || !Array.isArray(catalog.pages)) {
       console.warn(`Skipping catalog "${catalog.name}": no valid pages array.`);
@@ -93,6 +190,8 @@ async function extractCatalog(catalogFile, targetFolder) {
 
     const chapterNumber = parseChapterNumber(catalogFile, catalog.name);
     console.log(`\nProcessing catalog: "${catalog.name}" (Chapter ${chapterNumber}, ${catalog.pages.length} pages)`);
+
+    const savedPages = [];
 
     for (let index = 0; index < catalog.pages.length; index += 1) {
       const page = catalog.pages[index];
@@ -127,10 +226,30 @@ async function extractCatalog(catalogFile, targetFolder) {
           await writeBuffer(buffer, outputFile);
           console.log(`  [${pageNumber}/${catalog.pages.length}] Saved: ${outputFilename}`);
         }
+
+        savedPages.push({
+          id: page.id || `${baseName}-chapter-${chapterNumber}-page-${pageNumber}`,
+          name: page.name || `Page ${pageNumber}`,
+          url: outputFilename
+        });
       } catch (error) {
         console.error(`  [${pageNumber}/${catalog.pages.length}] Failed to process: ${error.message}`);
       }
     }
+
+    if (savedPages.length > 0) {
+      extractedCatalogs.push(createCatalogEntry(catalog, savedPages));
+    } else {
+      console.warn(`No pages were saved for catalog "${catalog.name}". Skipping catalog entry.`);
+    }
+  }
+
+  if (extractedCatalogs.length > 0) {
+    const outputPath = await writeCatalogFile(targetFolder, extractedCatalogs);
+    console.log(`\nWrote extracted catalog index: ${outputPath}`);
+    await updateExistingCatalogIndex(targetFolder, extractedCatalogs);
+  } else {
+    console.warn('\nNo extracted catalogs to write.');
   }
 
   console.log('\nExtraction complete.');
