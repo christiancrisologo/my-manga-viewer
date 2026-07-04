@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MangaArchive, ViewerSettings, MangaPage } from '../types';
-import { createUrl, revokeAllUrls } from '../services/storage';
+import { cacheArchiveForOffline, createUrl, revokeAllUrls } from '../services/storage';
 import { useViewerControls } from '../hooks/useViewerControls';
 import { useAppConfig } from '../hooks/useAppConfig';
 import { useTouchGestures } from '../hooks/useTouchGestures';
@@ -57,7 +57,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
   useEffect(() => {
     const pagesWithUrls = manga.pages.map(page => ({
       ...page,
-      url: createUrl(page.data || page.url)
+      url: createUrl(page.data || page.url || page.dataUrl)
     })).filter(p => !!p.url);
 
     setPages(pagesWithUrls);
@@ -70,6 +70,29 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
       }
     };
   }, [manga]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const cacheCurrentArchive = async () => {
+      if (!config.offlineMode) return;
+      const isOffline = typeof navigator !== 'undefined' && !navigator.onLine;
+      if (isOffline) return;
+
+      const cachedArchive = await cacheArchiveForOffline(manga);
+      if (!cancelled && cachedArchive) {
+        setPages(cachedArchive.pages.map(page => ({
+          ...page,
+          url: createUrl(page.data || page.url || page.dataUrl)
+        })).filter(p => !!p.url));
+      }
+    };
+
+    void cacheCurrentArchive();
+    return () => {
+      cancelled = true;
+    };
+  }, [config.offlineMode, manga]);
 
   useEffect(() => {
     setShowPageNumber(true);

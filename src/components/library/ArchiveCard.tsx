@@ -1,5 +1,5 @@
-import React from 'react';
-import { Trash2, Image as ImageIcon, CheckCircle2, Circle, Pencil } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Trash2, Image as ImageIcon, CheckCircle2, Circle, Pencil, Download } from 'lucide-react';
 import { MangaArchive } from '../../types';
 import { cn, formatSize } from '../../lib/utils';
 import { motion } from 'motion/react';
@@ -12,6 +12,7 @@ interface ArchiveCardProps {
     onToggleSelection: (id: string) => void;
     onDeleteIconClick: (manga: MangaArchive) => void;
     onEditIconClick: (manga: MangaArchive) => void;
+    onDownloadOffline?: (manga: MangaArchive) => void;
     key?: React.Key;
 }
 
@@ -22,8 +23,30 @@ export function ArchiveCard({
     onSelect,
     onToggleSelection,
     onDeleteIconClick,
-    onEditIconClick
+    onEditIconClick,
+    onDownloadOffline
 }: ArchiveCardProps) {
+    const isDownloaded = Boolean(archive.isCached);
+    const [downloadState, setDownloadState] = useState<'idle' | 'downloading' | 'done'>('idle');
+
+    useEffect(() => {
+        if (downloadState !== 'done') return;
+        const timer = window.setTimeout(() => setDownloadState('idle'), 1400);
+        return () => window.clearTimeout(timer);
+    }, [downloadState]);
+
+    const handleDownloadClick = async (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!onDownloadOffline) return;
+        setDownloadState('downloading');
+        try {
+            await onDownloadOffline(archive);
+            setDownloadState('done');
+        } catch {
+            setDownloadState('idle');
+        }
+    };
+
     return (
         <motion.div
             layout
@@ -52,18 +75,12 @@ export function ArchiveCard({
             </div>
 
             {/* Top Actions */}
-            <div className={cn(
-                "absolute top-4 left-4 right-4 flex justify-between items-start z-10 transition-all transform duration-300",
-                "opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:translate-y-[-10px] md:group-hover:translate-y-0"
-            )}>
+            <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-10">
                 <div className="flex gap-2">
-                    {!isSelectionMode && (
-                        <button
-                            onClick={(e) => { e.stopPropagation(); onEditIconClick(archive); }}
-                            className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-zinc-300 rounded-xl hover:bg-emerald-500 hover:text-zinc-950 transition-all transform md:hover:scale-110 shadow-lg"
-                        >
-                            <Pencil size={18} />
-                        </button>
+                    {isDownloaded && (
+                        <div className="p-2.5 bg-emerald-500/15 backdrop-blur-md text-emerald-400 rounded-xl border border-emerald-500/20 shadow-lg">
+                            <Download size={16} />
+                        </div>
                     )}
                 </div>
                 <button
@@ -115,6 +132,27 @@ export function ArchiveCard({
                             </>
                         )}
                     </div>
+                    {!isSelectionMode && (
+                        <div className="mt-3 flex items-center gap-2">
+                            {onDownloadOffline && (
+                                <button
+                                    onClick={handleDownloadClick}
+                                    className="flex items-center gap-2 px-3 py-2 bg-emerald-500/15 text-emerald-400 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/25 transition-all text-[10px] font-bold uppercase tracking-[0.2em]"
+                                    title="Download for offline view"
+                                >
+                                    <Download size={14} />
+                                    <span>{downloadState === 'downloading' ? 'Downloading…' : downloadState === 'done' ? 'Cached' : 'Offline'}</span>
+                                </button>
+                            )}
+                            <button
+                                onClick={(e) => { e.stopPropagation(); onEditIconClick(archive); }}
+                                className="p-2.5 bg-zinc-900/80 backdrop-blur-md text-zinc-300 rounded-xl hover:bg-emerald-500 hover:text-zinc-950 transition-all shadow-lg"
+                                title="Edit catalog"
+                            >
+                                <Pencil size={16} />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </motion.div >

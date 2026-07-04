@@ -10,6 +10,7 @@ interface ArchiveGridProps {
     onToggleSelection: (id: string) => void;
     onDeleteArchive: (manga: MangaArchive) => void;
     onEditArchive: (manga: MangaArchive) => void;
+    onDownloadOffline?: (manga: MangaArchive) => void;
 }
 
 export function ArchiveGrid({
@@ -19,7 +20,8 @@ export function ArchiveGrid({
     onSelectManga,
     onToggleSelection,
     onDeleteArchive,
-    onEditArchive
+    onEditArchive,
+    onDownloadOffline
 }: ArchiveGridProps) {
     if (archives.length === 0) {
         return (
@@ -49,6 +51,7 @@ export function ArchiveGrid({
                     onToggleSelection={onToggleSelection}
                     onDeleteIconClick={onDeleteArchive}
                     onEditIconClick={onEditArchive}
+                    onDownloadOffline={onDownloadOffline}
                 />
             ))}
         </div>

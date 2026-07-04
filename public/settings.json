@@ -22,6 +22,7 @@
     "imageToSpeech": false,
     "slideShowDelay": 7000,
     "autoNextChapter": true,
+    "offlineMode": false,
     "favorites": [
         {
             "id": "hells-paradise",
