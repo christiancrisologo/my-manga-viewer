@@ -87,10 +87,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
     return result.sort((a, b) => {
       const aChap = a.chapter ? parseFloat(a.chapter) : NaN;
       const bChap = b.chapter ? parseFloat(b.chapter) : NaN;
-      
+
       const aHasChap = !isNaN(aChap);
       const bHasChap = !isNaN(bChap);
-      
+
       let comparison = 0;
       if (aHasChap && bHasChap) {
         comparison = aChap - bChap;
@@ -99,7 +99,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
       } else {
         comparison = aHasChap ? -1 : 1;
       }
-      
+
       return sortOrder === 'asc' ? comparison : -comparison;
     });
   }, [archives, searchQuery, sortOrder]);
@@ -389,19 +389,19 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     isSelectionMode={isSelectionMode}
                     isSelected={isGroupSelected}
                     onToggleSelection={() => {
-                        const next = new Set(selectedIds);
-                        if (isGroupSelected) {
-                            memberArchives.forEach(a => next.delete(a.id));
-                        } else {
-                            memberArchives.forEach(a => next.add(a.id));
-                        }
-                        setSelectedIds(next);
+                      const next = new Set(selectedIds);
+                      if (isGroupSelected) {
+                        memberArchives.forEach(a => next.delete(a.id));
+                      } else {
+                        memberArchives.forEach(a => next.add(a.id));
+                      }
+                      setSelectedIds(next);
                     }}
                     onDeleteIconClick={(grpId) => {
-                        const next = new Set<string>();
-                        memberArchives.forEach(a => next.add(a.id));
-                        setSelectedIds(next);
-                        setShowMultiDeleteConfirm(true);
+                      const next = new Set<string>();
+                      memberArchives.forEach(a => next.add(a.id));
+                      setSelectedIds(next);
+                      setShowMultiDeleteConfirm(true);
                     }}
                     onDownloadOffline={handleDownloadGroupOffline}
                   />
@@ -483,9 +483,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
           setMangaToEdit({ ...mangaToEdit, pages: nextPages });
           setEditUrlInput('');
         }}
-        onAddFiles={async (files) => {
-          if (!mangaToEdit) return;
-          const { pages } = await processFiles(Array.from(files));
+        onAddFiles={async (e) => {
+          if (!mangaToEdit || !e.target.files) return;
+          const { pages } = await processFiles(Array.from(e.target.files));
           const nextPages = [...mangaToEdit.pages, ...pages];
           await handleUpdateMetadata(mangaToEdit.id, { pages: nextPages });
           setMangaToEdit({ ...mangaToEdit, pages: nextPages });

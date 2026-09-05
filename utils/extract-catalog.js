@@ -1,6 +1,22 @@
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
+import {
+  sleep,
+  randomDelay,
+  readJson,
+  writeJson,
+  ensureDir,
+  fetchBuffer,
+  isImageMime,
+  isJpegMime,
+  convertImage,
+  createCatalog,
+  createPage,
+  parseChapterNumber,
+  normalizeCatalogBase,
+  getOutputFilename,
+  mergeArchives
+} from './shared/index.js';
 
 const args = process.argv.slice(2);
 
@@ -13,151 +29,21 @@ const catalogPath = path.resolve(args[0]);
 const fallbackOutputFolder = path.basename(catalogPath, path.extname(catalogPath));
 const outputFolder = path.resolve(args[1] ? args[1] : fallbackOutputFolder);
 
-const isImageMime = (mime) => /^image\//i.test(mime || '');
-const isJpegMime = (mime) => /^image\/(jpeg|jpg)$/i.test(mime || '');
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const randomDelay = () => 2000 + Math.floor(Math.random() * 2000);
-
-function parseChapterNumber(catalogFile, catalogName) {
-  const fileMatch = path.basename(catalogFile, path.extname(catalogFile)).match(/chapter[-_]?([0-9]+)/i);
-  if (fileMatch) return Number(fileMatch[1]);
-
-  const nameMatch = (catalogName || '').match(/chapter\s*([0-9]+)/i);
-  if (nameMatch) return Number(nameMatch[1]);
-
-  return 1;
-}
-
-function normalizeCatalogBase(catalogFile) {
-  return path.basename(catalogFile, path.extname(catalogFile))
-    .replace(/[^a-zA-Z0-9-_]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .toLowerCase();
-}
-
-function getOutputFilename(baseName, chapter, pageIndex) {
-  return `${baseName}-chapter-${chapter}-page-${pageIndex + 1}.jpg`;
-}
-
-async function readCatalog(filePath) {
-  const content = await fs.promises.readFile(filePath, 'utf8');
-  return JSON.parse(content);
-}
-
-async function downloadImage(url) {
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status} ${response.statusText}`);
-  }
-
-  const contentType = response.headers.get('content-type') || '';
-  const buffer = Buffer.from(await response.arrayBuffer());
-
-  return { buffer, contentType };
-}
-
-async function saveAsJpeg(buffer, outputPath) {
-  await sharp(buffer)
-    .jpeg({ quality: 90 })
-    .toFile(outputPath);
-}
-
-async function writeBuffer(buffer, outputPath) {
-  await fs.promises.writeFile(outputPath, buffer);
-}
-
-async function readJsonFile(filePath) {
-  const content = await fs.promises.readFile(filePath, 'utf8');
-  return JSON.parse(content);
-}
-
-function createCatalogEntry(originalCatalog, pages) {
-  return {
-    id: originalCatalog.id || crypto.randomUUID(),
-    name: originalCatalog.name || `Chapter ${originalCatalog.chapter || 1}`,
-    pages,
-    createdAt: originalCatalog.createdAt || Date.now(),
-    author: originalCatalog.author,
-    genre: originalCatalog.genre,
-    description: originalCatalog.description,
-    series: originalCatalog.series,
-    volume: originalCatalog.volume,
-    chapter: originalCatalog.chapter,
-    season: originalCatalog.season,
-    released: originalCatalog.released,
-    size: originalCatalog.size,
-    groupId: originalCatalog.groupId
-  };
-}
-
-function mergeArchives(existingArchives, newArchives) {
-  const updated = [...existingArchives];
-  const indexById = new Map();
-  const indexByChapter = new Map();
-  const indexByName = new Map();
-
-  existingArchives.forEach((archive, index) => {
-    if (archive.id) indexById.set(archive.id, index);
-    if (archive.chapter !== undefined && archive.chapter !== null) {
-      indexByChapter.set(String(archive.chapter).toLowerCase(), index);
-    }
-    if (archive.name) {
-      indexByName.set(archive.name.trim().toLowerCase(), index);
-    }
-  });
-
-  for (const archive of newArchives) {
-    let existingIndex;
-
-    if (archive.id && indexById.has(archive.id)) {
-      existingIndex = indexById.get(archive.id);
-    } else if (archive.chapter !== undefined && archive.chapter !== null && indexByChapter.has(String(archive.chapter).toLowerCase())) {
-      existingIndex = indexByChapter.get(String(archive.chapter).toLowerCase());
-    } else if (archive.name && indexByName.has(archive.name.trim().toLowerCase())) {
-      existingIndex = indexByName.get(archive.name.trim().toLowerCase());
-    }
-
-    if (existingIndex !== undefined) {
-      const existing = updated[existingIndex];
-      updated[existingIndex] = {
-        ...existing,
-        ...archive,
-        pages: archive.pages
-      };
-    } else {
-      updated.push(archive);
-    }
-  }
-
-  return updated;
-}
-
-async function writeCatalogFile(folder, catalogs) {
-  const outputPath = path.join(folder, 'catalog.json');
-  await fs.promises.writeFile(outputPath, JSON.stringify(catalogs, null, 2), 'utf8');
-  return outputPath;
-}
-
 async function updateExistingCatalogIndex(folder, newCatalogs) {
   const existingFiles = ['catalogs.json', 'catalog.json'];
 
   for (const filename of existingFiles) {
     const filePath = path.join(folder, filename);
     try {
-      const existingData = await readJsonFile(filePath);
+      const existingData = await readJson(filePath);
       const existingArchives = Array.isArray(existingData)
         ? existingData
-        : existingData && existingData.pages ? [existingData]
-        : [];
+        : existingData && existingData.pages
+          ? [existingData]
+          : [];
 
       const merged = mergeArchives(existingArchives, newCatalogs);
-      await fs.promises.writeFile(filePath, JSON.stringify(merged, null, 2), 'utf8');
+      await writeJson(filePath, merged);
       console.log(`Updated existing catalog index: ${filename}`);
     } catch (error) {
       if (error.code !== 'ENOENT') {
@@ -168,13 +54,13 @@ async function updateExistingCatalogIndex(folder, newCatalogs) {
 }
 
 async function extractCatalog(catalogFile, targetFolder) {
-  const data = await readCatalog(catalogFile);
+  const data = await readJson(catalogFile);
   const baseName = normalizeCatalogBase(catalogFile);
-  
+
   // Handle both single catalog and array of catalogs
   const catalogs = Array.isArray(data) ? data : [data];
 
-  await fs.promises.mkdir(targetFolder, { recursive: true });
+  ensureDir(targetFolder);
 
   console.log(`Using catalog: ${catalogFile}`);
   console.log(`Output folder: ${targetFolder}`);
@@ -189,14 +75,16 @@ async function extractCatalog(catalogFile, targetFolder) {
     }
 
     const chapterNumber = parseChapterNumber(catalogFile, catalog.name);
-    console.log(`\nProcessing catalog: "${catalog.name}" (Chapter ${chapterNumber}, ${catalog.pages.length} pages)`);
+    console.log(
+      `\nProcessing catalog: "${catalog.name}" (Chapter ${chapterNumber}, ${catalog.pages.length} pages)`
+    );
 
     const savedPages = [];
 
     for (let index = 0; index < catalog.pages.length; index += 1) {
       const page = catalog.pages[index];
       const pageNumber = index + 1;
-      const outputFilename = getOutputFilename(baseName, chapterNumber, index);
+      const outputFilename = getOutputFilename(baseName, chapterNumber, index, 'jpg');
       const outputFile = path.join(targetFolder, outputFilename);
 
       if (!page || !page.url) {
@@ -204,12 +92,12 @@ async function extractCatalog(catalogFile, targetFolder) {
         continue;
       }
 
-      const delayMs = randomDelay();
+      const delayMs = randomDelay(2000, 4000);
       console.log(`  [${pageNumber}/${catalog.pages.length}] Waiting ${delayMs}ms before downloading...`);
       await sleep(delayMs);
 
       try {
-        const { buffer, contentType } = await downloadImage(page.url);
+        const { buffer, contentType } = await fetchBuffer(page.url);
 
         if (!isImageMime(contentType)) {
           console.warn(`  [${pageNumber}/${catalog.pages.length}] URL did not resolve to an image (${page.url})`);
@@ -217,35 +105,49 @@ async function extractCatalog(catalogFile, targetFolder) {
         }
 
         const pageExt = path.extname(new URL(page.url).pathname).toLowerCase();
-        const shouldConvert = !isJpegMime(contentType) || pageExt === '.webp' || pageExt === '.png' || pageExt === '.gif';
+        const shouldConvert =
+          !isJpegMime(contentType) ||
+          pageExt === '.webp' ||
+          pageExt === '.png' ||
+          pageExt === '.gif';
 
         if (shouldConvert) {
-          await saveAsJpeg(buffer, outputFile);
+          await convertImage(buffer, outputFile, 'jpeg', { quality: 90 });
           console.log(`  [${pageNumber}/${catalog.pages.length}] Converted and saved: ${outputFilename}`);
         } else {
-          await writeBuffer(buffer, outputFile);
+          await fs.promises.writeFile(outputFile, buffer);
           console.log(`  [${pageNumber}/${catalog.pages.length}] Saved: ${outputFilename}`);
         }
 
-        savedPages.push({
-          id: page.id || `${baseName}-chapter-${chapterNumber}-page-${pageNumber}`,
-          name: page.name || `Page ${pageNumber}`,
-          url: outputFilename
-        });
+        savedPages.push(
+          createPage({
+            id: page.id || `${baseName}-chapter-${chapterNumber}-page-${pageNumber}`,
+            name: page.name || `Page ${pageNumber}`,
+            url: outputFilename
+          })
+        );
       } catch (error) {
         console.error(`  [${pageNumber}/${catalog.pages.length}] Failed to process: ${error.message}`);
       }
     }
 
     if (savedPages.length > 0) {
-      extractedCatalogs.push(createCatalogEntry(catalog, savedPages));
+      extractedCatalogs.push(
+        createCatalog({
+          ...catalog,
+          id: catalog.id,
+          name: catalog.name || `Chapter ${catalog.chapter || 1}`,
+          pages: savedPages
+        })
+      );
     } else {
       console.warn(`No pages were saved for catalog "${catalog.name}". Skipping catalog entry.`);
     }
   }
 
   if (extractedCatalogs.length > 0) {
-    const outputPath = await writeCatalogFile(targetFolder, extractedCatalogs);
+    const outputPath = path.join(targetFolder, 'catalog.json');
+    await writeJson(outputPath, extractedCatalogs);
     console.log(`\nWrote extracted catalog index: ${outputPath}`);
     await updateExistingCatalogIndex(targetFolder, extractedCatalogs);
   } else {
