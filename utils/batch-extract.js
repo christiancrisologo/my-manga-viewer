@@ -70,7 +70,7 @@ let failed = 0;
 const results = [];
 
 async function executeCommand(command, index) {
-  const { url, start, end, download = true, dir, convert = '', groupId, selector } = command;
+  const { url, start, end, download = true, dir, convert = '', groupId, selector, suffix } = command;
 
   console.log(`\n[${index + 1}/${commands.length}] Processing: ${url}`);
 
@@ -83,6 +83,7 @@ async function executeCommand(command, index) {
 
   if (start && start > 0) args.push(`-x2=${start}`);
   if (end && end > 0) args.push(`-x3=${end}`);
+  if (suffix) args.push(`-suffix=${suffix}`);
 
   if (download) {
     args.push('-dwn=true');

@@ -29,8 +29,9 @@ const { flags, positionals } = parseCliArgs(process.argv.slice(2));
 
 const groupId = flags.g || 'default-group';
 const paddedNumber = flags.pn || 0;
-const sp = flags.sp || '-';
 const prefix = flags.x1 || '';
+const sp = flags.sp ?? (prefix.endsWith('-') ? '' : '-');
+const suffix = flags.suffix || '';
 const minChapter = Number(flags.x2) || 1;
 const maxChapter = Number(flags.x3) || 10;
 const downloadImages = flags.dwn === 'true' || flags.dwn === true;
@@ -271,7 +272,7 @@ if (prefix) {
   for (let i = minChapter; i <= maxChapter; i++) {
     const inc = paddedNumber ? String(i).padStart(3, '0') : i;
 
-    generatedUrls.push(`${basePrefix}${sp}${inc}${extension}`);
+    generatedUrls.push(`${basePrefix}${sp}${inc}${extension}${suffix}`);
   }
 
   console.log(`Generated URLs from prefix: ${generatedUrls.length} URLs`);
