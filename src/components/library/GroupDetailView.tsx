@@ -14,8 +14,6 @@ interface GroupDetailViewProps {
   onToggleSelection: (id: string) => void;
   onDeleteArchive: (manga: MangaArchive) => void;
   onEditArchive: (manga: MangaArchive) => void;
-  onDownloadOffline?: (manga: MangaArchive) => void;
-  onDownloadGroupOffline?: (archives: MangaArchive[]) => void;
   key?: React.Key;
 }
 
@@ -29,8 +27,6 @@ export function GroupDetailView({
   onToggleSelection,
   onDeleteArchive,
   onEditArchive,
-  onDownloadOffline,
-  onDownloadGroupOffline,
 }: GroupDetailViewProps) {
   const label = archives[0]?.series || groupId;
 
@@ -68,15 +64,6 @@ export function GroupDetailView({
             </div>
           </div>
 
-          {onDownloadGroupOffline && (
-            <button
-              onClick={() => onDownloadGroupOffline(archives)}
-              className="flex items-center gap-2 px-3 py-2 bg-emerald-500/15 text-emerald-400 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/25 transition-all text-[10px] font-bold uppercase tracking-[0.2em]"
-            >
-              <FolderOpen size={14} />
-              <span>Download Group</span>
-            </button>
-          )}
         </div>
 
         {/* Archive grid for this group */}
@@ -89,7 +76,6 @@ export function GroupDetailView({
             onToggleSelection={onToggleSelection}
             onDeleteArchive={onDeleteArchive}
             onEditArchive={onEditArchive}
-            onDownloadOffline={onDownloadOffline}
           />
         </div>
       </motion.div>

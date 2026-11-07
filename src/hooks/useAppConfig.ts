@@ -17,7 +17,6 @@ export interface AppConfig {
   slideShowDelay: number;
   viewMode: 'single' | 'scroll';
   favorites: FavoriteItem[];
-  offlineMode: boolean;
 }
 
 const LOCAL_STORAGE_KEY = 'manga_viewer_config_overrides';
@@ -45,7 +44,6 @@ const DEFAULT_CONFIG: AppConfig = {
   slideShowDelay: 3000,
   viewMode: 'single',
   favorites: [],
-  offlineMode: false,
 };
 
 function loadLocalOverrides(): Partial<AppConfig> {

@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MangaArchive, MangaPage } from '../types';
-import { cacheArchiveForOffline, saveArchive, saveArchives } from '../services/storage';
+import { saveArchive, saveArchives } from '../services/storage';
 import { useArchives } from '../hooks/useArchives';
 import { useFileDiscovery } from '../hooks/useFileDiscovery';
 import { useWebExtraction } from '../hooks/useWebExtraction';
@@ -31,7 +31,7 @@ interface LibraryProps {
 
 export default function Library({ onSelectManga }: LibraryProps) {
   // Hooks
-  const { config, isLoaded: isConfigLoaded, updateConfig } = useAppConfig();
+  const { config, isLoaded: isConfigLoaded } = useAppConfig();
   const {
     archives,
     isLoading: isArchivesLoading,
@@ -218,9 +218,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
       createdAt: Date.now(),
     };
     await saveArchive(nextArchive);
-    if (config.offlineMode) {
-      await cacheArchiveForOffline(nextArchive);
-    }
     await loadArchives();
     setShowCreateModal(false);
     setPendingArchive(null);
@@ -300,24 +297,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
     }
   };
 
-  const handleDownloadOffline = async (archive: MangaArchive) => {
-    try {
-      await cacheArchiveForOffline(archive);
-      await loadArchives();
-    } catch (err) {
-      console.error('Failed to download catalog for offline view', err);
-    }
-  };
-
-  const handleDownloadGroupOffline = async (groupArchives: MangaArchive[]) => {
-    try {
-      await Promise.all(groupArchives.map((archive) => cacheArchiveForOffline(archive)));
-      await loadArchives();
-    } catch (err) {
-      console.error('Failed to download catalog group for offline view', err);
-    }
-  };
-
   return (
     <div className="h-full bg-zinc-950 flex flex-col overflow-hidden">
       <LibraryHeader
@@ -348,11 +327,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
         onFavoriteSelect={handleFavoriteSelect}
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
-        offlineMode={config.offlineMode}
-        onToggleOfflineMode={async () => {
-          updateConfig({ offlineMode: !config.offlineMode });
-          await loadArchives();
-        }}
       />
 
       <div className="relative">
@@ -392,8 +366,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
               setEditJsonContent(JSON.stringify(manga, null, 2));
               setShowEditModal(true);
             }}
-            onDownloadOffline={handleDownloadOffline}
-            onDownloadGroupOffline={handleDownloadGroupOffline}
           />
         ) : viewMode === 'groups' ? (
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
@@ -419,13 +391,12 @@ export default function Library({ onSelectManga }: LibraryProps) {
                         }
                         setSelectedIds(next);
                       }}
-                      onDeleteIconClick={(grpId) => {
+                      onDeleteIconClick={() => {
                         const next = new Set<string>();
                         memberArchives.forEach((a) => next.add(a.id));
                         setSelectedIds(next);
                         setShowMultiDeleteConfirm(true);
                       }}
-                      onDownloadOffline={handleDownloadGroupOffline}
                     />
                   );
                 }
@@ -453,7 +424,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     setEditJsonContent(JSON.stringify(manga, null, 2));
                     setShowEditModal(true);
                   }}
-                  onDownloadOffline={handleDownloadOffline}
                 />
               ))}
             </div>
@@ -480,7 +450,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 setEditJsonContent(JSON.stringify(manga, null, 2));
                 setShowEditModal(true);
               }}
-              onDownloadOffline={handleDownloadOffline}
             />
           </div>
         )}
@@ -617,9 +586,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
             createdAt: Date.now(),
           };
           await saveArchive(nextArchive);
-          if (config.offlineMode) {
-            await cacheArchiveForOffline(nextArchive);
-          }
           await loadArchives();
           // Reset state so a new catalog can be extracted
           setWebUrl('');
@@ -668,9 +634,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
               }));
 
             const { added, skipped } = await saveArchives(toImport);
-            if (config.offlineMode) {
-              await Promise.all(toImport.map((archive) => cacheArchiveForOffline(archive)));
-            }
 
             await loadArchives();
             setShowJsonImport(false);

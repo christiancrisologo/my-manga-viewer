@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Trash2, Image as ImageIcon, CheckCircle2, Circle, Pencil, Download } from 'lucide-react';
+import React from 'react';
+import { Trash2, Image as ImageIcon, CheckCircle2, Circle, Pencil } from 'lucide-react';
 import { MangaArchive } from '../../types';
 import { cn, formatSize } from '../../lib/utils';
 import { motion } from 'motion/react';
@@ -12,7 +12,6 @@ interface ArchiveCardProps {
   onToggleSelection: (id: string) => void;
   onDeleteIconClick: (manga: MangaArchive) => void;
   onEditIconClick: (manga: MangaArchive) => void;
-  onDownloadOffline?: (manga: MangaArchive) => void;
   key?: React.Key;
 }
 
@@ -24,29 +23,7 @@ export function ArchiveCard({
   onToggleSelection,
   onDeleteIconClick,
   onEditIconClick,
-  onDownloadOffline,
 }: ArchiveCardProps) {
-  const isDownloaded = Boolean(archive.isCached);
-  const [downloadState, setDownloadState] = useState<'idle' | 'downloading' | 'done'>('idle');
-
-  useEffect(() => {
-    if (downloadState !== 'done') return;
-    const timer = window.setTimeout(() => setDownloadState('idle'), 1400);
-    return () => window.clearTimeout(timer);
-  }, [downloadState]);
-
-  const handleDownloadClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!onDownloadOffline) return;
-    setDownloadState('downloading');
-    try {
-      await onDownloadOffline(archive);
-      setDownloadState('done');
-    } catch {
-      setDownloadState('idle');
-    }
-  };
-
   return (
     <motion.div
       layout
@@ -76,14 +53,7 @@ export function ArchiveCard({
       </div>
 
       {/* Top Actions */}
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-10">
-        <div className="flex gap-2">
-          {isDownloaded && (
-            <div className="p-2.5 bg-emerald-500/15 backdrop-blur-md text-emerald-400 rounded-xl border border-emerald-500/20 shadow-lg">
-              <Download size={16} />
-            </div>
-          )}
-        </div>
+      <div className="absolute top-4 left-4 right-4 flex justify-end items-start z-10">
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -149,22 +119,6 @@ export function ArchiveCard({
           </div>
           {!isSelectionMode && (
             <div className="mt-3 flex items-center gap-2">
-              {onDownloadOffline && (
-                <button
-                  onClick={handleDownloadClick}
-                  className="flex items-center gap-2 px-3 py-2 bg-emerald-500/15 text-emerald-400 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/25 transition-all text-[10px] font-bold uppercase tracking-[0.2em]"
-                  title="Download for offline view"
-                >
-                  <Download size={14} />
-                  <span>
-                    {downloadState === 'downloading'
-                      ? 'Downloading…'
-                      : downloadState === 'done'
-                        ? 'Cached'
-                        : 'Offline'}
-                  </span>
-                </button>
-              )}
               <button
                 onClick={(e) => {
                   e.stopPropagation();

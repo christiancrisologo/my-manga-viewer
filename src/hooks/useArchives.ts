@@ -7,13 +7,10 @@ import {
   updateArchiveMetadata,
   createUrl,
   revokeAllUrls,
-  applyOfflineCacheToArchive,
 } from '../services/storage';
-import { useAppConfig } from './useAppConfig';
 
 export function useArchives() {
   const [archives, setArchives] = useState<MangaArchive[]>([]);
-  const { config } = useAppConfig();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,10 +23,8 @@ export function useArchives() {
       let data = await getArchives();
       const existingIds = new Set(data.map((a) => a.id));
       const params = new URLSearchParams(window.location.search);
-      const isOffline = typeof navigator !== 'undefined' && !navigator.onLine;
-      const shouldSkipRemoteDiscovery = config.offlineMode && isOffline;
       const shouldLoadDefaultCatalogs =
-        allowDefaultFetch && !shouldSkipRemoteDiscovery && (data.length === 0 || params.has('b'));
+        allowDefaultFetch && (data.length === 0 || params.has('b'));
 
       // 2. Discovery Phase: Fetch manifest of public catalogs
       if (shouldLoadDefaultCatalogs) {
@@ -70,7 +65,7 @@ export function useArchives() {
       }
 
       // Fallback for legacy catalogs.json if still present and discovered data is still empty
-      if (data.length === 0 && allowDefaultFetch && !shouldSkipRemoteDiscovery) {
+      if (data.length === 0 && allowDefaultFetch) {
         try {
           const base = import.meta.env.BASE_URL;
           const response = await fetch(`${base}catalogs.json`);
@@ -92,18 +87,12 @@ export function useArchives() {
         }
       }
 
-      const archivesWithUrls = data.map((archive) => {
-        const hydratedArchive = applyOfflineCacheToArchive(archive);
-        return {
-          ...hydratedArchive,
-          pages: hydratedArchive.pages.map((page, i) => {
-            if (i === 0) {
-              return { ...page, url: createUrl(page.data || page.url || page.dataUrl) };
-            }
-            return page;
-          }),
-        };
-      });
+      const archivesWithUrls = data.map((archive) => ({
+        ...archive,
+        pages: archive.pages.map((page, i) =>
+          i === 0 ? { ...page, url: createUrl(page.dataUrl || page.data || page.url) } : page
+        ),
+      }));
       setArchives(archivesWithUrls);
     } catch (err) {
       console.error('Failed to load archives:', err);
@@ -116,7 +105,7 @@ export function useArchives() {
   useEffect(() => {
     loadArchives(true);
     return () => revokeAllUrls();
-  }, [config.offlineMode]);
+  }, []);
 
   const handleDeleteArchive = async (id: string) => {
     try {

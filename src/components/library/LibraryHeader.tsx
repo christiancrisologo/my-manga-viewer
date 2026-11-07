@@ -11,8 +11,6 @@ import {
   Heart,
   ArrowDownAZ,
   ArrowUpZA,
-  Wifi,
-  WifiOff,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
@@ -37,8 +35,6 @@ interface LibraryHeaderProps {
   onFavoriteSelect: (archive: any) => void;
   sortOrder: 'asc' | 'desc';
   setSortOrder: (order: 'asc' | 'desc') => void;
-  offlineMode: boolean;
-  onToggleOfflineMode: () => void;
 }
 
 export function LibraryHeader({
@@ -60,8 +56,6 @@ export function LibraryHeader({
   onFavoriteSelect,
   sortOrder,
   setSortOrder,
-  offlineMode,
-  onToggleOfflineMode,
 }: LibraryHeaderProps) {
   const [showFavorites, setShowFavorites] = React.useState(false);
   const favoritesRef = React.useRef<HTMLDivElement>(null);
@@ -164,19 +158,7 @@ export function LibraryHeader({
               >
                 <Download size={20} />
               </button>
-              <button
-                onClick={onToggleOfflineMode}
-                className={cn(
-                  'p-3 rounded-xl transition-all border',
-                  offlineMode
-                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700'
-                )}
-                title={offlineMode ? 'Offline cache enabled' : 'Enable offline cache'}
-              >
-                {offlineMode ? <WifiOff size={20} /> : <Wifi size={20} />}
-              </button>
-              <button
+                <button
                 onClick={onAddClick}
                 className={cn(
                   'p-3 rounded-xl transition-all shadow-lg flex items-center justify-center',

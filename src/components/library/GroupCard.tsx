@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   FolderOpen,
   Image as ImageIcon,
   Circle,
   CheckCircle2,
   Trash2,
-  Download,
 } from 'lucide-react';
 import { MangaArchive } from '../../types';
 import { motion } from 'motion/react';
@@ -20,7 +19,6 @@ interface GroupCardProps {
   isSelected?: boolean;
   onToggleSelection?: (groupId: string) => void;
   onDeleteIconClick?: (groupId: string) => void;
-  onDownloadOffline?: (archives: MangaArchive[]) => void;
   key?: React.Key;
 }
 
@@ -32,25 +30,10 @@ export function GroupCard({
   isSelected,
   onToggleSelection,
   onDeleteIconClick,
-  onDownloadOffline,
 }: GroupCardProps) {
   const covers = archives.slice(0, 3).map((a) => a.pages[0]);
   // Use the first archive's name or the group ID as the label
   const label = archives[0]?.series || groupId;
-  const [downloadState, setDownloadState] = useState<'idle' | 'downloading' | 'done'>('idle');
-
-  const handleDownloadClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!onDownloadOffline) return;
-    setDownloadState('downloading');
-    try {
-      await onDownloadOffline(archives);
-      setDownloadState('done');
-    } catch {
-      setDownloadState('idle');
-    }
-  };
-
   return (
     <motion.div
       layout
@@ -161,22 +144,6 @@ export function GroupCard({
             {archives.length} Catalogs
           </span>
         </div>
-        {!isSelectionMode && onDownloadOffline && (
-          <button
-            onClick={handleDownloadClick}
-            className="flex items-center gap-2 px-3 py-2 bg-emerald-500/15 text-emerald-400 rounded-xl border border-emerald-500/20 hover:bg-emerald-500/25 transition-all text-[10px] font-bold uppercase tracking-[0.2em]"
-            title="Download this group for offline view"
-          >
-            <Download size={14} />
-            <span>
-              {downloadState === 'downloading'
-                ? 'Downloading…'
-                : downloadState === 'done'
-                  ? 'Cached'
-                  : 'Download Group'}
-            </span>
-          </button>
-        )}
       </div>
     </motion.div>
   );
