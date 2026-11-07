@@ -10,7 +10,7 @@ export function createPage({ id, name = 'Page', url = '', dataUrl }) {
   const page = {
     id: id || generateId(),
     name,
-    url
+    url,
   };
   if (dataUrl) {
     page.dataUrl = dataUrl;
@@ -35,7 +35,7 @@ export function createCatalog({
     id: id || generateId(),
     name,
     pages,
-    createdAt: createdAt || Date.now()
+    createdAt: createdAt || Date.now(),
   };
 
   if (groupId) {
@@ -54,7 +54,7 @@ export function createCatalog({
     'released',
     'size',
     'isCached',
-    'cachedAt'
+    'cachedAt',
   ];
 
   for (const key of validExtraKeys) {
@@ -152,7 +152,7 @@ export function mergeArchives(existingArchives, newArchives) {
       updated[existingIndex] = {
         ...existing,
         ...archive,
-        pages: archive.pages
+        pages: archive.pages,
       };
     } else {
       updated.push(archive);

@@ -15,7 +15,7 @@ import {
   parseChapterNumber,
   normalizeCatalogBase,
   getOutputFilename,
-  mergeArchives
+  mergeArchives,
 } from './shared/index.js';
 
 const args = process.argv.slice(2);
@@ -93,14 +93,18 @@ async function extractCatalog(catalogFile, targetFolder) {
       }
 
       const delayMs = randomDelay(2000, 4000);
-      console.log(`  [${pageNumber}/${catalog.pages.length}] Waiting ${delayMs}ms before downloading...`);
+      console.log(
+        `  [${pageNumber}/${catalog.pages.length}] Waiting ${delayMs}ms before downloading...`
+      );
       await sleep(delayMs);
 
       try {
         const { buffer, contentType } = await fetchBuffer(page.url);
 
         if (!isImageMime(contentType)) {
-          console.warn(`  [${pageNumber}/${catalog.pages.length}] URL did not resolve to an image (${page.url})`);
+          console.warn(
+            `  [${pageNumber}/${catalog.pages.length}] URL did not resolve to an image (${page.url})`
+          );
           continue;
         }
 
@@ -113,7 +117,9 @@ async function extractCatalog(catalogFile, targetFolder) {
 
         if (shouldConvert) {
           await convertImage(buffer, outputFile, 'jpeg', { quality: 90 });
-          console.log(`  [${pageNumber}/${catalog.pages.length}] Converted and saved: ${outputFilename}`);
+          console.log(
+            `  [${pageNumber}/${catalog.pages.length}] Converted and saved: ${outputFilename}`
+          );
         } else {
           await fs.promises.writeFile(outputFile, buffer);
           console.log(`  [${pageNumber}/${catalog.pages.length}] Saved: ${outputFilename}`);
@@ -123,11 +129,13 @@ async function extractCatalog(catalogFile, targetFolder) {
           createPage({
             id: page.id || `${baseName}-chapter-${chapterNumber}-page-${pageNumber}`,
             name: page.name || `Page ${pageNumber}`,
-            url: outputFilename
+            url: outputFilename,
           })
         );
       } catch (error) {
-        console.error(`  [${pageNumber}/${catalog.pages.length}] Failed to process: ${error.message}`);
+        console.error(
+          `  [${pageNumber}/${catalog.pages.length}] Failed to process: ${error.message}`
+        );
       }
     }
 
@@ -137,7 +145,7 @@ async function extractCatalog(catalogFile, targetFolder) {
           ...catalog,
           id: catalog.id,
           name: catalog.name || `Chapter ${catalog.chapter || 1}`,
-          pages: savedPages
+          pages: savedPages,
         })
       );
     } else {

@@ -3,7 +3,7 @@ import {
   extractImageUrlsFromHtml,
   extractTitleFromHtml,
   createCatalog,
-  createPage
+  createPage,
 } from './shared/index.js';
 
 /**
@@ -54,9 +54,9 @@ async function run() {
     pages: imageList.map((url, i) =>
       createPage({
         name: `Page ${i + 1}`,
-        url
+        url,
       })
-    )
+    ),
   });
 
   console.log('\n--- CATALOG JSON START ---');

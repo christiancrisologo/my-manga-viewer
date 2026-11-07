@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
   return {
     base: '/my-manga-viewer/',
     plugins: [react(), tailwindcss()],
@@ -11,6 +11,6 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
-    }
+    },
   };
 });

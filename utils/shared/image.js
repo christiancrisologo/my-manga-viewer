@@ -27,7 +27,7 @@ export const FORMAT_MAP = {
   webp: 'webp',
   gif: 'gif',
   tiff: 'tiff',
-  avif: 'avif'
+  avif: 'avif',
 };
 
 /**
@@ -76,9 +76,7 @@ export async function convertImage(input, outputPath, targetFormat = 'jpeg', opt
   const quality = options.quality ?? 90;
   const progressive = options.progressive ?? true;
 
-  await sharp(input)
-    .toFormat(normalized, { quality, progressive })
-    .toFile(outputPath);
+  await sharp(input).toFormat(normalized, { quality, progressive }).toFile(outputPath);
 
   return outputPath;
 }

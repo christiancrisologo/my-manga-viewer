@@ -47,9 +47,6 @@ export function extractImageUrlsFromHtml(html, targetUrl = '', options = {}) {
     }
   };
 
-  const defaultRegex = /<img[^>]+>/gi;
-  const regexToUse = options.selectorRegex || defaultRegex;
-
   let match;
   let selectorMatches = 0;
 

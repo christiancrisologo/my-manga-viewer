@@ -57,57 +57,59 @@ export function createUrl(data: Blob | string | undefined | null): string | unde
 }
 
 export function revokeAllUrls() {
-  blobUrls.forEach(url => URL.revokeObjectURL(url));
+  blobUrls.forEach((url) => URL.revokeObjectURL(url));
   blobUrls.clear();
 }
 
 export async function saveArchive(archive: MangaArchive): Promise<void> {
-  const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
+  const existing = (await get<MangaArchive[]>(ARCHIVES_KEY)) || [];
   // Merge: If ID exists, update. If not, append.
-  const updated = [archive, ...existing.filter(a => a.id !== archive.id)];
+  const updated = [archive, ...existing.filter((a) => a.id !== archive.id)];
   await set(ARCHIVES_KEY, updated);
 }
 
 export async function cacheArchiveForOffline(archive: MangaArchive): Promise<MangaArchive | null> {
   if (typeof window === 'undefined') return null;
 
-  const nextPages = await Promise.all(archive.pages.map(async (page): Promise<MangaPage> => {
-    if (page.dataUrl) {
-      return { ...page, isCached: true };
-    }
-
-    if (page.data instanceof Blob) {
-      const dataUrl = await blobToDataUrl(page.data);
-      return { ...page, dataUrl, isCached: true };
-    }
-
-    if (page.url) {
-      try {
-        const parsedUrl = new URL(page.url, window.location.href);
-        const isFetchable = ['http:', 'https:', 'blob:'].includes(parsedUrl.protocol);
-
-        if (isFetchable) {
-          const response = await fetch(parsedUrl.toString(), { cache: 'no-store' });
-          if (response.ok) {
-            const blob = await response.blob();
-            const dataUrl = await blobToDataUrl(blob);
-            return { ...page, dataUrl, isCached: true };
-          }
-        }
-      } catch {
-        // Ignore CORS/network failures and fall back to the original URL.
+  const nextPages = await Promise.all(
+    archive.pages.map(async (page): Promise<MangaPage> => {
+      if (page.dataUrl) {
+        return { ...page, isCached: true };
       }
-    }
 
-    return { ...page, isCached: false };
-  }));
+      if (page.data instanceof Blob) {
+        const dataUrl = await blobToDataUrl(page.data);
+        return { ...page, dataUrl, isCached: true };
+      }
 
-  const didCacheAny = nextPages.some(page => page.isCached);
+      if (page.url) {
+        try {
+          const parsedUrl = new URL(page.url, window.location.href);
+          const isFetchable = ['http:', 'https:', 'blob:'].includes(parsedUrl.protocol);
+
+          if (isFetchable) {
+            const response = await fetch(parsedUrl.toString(), { cache: 'no-store' });
+            if (response.ok) {
+              const blob = await response.blob();
+              const dataUrl = await blobToDataUrl(blob);
+              return { ...page, dataUrl, isCached: true };
+            }
+          }
+        } catch {
+          // Ignore CORS/network failures and fall back to the original URL.
+        }
+      }
+
+      return { ...page, isCached: false };
+    })
+  );
+
+  const didCacheAny = nextPages.some((page) => page.isCached);
   const cachedArchive = {
     ...archive,
     pages: nextPages,
     isCached: didCacheAny,
-    cachedAt: didCacheAny ? Date.now() : undefined
+    cachedAt: didCacheAny ? Date.now() : undefined,
   };
 
   if (didCacheAny) {
@@ -146,7 +148,7 @@ export function applyOfflineCacheToArchive(archive: MangaArchive): MangaArchive 
     ...cached,
     pages: mergedPages,
     isCached: true,
-    cachedAt: cached.cachedAt ?? archive.cachedAt
+    cachedAt: cached.cachedAt ?? archive.cachedAt,
   };
 }
 
@@ -159,17 +161,19 @@ export function clearOfflineArchiveCache(id: string): void {
   }
 }
 
-export async function saveArchives(newArchives: MangaArchive[]): Promise<{ added: number; skipped: number }> {
-  const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
+export async function saveArchives(
+  newArchives: MangaArchive[]
+): Promise<{ added: number; skipped: number }> {
+  const existing = (await get<MangaArchive[]>(ARCHIVES_KEY)) || [];
   const updated = [...existing];
   let added = 0;
   let skipped = 0;
 
   for (const archive of newArchives) {
     // Check if ID already exists or if Name + PageCount match (common for imports)
-    const exists = updated.some(a =>
-      a.id === archive.id ||
-      (a.name === archive.name && a.pages.length === archive.pages.length)
+    const exists = updated.some(
+      (a) =>
+        a.id === archive.id || (a.name === archive.name && a.pages.length === archive.pages.length)
     );
 
     if (exists) {
@@ -186,21 +190,24 @@ export async function saveArchives(newArchives: MangaArchive[]): Promise<{ added
 }
 
 export async function getArchives(): Promise<MangaArchive[]> {
-  const archives = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
+  const archives = (await get<MangaArchive[]>(ARCHIVES_KEY)) || [];
   // When loading, we need to ensure we don't leak URLs if we call this multiple times
   // but usually we call it once on mount.
   return archives;
 }
 
 export async function deleteArchive(id: string): Promise<void> {
-  const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
-  const updated = existing.filter(a => a.id !== id);
+  const existing = (await get<MangaArchive[]>(ARCHIVES_KEY)) || [];
+  const updated = existing.filter((a) => a.id !== id);
   await set(ARCHIVES_KEY, updated);
 }
 
-export async function updateArchiveMetadata(id: string, metadata: Partial<MangaArchive>): Promise<void> {
-  const existing = await get<MangaArchive[]>(ARCHIVES_KEY) || [];
-  const updated = existing.map(a => {
+export async function updateArchiveMetadata(
+  id: string,
+  metadata: Partial<MangaArchive>
+): Promise<void> {
+  const existing = (await get<MangaArchive[]>(ARCHIVES_KEY)) || [];
+  const updated = existing.map((a) => {
     if (a.id === id) {
       return { ...a, ...metadata };
     }

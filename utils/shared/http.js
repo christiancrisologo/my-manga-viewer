@@ -14,7 +14,7 @@ export const IMAGE_EXTENSIONS = [
   '.bmp',
   '.tiff',
   '.svg',
-  '.avif'
+  '.avif',
 ];
 
 /**
@@ -51,12 +51,12 @@ export function resolveUrl(relativeOrAbsolute, baseUrl) {
 export async function fetchBuffer(url, options = {}) {
   const headers = {
     'User-Agent': DEFAULT_USER_AGENT,
-    ...(options.headers || {})
+    ...(options.headers || {}),
   };
 
   const response = await fetch(url, {
     ...options,
-    headers
+    headers,
   });
 
   if (!response.ok) {

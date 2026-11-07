@@ -37,28 +37,34 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
     prevPage,
     goToPage,
     toggleSlideshow,
-    handleInteraction
-  } = useViewerControls(pages, onEndReached, config.autoNextChapter, config.slideShowDelay, config.viewMode);
+    handleInteraction,
+  } = useViewerControls(
+    pages,
+    onEndReached,
+    config.autoNextChapter,
+    config.slideShowDelay,
+    config.viewMode
+  );
 
-  const {
-    handleTouchStart,
-    handleTouchMove,
-    handleTouchEnd
-  } = useTouchGestures({
+  const { handleTouchStart, handleTouchMove, handleTouchEnd } = useTouchGestures({
     zoom: settings.zoom,
-    setZoom: (val) => setSettings(s => ({ ...s, zoom: typeof val === 'function' ? val(s.zoom) : val })),
+    setZoom: (val) =>
+      setSettings((s) => ({ ...s, zoom: typeof val === 'function' ? val(s.zoom) : val })),
     offset: settings.offset,
-    setOffset: (val) => setSettings(s => ({ ...s, offset: typeof val === 'function' ? val(s.offset) : val })),
+    setOffset: (val) =>
+      setSettings((s) => ({ ...s, offset: typeof val === 'function' ? val(s.offset) : val })),
     nextPage,
     prevPage,
-    toggleControls: () => setShowControls(prev => !prev)
+    toggleControls: () => setShowControls((prev) => !prev),
   });
 
   useEffect(() => {
-    const pagesWithUrls = manga.pages.map(page => ({
-      ...page,
-      url: createUrl(page.data || page.url || page.dataUrl)
-    })).filter(p => !!p.url);
+    const pagesWithUrls = manga.pages
+      .map((page) => ({
+        ...page,
+        url: createUrl(page.data || page.url || page.dataUrl),
+      }))
+      .filter((p) => !!p.url);
 
     setPages(pagesWithUrls);
     setCurrentIndex(0);
@@ -66,7 +72,7 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
     return () => {
       revokeAllUrls();
       if (document.fullscreenElement && isFullScreen && !settings.isSlideshowActive) {
-        document.exitFullscreen().catch(() => { });
+        document.exitFullscreen().catch(() => {});
       }
     };
   }, [manga]);
@@ -81,10 +87,14 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
 
       const cachedArchive = await cacheArchiveForOffline(manga);
       if (!cancelled && cachedArchive) {
-        setPages(cachedArchive.pages.map(page => ({
-          ...page,
-          url: createUrl(page.data || page.url || page.dataUrl)
-        })).filter(p => !!p.url));
+        setPages(
+          cachedArchive.pages
+            .map((page) => ({
+              ...page,
+              url: createUrl(page.data || page.url || page.dataUrl),
+            }))
+            .filter((p) => !!p.url)
+        );
       }
     };
 
@@ -132,9 +142,9 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => { });
+      document.documentElement.requestFullscreen().catch(() => {});
     } else {
-      document.exitFullscreen().catch(() => { });
+      document.exitFullscreen().catch(() => {});
     }
   };
 
@@ -153,11 +163,11 @@ export default function Viewer({ manga, onClose, onEndReached }: ViewerProps) {
         currentIndex={currentIndex}
         totalPageCount={pages.length}
         onClose={onClose}
-        onToggleThumbnails={() => setShowThumbnails(p => !p)}
+        onToggleThumbnails={() => setShowThumbnails((p) => !p)}
         showThumbnails={showThumbnails}
         onToggleFullScreen={toggleFullScreen}
         isFullScreen={isFullScreen}
-        onRotate={() => setSettings(s => ({ ...s, rotation: (s.rotation + 90) % 360 }))}
+        onRotate={() => setSettings((s) => ({ ...s, rotation: (s.rotation + 90) % 360 }))}
         onOpenSettings={() => setShowSettings(true)}
         onPrevPage={prevPage}
         onNextPage={nextPage}
@@ -267,9 +277,9 @@ function ScrollPage({ page, onVisible, isLast, onLastInView, settings }: ScrollP
           src={page.url}
           alt={`Page ${page.name}`}
           className={cn(
-            "w-full h-auto object-contain shadow-2xl",
-            settings.fitMode === 'width' && "w-full",
-            settings.fitMode === 'height' && "max-h-screen w-auto"
+            'w-full h-auto object-contain shadow-2xl',
+            settings.fitMode === 'width' && 'w-full',
+            settings.fitMode === 'height' && 'max-h-screen w-auto'
           )}
           draggable={false}
           referrerPolicy="no-referrer"

@@ -1,0 +1,9 @@
+dist
+node_modules
+public
+.vite
+.vscode
+*.min.js
+*.lock
+package-lock.json
+utils/node-extract.json

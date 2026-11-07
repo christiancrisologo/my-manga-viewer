@@ -16,6 +16,7 @@ A premium, feature-rich web-based manga and archive viewer.
 Ensure you have **Node.js** installed.
 
 1. **Install dependencies**:
+
    ```bash
    yarn install
    # or
@@ -35,13 +36,16 @@ Ensure you have **Node.js** installed.
 ## 🛠️ Advanced Usage
 
 ### Auto-Loading from Public Folder
+
 Place your `.cbz` or `.zip` files in the `public/` directory and append `?a=filename` to the URL.
 The viewer will automatically detect, fetch, and process the archive for you.
 
 ### Encrypted Files
+
 If an archive is password-protected, the viewer will automatically prompt for decryption before creating the catalog.
 
 ## 📦 Tech Stack
+
 - **React 19** + **Vite**
 - **Tailwind CSS 4**
 - **zip.js** (for high-performance archive extraction)

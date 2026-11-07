@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // Parse command-line arguments
 const { flags } = parseCliArgs(process.argv.slice(2));
-let jsonFilePath = flags.json || null;
+const jsonFilePath = flags.json || null;
 
 if (!jsonFilePath) {
   console.error('❌ Error: -json flag is required');
@@ -23,7 +23,10 @@ function resolveJsonPath(targetPath) {
     targetPath,
     targetPath.endsWith('.json') ? null : `${targetPath}.json`,
     path.join(__dirname, path.basename(targetPath)),
-    path.join(__dirname, targetPath.endsWith('.json') ? path.basename(targetPath) : `${path.basename(targetPath)}.json`)
+    path.join(
+      __dirname,
+      targetPath.endsWith('.json') ? path.basename(targetPath) : `${path.basename(targetPath)}.json`
+    ),
   ].filter(Boolean);
 
   for (const candidate of candidates) {
@@ -93,15 +96,13 @@ async function executeCommand(command, index) {
   return new Promise((resolve) => {
     const child = spawn('node', args, {
       cwd: __dirname,
-      stdio: 'pipe'
+      stdio: 'pipe',
     });
 
-    let output = '';
     let errorOutput = '';
 
     child.stdout.on('data', (data) => {
       const text = data.toString();
-      output += text;
       process.stdout.write(text);
     });
 
@@ -129,7 +130,7 @@ async function executeCommand(command, index) {
             index: index + 1,
             url,
             status: 'SKIPPED',
-            reason: 'URL unreachable or invalid'
+            reason: 'URL unreachable or invalid',
           });
         } else {
           console.log(`  ❌ Failed with exit code: ${code}`);

@@ -25,7 +25,7 @@ export default function App() {
       return aHasChap ? -1 : 1;
     });
 
-    const currentIndex = sortedQueue.findIndex(m => m.id === selectedManga.id);
+    const currentIndex = sortedQueue.findIndex((m) => m.id === selectedManga.id);
 
     if (currentIndex >= 0 && currentIndex < sortedQueue.length - 1) {
       setSelectedManga(sortedQueue[currentIndex + 1]);
@@ -37,7 +37,10 @@ export default function App() {
   return (
     <div className="h-screen w-screen bg-zinc-950 overflow-hidden flex flex-col relative">
       <div
-        className={cn("absolute inset-0 transition-opacity duration-300", selectedManga ? "opacity-0 pointer-events-none" : "opacity-100 z-10")}
+        className={cn(
+          'absolute inset-0 transition-opacity duration-300',
+          selectedManga ? 'opacity-0 pointer-events-none' : 'opacity-100 z-10'
+        )}
       >
         <Library
           onSelectManga={(manga, queue) => {
@@ -54,7 +57,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="absolute inset-0 z-20"
           >
             <Viewer

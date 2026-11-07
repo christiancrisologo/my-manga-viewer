@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 
 /**
  * Pause execution for a given number of milliseconds.
@@ -26,7 +25,9 @@ export function randomDelay(minMs = 1000, maxMs = 3000) {
  * @returns {string}
  */
 export function generateId(length = 7) {
-  return Math.random().toString(36).substring(2, 2 + length);
+  return Math.random()
+    .toString(36)
+    .substring(2, 2 + length);
 }
 
 /**
