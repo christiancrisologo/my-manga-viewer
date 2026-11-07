@@ -17,6 +17,6 @@ export function formatDate(date: number | string | Date): string {
   return new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   }).format(new Date(date));
 }

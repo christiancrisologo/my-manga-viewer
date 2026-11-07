@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MangaArchive, MangaPage } from '../types';
-import { cacheArchiveForOffline, saveArchive, saveArchives } from '../services/storage';
+import { saveArchive, saveArchives } from '../services/storage';
 import { useArchives } from '../hooks/useArchives';
 import { useFileDiscovery } from '../hooks/useFileDiscovery';
 import { useWebExtraction } from '../hooks/useWebExtraction';
@@ -31,8 +31,14 @@ interface LibraryProps {
 
 export default function Library({ onSelectManga }: LibraryProps) {
   // Hooks
-  const { config, isLoaded: isConfigLoaded, updateConfig } = useAppConfig();
-  const { archives, isLoading: isArchivesLoading, loadArchives, handleDeleteArchive, handleUpdateMetadata } = useArchives();
+  const { config, isLoaded: isConfigLoaded } = useAppConfig();
+  const {
+    archives,
+    isLoading: isArchivesLoading,
+    loadArchives,
+    handleDeleteArchive,
+    handleUpdateMetadata,
+  } = useArchives();
   const { isProcessing: isFilesProcessing, processFiles } = useFileDiscovery();
   const { isExtracting, extractImagesFromUrl } = useWebExtraction();
 
@@ -61,7 +67,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const [mangaToEdit, setMangaToEdit] = useState<MangaArchive | null>(null);
   const [mangaToDelete, setMangaToDelete] = useState<MangaArchive | null>(null);
   const [importUrl, setImportUrl] = useState('');
-  const [pendingArchive, setPendingArchive] = useState<{ name: string; pages: MangaPage[] } | null>(null);
+  const [pendingArchive, setPendingArchive] = useState<{ name: string; pages: MangaPage[] } | null>(
+    null
+  );
   const [pendingArchiveFile, setPendingArchiveFile] = useState<File | null>(null);
   const [archivePassword, setArchivePassword] = useState('');
 
@@ -80,18 +88,19 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
   // Filtering and Sorting
   const filteredArchives = useMemo(() => {
-    const result = archives.filter(a =>
-      a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      a.author?.toLowerCase().includes(searchQuery.toLowerCase())
+    const result = archives.filter(
+      (a) =>
+        a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        a.author?.toLowerCase().includes(searchQuery.toLowerCase())
     );
     return result.sort((a, b) => {
       const aChap = a.chapter ? parseFloat(a.chapter) : NaN;
       const bChap = b.chapter ? parseFloat(b.chapter) : NaN;
-      
+
       const aHasChap = !isNaN(aChap);
       const bHasChap = !isNaN(bChap);
-      
-      let comparison = 0;
+
+      let comparison: number;
       if (aHasChap && bHasChap) {
         comparison = aChap - bChap;
       } else if (!aHasChap && !bHasChap) {
@@ -99,7 +108,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
       } else {
         comparison = aHasChap ? -1 : 1;
       }
-      
+
       return sortOrder === 'asc' ? comparison : -comparison;
     });
   }, [archives, searchQuery, sortOrder]);
@@ -109,7 +118,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
     const groups: Record<string, MangaArchive[]> = {};
     const ungrouped: MangaArchive[] = [];
 
-    filteredArchives.forEach(archive => {
+    filteredArchives.forEach((archive) => {
       if (archive.groupId) {
         if (!groups[archive.groupId]) {
           groups[archive.groupId] = [];
@@ -133,11 +142,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
     onPasswordRequired: (file) => {
       setPendingArchiveFile(file);
       setShowPasswordModal(true);
-    }
+    },
   });
 
   const handleSelectAll = () => {
-    setSelectedIds(new Set(filteredArchives.map(a => a.id)));
+    setSelectedIds(new Set(filteredArchives.map((a) => a.id)));
   };
 
   const handleAddOption = (option: string) => {
@@ -145,9 +154,11 @@ export default function Library({ onSelectManga }: LibraryProps) {
       const input = document.createElement('input');
       input.type = 'file';
       input.multiple = true;
-      const acceptExts = config.supportedUploadableFiles.map(ext =>
-        ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif'].includes(ext) ? `image/${ext}` : `.${ext}`
-      ).join(',');
+      const acceptExts = config.supportedUploadableFiles
+        .map((ext) =>
+          ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif'].includes(ext) ? `image/${ext}` : `.${ext}`
+        )
+        .join(',');
       input.accept = acceptExts || '.zip,.cbz,.cbr,.coz,image/*';
       input.onchange = (e) => handleFileInputChange(e as any);
       input.click();
@@ -204,12 +215,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
       id: crypto.randomUUID(),
       name: pendingArchive.name,
       pages: pendingArchive.pages,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
     await saveArchive(nextArchive);
-    if (config.offlineMode) {
-      await cacheArchiveForOffline(nextArchive);
-    }
     await loadArchives();
     setShowCreateModal(false);
     setPendingArchive(null);
@@ -270,7 +278,13 @@ export default function Library({ onSelectManga }: LibraryProps) {
   const favoriteArchives = useMemo(() => {
     if (!isConfigLoaded || isArchivesLoading) return [];
     return config.favorites
-      .map(fav => archives.find(archive => archive.groupId === fav.id || archive.name.toLowerCase().includes(fav.name.toLowerCase())))
+      .map((fav) =>
+        archives.find(
+          (archive) =>
+            archive.groupId === fav.id ||
+            archive.name.toLowerCase().includes(fav.name.toLowerCase())
+        )
+      )
       .filter((archive): archive is MangaArchive => archive !== undefined);
   }, [config.favorites, archives, isConfigLoaded, isArchivesLoading]);
 
@@ -280,24 +294,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
       setActiveGroupId(archive.groupId);
     } else {
       onSelectManga(archive, filteredArchives);
-    }
-  };
-
-  const handleDownloadOffline = async (archive: MangaArchive) => {
-    try {
-      await cacheArchiveForOffline(archive);
-      await loadArchives();
-    } catch (err) {
-      console.error('Failed to download catalog for offline view', err);
-    }
-  };
-
-  const handleDownloadGroupOffline = async (groupArchives: MangaArchive[]) => {
-    try {
-      await Promise.all(groupArchives.map(archive => cacheArchiveForOffline(archive)));
-      await loadArchives();
-    } catch (err) {
-      console.error('Failed to download catalog group for offline view', err);
     }
   };
 
@@ -331,11 +327,6 @@ export default function Library({ onSelectManga }: LibraryProps) {
         onFavoriteSelect={handleFavoriteSelect}
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
-        offlineMode={config.offlineMode}
-        onToggleOfflineMode={async () => {
-          updateConfig({ offlineMode: !config.offlineMode });
-          await loadArchives();
-        }}
       />
 
       <div className="relative">
@@ -366,49 +357,52 @@ export default function Library({ onSelectManga }: LibraryProps) {
               else next.add(id);
               setSelectedIds(next);
             }}
-            onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+            onDeleteArchive={(manga) => {
+              setMangaToDelete(manga);
+              setShowDeleteConfirm(true);
+            }}
             onEditArchive={(manga) => {
               setMangaToEdit(manga);
               setEditJsonContent(JSON.stringify(manga, null, 2));
               setShowEditModal(true);
             }}
-            onDownloadOffline={handleDownloadOffline}
-            onDownloadGroupOffline={handleDownloadGroupOffline}
           />
         ) : viewMode === 'groups' ? (
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-6">
-              {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(([groupId, memberArchives]) => {
-                const isGroupSelected = memberArchives.length > 0 && memberArchives.every(a => selectedIds.has(a.id));
-                return (
-                  <GroupCard
-                    key={groupId}
-                    groupId={groupId}
-                    archives={memberArchives}
-                    onClick={setActiveGroupId}
-                    isSelectionMode={isSelectionMode}
-                    isSelected={isGroupSelected}
-                    onToggleSelection={() => {
+              {(Object.entries(groupedArchives.groups) as [string, MangaArchive[]][]).map(
+                ([groupId, memberArchives]) => {
+                  const isGroupSelected =
+                    memberArchives.length > 0 && memberArchives.every((a) => selectedIds.has(a.id));
+                  return (
+                    <GroupCard
+                      key={groupId}
+                      groupId={groupId}
+                      archives={memberArchives}
+                      onClick={setActiveGroupId}
+                      isSelectionMode={isSelectionMode}
+                      isSelected={isGroupSelected}
+                      onToggleSelection={() => {
                         const next = new Set(selectedIds);
                         if (isGroupSelected) {
-                            memberArchives.forEach(a => next.delete(a.id));
+                          memberArchives.forEach((a) => next.delete(a.id));
                         } else {
-                            memberArchives.forEach(a => next.add(a.id));
+                          memberArchives.forEach((a) => next.add(a.id));
                         }
                         setSelectedIds(next);
-                    }}
-                    onDeleteIconClick={(grpId) => {
+                      }}
+                      onDeleteIconClick={() => {
                         const next = new Set<string>();
-                        memberArchives.forEach(a => next.add(a.id));
+                        memberArchives.forEach((a) => next.add(a.id));
                         setSelectedIds(next);
                         setShowMultiDeleteConfirm(true);
-                    }}
-                    onDownloadOffline={handleDownloadGroupOffline}
-                  />
-                );
-              })}
+                      }}
+                    />
+                  );
+                }
+              )}
               {/* Show ungrouped catalogs too */}
-              {groupedArchives.ungrouped.map(archive => (
+              {groupedArchives.ungrouped.map((archive) => (
                 <ArchiveCard
                   key={archive.id}
                   archive={archive}
@@ -421,13 +415,15 @@ export default function Library({ onSelectManga }: LibraryProps) {
                     else next.add(id);
                     setSelectedIds(next);
                   }}
-                  onDeleteIconClick={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+                  onDeleteIconClick={(manga) => {
+                    setMangaToDelete(manga);
+                    setShowDeleteConfirm(true);
+                  }}
                   onEditIconClick={(manga) => {
                     setMangaToEdit(manga);
                     setEditJsonContent(JSON.stringify(manga, null, 2));
                     setShowEditModal(true);
                   }}
-                  onDownloadOffline={handleDownloadOffline}
                 />
               ))}
             </div>
@@ -445,13 +441,15 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 else next.add(id);
                 setSelectedIds(next);
               }}
-              onDeleteArchive={(manga) => { setMangaToDelete(manga); setShowDeleteConfirm(true); }}
+              onDeleteArchive={(manga) => {
+                setMangaToDelete(manga);
+                setShowDeleteConfirm(true);
+              }}
               onEditArchive={(manga) => {
                 setMangaToEdit(manga);
                 setEditJsonContent(JSON.stringify(manga, null, 2));
                 setShowEditModal(true);
               }}
-              onDownloadOffline={handleDownloadOffline}
             />
           </div>
         )}
@@ -477,15 +475,19 @@ export default function Library({ onSelectManga }: LibraryProps) {
         }}
         onAddUrlPages={async () => {
           if (!mangaToEdit || !editUrlInput) return;
-          const newPage = { id: crypto.randomUUID(), name: `URL Page ${mangaToEdit.pages.length + 1}`, url: editUrlInput };
+          const newPage = {
+            id: crypto.randomUUID(),
+            name: `URL Page ${mangaToEdit.pages.length + 1}`,
+            url: editUrlInput,
+          };
           const nextPages = [...mangaToEdit.pages, newPage];
           await handleUpdateMetadata(mangaToEdit.id, { pages: nextPages });
           setMangaToEdit({ ...mangaToEdit, pages: nextPages });
           setEditUrlInput('');
         }}
-        onAddFiles={async (files) => {
-          if (!mangaToEdit) return;
-          const { pages } = await processFiles(Array.from(files));
+        onAddFiles={async (e) => {
+          if (!mangaToEdit || !e.target.files) return;
+          const { pages } = await processFiles(Array.from(e.target.files));
           const nextPages = [...mangaToEdit.pages, ...pages];
           await handleUpdateMetadata(mangaToEdit.id, { pages: nextPages });
           setMangaToEdit({ ...mangaToEdit, pages: nextPages });
@@ -501,7 +503,9 @@ export default function Library({ onSelectManga }: LibraryProps) {
           try {
             const response = await fetch(importUrl);
             const blob = await response.blob();
-            const file = new File([blob], importUrl.split('/').pop() || 'downloaded', { type: blob.type });
+            const file = new File([blob], importUrl.split('/').pop() || 'downloaded', {
+              type: blob.type,
+            });
             const { pages, name } = await processFiles([file]);
             setPendingArchive({ name, pages });
             setShowUrlImportModal(false);
@@ -517,7 +521,7 @@ export default function Library({ onSelectManga }: LibraryProps) {
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         title={pendingArchive?.name || ''}
-        setTitle={(val) => setPendingArchive(p => p ? { ...p, name: val } : null)}
+        setTitle={(val) => setPendingArchive((p) => (p ? { ...p, name: val } : null))}
         pageCount={pendingArchive?.pages.length || 0}
         onConfirm={handleCreateArchive}
       />
@@ -573,18 +577,15 @@ export default function Library({ onSelectManga }: LibraryProps) {
           const pages = Array.from(selectedExtractedUrls).map((url, i) => ({
             id: crypto.randomUUID(),
             name: `Page ${i + 1}`,
-            url: url as string
+            url: url as string,
           }));
           const nextArchive = {
             id: crypto.randomUUID(),
             name: webExtractTitle || 'Web Collection',
             pages,
-            createdAt: Date.now()
+            createdAt: Date.now(),
           };
           await saveArchive(nextArchive);
-          if (config.offlineMode) {
-            await cacheArchiveForOffline(nextArchive);
-          }
           await loadArchives();
           // Reset state so a new catalog can be extracted
           setWebUrl('');
@@ -598,8 +599,10 @@ export default function Library({ onSelectManga }: LibraryProps) {
       <JsonImportModal
         isOpen={showJsonImport}
         onClose={() => setShowJsonImport(false)}
-        title={isBulkImport ? "Import Library" : "Import Catalog JSON"}
-        description={isBulkImport ? "Merge a collection of catalogs" : "Import a single catalog entry"}
+        title={isBulkImport ? 'Import Library' : 'Import Catalog JSON'}
+        description={
+          isBulkImport ? 'Merge a collection of catalogs' : 'Import a single catalog entry'
+        }
         content={importJsonContent}
         setContent={setImportJsonContent}
         onImport={async () => {
@@ -609,8 +612,8 @@ export default function Library({ onSelectManga }: LibraryProps) {
 
             // Map and validate items
             const toImport: MangaArchive[] = items
-              .filter(item => item.name && item.pages)
-              .map(item => ({
+              .filter((item) => item.name && item.pages)
+              .map((item) => ({
                 id: item.id || crypto.randomUUID(),
                 name: item.name,
                 author: item.author,
@@ -625,22 +628,21 @@ export default function Library({ onSelectManga }: LibraryProps) {
                 groupId: item.groupId,
                 pages: item.pages.map((p: any) => ({
                   ...p,
-                  id: p.id || crypto.randomUUID()
+                  id: p.id || crypto.randomUUID(),
                 })),
-                createdAt: item.createdAt || Date.now()
+                createdAt: item.createdAt || Date.now(),
               }));
 
             const { added, skipped } = await saveArchives(toImport);
-            if (config.offlineMode) {
-              await Promise.all(toImport.map(archive => cacheArchiveForOffline(archive)));
-            }
 
             await loadArchives();
             setShowJsonImport(false);
             setImportJsonContent('');
 
             if (added > 0 || skipped > 0) {
-              console.error(`Import complete: ${added} added, ${skipped} skipped (already exists).`);
+              console.error(
+                `Import complete: ${added} added, ${skipped} skipped (already exists).`
+              );
             }
           } catch (err) {
             console.error('Import error:', err);

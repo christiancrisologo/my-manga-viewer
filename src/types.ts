@@ -4,7 +4,6 @@ export interface MangaPage {
   dataUrl?: string;
   url?: string;
   name: string;
-  isCached?: boolean;
 }
 
 export interface MangaArchive {
@@ -13,7 +12,7 @@ export interface MangaArchive {
   pages: MangaPage[];
   createdAt: number;
   author?: string;
-  genre?: string[]
+  genre?: string[];
   description?: string;
   series?: string;
   volume?: string;
@@ -22,8 +21,6 @@ export interface MangaArchive {
   released?: string;
   size?: number;
   groupId?: string;
-  isCached?: boolean;
-  cachedAt?: number;
 }
 
 export interface ViewerSettings {
